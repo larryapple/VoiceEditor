@@ -1,0 +1,283 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		57C1634B1B643F1700EFCDFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C1634A1B643F1700EFCDFB /* AppDelegate.swift */; };
+		57C1634D1B643F1700EFCDFB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C1634C1B643F1700EFCDFB /* ViewController.swift */; };
+		57C1634F1B643F1700EFCDFB /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C1634E1B643F1700EFCDFB /* Document.swift */; };
+		57C163511B643F1700EFCDFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57C163501B643F1700EFCDFB /* Assets.xcassets */; };
+		57C163541B643F1700EFCDFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57C163521B643F1700EFCDFB /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		57C163471B643F1700EFCDFB /* VoiceEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		57C1634A1B643F1700EFCDFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		57C1634C1B643F1700EFCDFB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		57C1634E1B643F1700EFCDFB /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		57C163501B643F1700EFCDFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		57C163531B643F1700EFCDFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		57C163551B643F1700EFCDFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		57C163441B643F1700EFCDFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		57C1633E1B643F1700EFCDFB = {
+			isa = PBXGroup;
+			children = (
+				57C163491B643F1700EFCDFB /* VoiceEditor */,
+				57C163481B643F1700EFCDFB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		57C163481B643F1700EFCDFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				57C163471B643F1700EFCDFB /* VoiceEditor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		57C163491B643F1700EFCDFB /* VoiceEditor */ = {
+			isa = PBXGroup;
+			children = (
+				57C1634A1B643F1700EFCDFB /* AppDelegate.swift */,
+				57C1634C1B643F1700EFCDFB /* ViewController.swift */,
+				57C1634E1B643F1700EFCDFB /* Document.swift */,
+				57C163501B643F1700EFCDFB /* Assets.xcassets */,
+				57C163521B643F1700EFCDFB /* Main.storyboard */,
+				57C163551B643F1700EFCDFB /* Info.plist */,
+			);
+			path = VoiceEditor;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		57C163461B643F1700EFCDFB /* VoiceEditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57C163581B643F1700EFCDFB /* Build configuration list for PBXNativeTarget "VoiceEditor" */;
+			buildPhases = (
+				57C163431B643F1700EFCDFB /* Sources */,
+				57C163441B643F1700EFCDFB /* Frameworks */,
+				57C163451B643F1700EFCDFB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VoiceEditor;
+			productName = VoiceEditor;
+			productReference = 57C163471B643F1700EFCDFB /* VoiceEditor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		57C1633F1B643F1700EFCDFB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Rivergate Software";
+				TargetAttributes = {
+					57C163461B643F1700EFCDFB = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = 57C163421B643F1700EFCDFB /* Build configuration list for PBXProject "VoiceEditor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 57C1633E1B643F1700EFCDFB;
+			productRefGroup = 57C163481B643F1700EFCDFB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				57C163461B643F1700EFCDFB /* VoiceEditor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		57C163451B643F1700EFCDFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57C163511B643F1700EFCDFB /* Assets.xcassets in Resources */,
+				57C163541B643F1700EFCDFB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		57C163431B643F1700EFCDFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57C1634D1B643F1700EFCDFB /* ViewController.swift in Sources */,
+				57C1634B1B643F1700EFCDFB /* AppDelegate.swift in Sources */,
+				57C1634F1B643F1700EFCDFB /* Document.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		57C163521B643F1700EFCDFB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				57C163531B643F1700EFCDFB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		57C163561B643F1700EFCDFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		57C163571B643F1700EFCDFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		57C163591B643F1700EFCDFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VoiceEditor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.RivergateSoftware.VoiceEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		57C1635A1B643F1700EFCDFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VoiceEditor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.RivergateSoftware.VoiceEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		57C163421B643F1700EFCDFB /* Build configuration list for PBXProject "VoiceEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57C163561B643F1700EFCDFB /* Debug */,
+				57C163571B643F1700EFCDFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57C163581B643F1700EFCDFB /* Build configuration list for PBXNativeTarget "VoiceEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57C163591B643F1700EFCDFB /* Debug */,
+				57C1635A1B643F1700EFCDFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 57C1633F1B643F1700EFCDFB /* Project object */;
+}
