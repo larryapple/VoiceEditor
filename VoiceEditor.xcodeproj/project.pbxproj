@@ -12,6 +12,7 @@
 		57C1634F1B643F1700EFCDFB /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C1634E1B643F1700EFCDFB /* Document.swift */; };
 		57C163511B643F1700EFCDFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57C163501B643F1700EFCDFB /* Assets.xcassets */; };
 		57C163541B643F1700EFCDFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57C163521B643F1700EFCDFB /* Main.storyboard */; };
+		57C1635C1B6555A800EFCDFB /* Voice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C1635B1B6555A800EFCDFB /* Voice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		57C163501B643F1700EFCDFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57C163531B643F1700EFCDFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57C163551B643F1700EFCDFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57C1635B1B6555A800EFCDFB /* Voice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Voice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				57C1634A1B643F1700EFCDFB /* AppDelegate.swift */,
 				57C1634C1B643F1700EFCDFB /* ViewController.swift */,
 				57C1634E1B643F1700EFCDFB /* Document.swift */,
+				57C1635B1B6555A800EFCDFB /* Voice.swift */,
 				57C163501B643F1700EFCDFB /* Assets.xcassets */,
 				57C163521B643F1700EFCDFB /* Main.storyboard */,
 				57C163551B643F1700EFCDFB /* Info.plist */,
@@ -133,6 +136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57C1635C1B6555A800EFCDFB /* Voice.swift in Sources */,
 				57C1634D1B643F1700EFCDFB /* ViewController.swift in Sources */,
 				57C1634B1B643F1700EFCDFB /* AppDelegate.swift in Sources */,
 				57C1634F1B643F1700EFCDFB /* Document.swift in Sources */,
