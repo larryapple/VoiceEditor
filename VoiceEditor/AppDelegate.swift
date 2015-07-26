@@ -1,8 +1,4 @@
 //
-//  AppDelegate.swift
-//  VoiceEditor
-//
-//  Created by Larry Applegate on 7/25/15.
 //  Copyright © 2015 Rivergate Software. All rights reserved.
 //
 
