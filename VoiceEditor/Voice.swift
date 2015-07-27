@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 enum Phrase: Int
 {
@@ -173,7 +174,7 @@ class Voice : NSObject, NSCoding
 				if (number != nil && number >= 1 && number <= 31)
 				{
 					let index = (isLast ? 91 : 60) + number!
-					audioFiles [index] = data
+					addAtIndex (index, data: data)
 				}
 					
 				else
@@ -183,13 +184,22 @@ class Voice : NSObject, NSCoding
 						let voiceFileName = Voice.fileNames [j]
 						if (voiceFileName.compare (String (newString)) == NSComparisonResult.OrderedSame)
 						{
-							audioFiles [j] = data
+							addAtIndex (j, data: data)
 							break
 						}
 					}
 				}
 			}
 		}
+	}
+	
+	private func addAtIndex (index: Int, data: NSData)
+	{
+		audioFiles [index] = data
+		let audioPlayer = try! AVAudioPlayer (data: data, fileTypeHint: AVFileTypeAppleM4A)
+		audioPlayer.prepareToPlay()
+		let ms: Int = Int (round (audioPlayer.duration * Double (1000)))
+		durations [index] = ms
 	}
 	
 	func encodeWithCoder(aCoder: NSCoder)
