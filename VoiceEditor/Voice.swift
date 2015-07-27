@@ -125,9 +125,9 @@ class Voice : NSObject, NSCoding
 	let localeKay = "locale"
 	let voiceNameKey = "voiceName"
 	let durationsCountKey = "durationsCount"
-	let durationKey = "duration"
 	let durationAdjustmentsKey = "durationAdjustments"
-	let audioFileKey = "audioFile"
+	let durationKey = "dur"
+	let audioFileKey = "aud"
 	
 	// MARK: Initialization
 	
@@ -136,19 +136,28 @@ class Voice : NSObject, NSCoding
 		super.init()
 	}
 	
-	//	Import audio files
+	//	Import audio files (and duration adjustments)
 	
 	init (url: NSURL)
 	{
+		super.init ()
+		
 		let fileManager = NSFileManager.defaultManager()
 		let path = url.path
 		let contents = try! fileManager.contentsOfDirectoryAtPath(path!)
 		for (var i = 0; i < contents.count; i++)
 		{
 			let fileName: String = contents [i]
-			if (fileName.hasSuffix(".m4a"))
+			let filePath = path?.stringByAppendingPathComponent(fileName)
+
+			if (fileName.compare ("_adjusts.txt") == NSComparisonResult.OrderedSame)
 			{
-				let filePath = path?.stringByAppendingPathComponent(fileName)
+				let text = try! NSString (contentsOfFile: filePath!, encoding: NSUTF8StringEncoding)
+				durationAdjustmentsText = text as String
+			}
+			
+			else if (fileName.hasSuffix(".m4a"))
+			{
 				let data: NSData = NSData (contentsOfURL: NSURL (fileURLWithPath: filePath!))!
 				
 				var newString = fileName as NSString
@@ -192,7 +201,7 @@ class Voice : NSObject, NSCoding
 		aCoder.encodeInt32(Int32 (durations.count), forKey: durationsCountKey)
 		for (var i = 0; i < durations.count; i++)
 		{
-			aCoder.encodeInt32(Int32 (durations[i]), forKey: durationKey)
+			aCoder.encodeInt32(Int32 (durations[i]), forKey: durationKey + String(i))
 		}
 		
 		aCoder.encodeObject(_daText, forKey: durationAdjustmentsKey)
@@ -200,7 +209,7 @@ class Voice : NSObject, NSCoding
 		for (var i = 0; i < durations.count; i++)
 		{
 			let data = audioFiles [i]
-			aCoder.encodeObject(data, forKey: audioFileKey)
+			aCoder.encodeObject(data, forKey: audioFileKey + String (i))
 		}
 	}
 	
@@ -214,7 +223,7 @@ class Voice : NSObject, NSCoding
 		let durationsCount = aDecoder.decodeInt32ForKey(durationsCountKey)
 		for (var i = 0; i < Int(durationsCount); i++)
 		{
-			let duration: Int = Int (aDecoder.decodeInt32ForKey(durationKey))
+			let duration: Int = Int (aDecoder.decodeInt32ForKey(durationKey + String (i)))
 			durations.append(duration)
 		}
 		
@@ -223,7 +232,7 @@ class Voice : NSObject, NSCoding
 		audioFiles.removeAll()
 		for (var i = 0; i < durations.count; i++)
 		{
-			let data: NSData = aDecoder.decodeObjectForKey(audioFileKey) as! NSData
+			let data: NSData = aDecoder.decodeObjectForKey(audioFileKey + String (i)) as! NSData
 			audioFiles.append(data)
 		}
 	}
