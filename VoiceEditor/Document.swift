@@ -59,6 +59,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	var handScores = Array<Phrase>()
 	var handCounts = Array<Int> ()
 	
+	// MARK: Accessors
+	
 	func isBusy() ->Bool
 	{
 		return audioPlayers.count > 0
@@ -544,18 +546,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 	}
 	
-	func appendTable (table: [Int], toData: NSMutableData)
-	{
-		for (var i = 0; i < table.count; i++)
-		{
-			let item: UInt = UInt (table [i])
-			var result = [UInt8] (count: 2, repeatedValue: 0)
-			result [1] = UInt8 (item & 0xff)
-			result [0] = UInt8 ((item >> 8) & 0xff)
-			toData.appendBytes (UnsafePointer<UInt8> (result), length: 2)
-		}
-	}
-	
 	func audioPlayerDidFinishPlaying (player: AVAudioPlayer, successfully flag: Bool)
 	{
 		let ms: Int = Int (round (player.duration * Double (1000)))
@@ -567,6 +557,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			voice.durations = durations
 		}
 	}
+	
+	// MARK: Utilities
 	
 	private func countHand (hand: [Card]) -> (count15: Int, countPairs: Int, countRuns: Int, countSuit: Int, countJack: Int)
 	{

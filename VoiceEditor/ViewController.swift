@@ -16,8 +16,7 @@ class ViewController: NSViewController
 	@IBOutlet weak var window: NSWindow!
 	@IBOutlet weak var document: Document!
 
-	
-	
+	// MARK: Properties
 	
 	var _includeAnd = false
 	var includeAnd: Bool
@@ -67,6 +66,7 @@ class ViewController: NSViewController
 		}
 	}
 	
+	// MARK: Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
