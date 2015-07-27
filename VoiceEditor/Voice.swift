@@ -129,11 +129,58 @@ class Voice : NSObject, NSCoding
 	let durationAdjustmentsKey = "durationAdjustments"
 	let audioFileKey = "audioFile"
 	
-	// MARK: NSCoding
+	// MARK: Initialization
 	
 	override init ()
 	{
 		super.init()
+	}
+	
+	//	Import audio files
+	
+	init (url: NSURL)
+	{
+		let fileManager = NSFileManager.defaultManager()
+		let path = url.path
+		let contents = try! fileManager.contentsOfDirectoryAtPath(path!)
+		for (var i = 0; i < contents.count; i++)
+		{
+			let fileName: String = contents [i]
+			if (fileName.hasSuffix(".m4a"))
+			{
+				let filePath = path?.stringByAppendingPathComponent(fileName)
+				let data: NSData = NSData (contentsOfURL: NSURL (fileURLWithPath: filePath!))!
+				
+				var newString = fileName as NSString
+				newString = newString.stringByDeletingPathExtension
+				var isLast = true
+				if (fileName.hasPrefix("C_"))
+				{
+					newString = newString.substringFromIndex(2)
+					isLast = false
+				}
+				
+				let number = Int (String (newString))
+				if (number != nil && number >= 1 && number <= 31)
+				{
+					let index = (isLast ? 91 : 60) + number!
+					audioFiles [index] = data
+				}
+					
+				else
+				{
+					for (var j = 0; j < Voice.fileNames.count; j++)
+					{
+						let voiceFileName = Voice.fileNames [j]
+						if (voiceFileName.compare (String (newString)) == NSComparisonResult.OrderedSame)
+						{
+							audioFiles [j] = data
+							break
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	func encodeWithCoder(aCoder: NSCoder)
