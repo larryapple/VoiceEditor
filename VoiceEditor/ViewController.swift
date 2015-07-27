@@ -88,12 +88,9 @@ class ViewController: NSViewController
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
 
-		let userDefaults = NSUserDefaults.standardUserDefaults()
-		_includeAnd = userDefaults.boolForKey(includeAndKey)
-		_useContinueNumbers = userDefaults.boolForKey(useContinueNumbersKey)
-		_useSingleNumber = userDefaults.boolForKey(useSingleNumberKey)
-		_cyclePhrases = userDefaults.boolForKey(cyclePhrasesKey)
+//		document = window.windowController!.document as! Document
 	}
 
 	override var representedObject: AnyObject? {
