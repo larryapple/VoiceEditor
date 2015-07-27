@@ -84,6 +84,18 @@ class ViewController: NSViewController
 		}
 	}
 	
+	@IBAction func importAudioFiles(sender: NSMenuItem)
+	{
+		//	Get the main window for this document
+		
+		let appDelegate: AppDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
+		print(appDelegate.description)
+		
+		
+		
+//		let window: NSWindow = windowControllers
+	}
+	
 	// MARK: Overrides
 
 	override func viewDidLoad() {

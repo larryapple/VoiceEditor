@@ -104,7 +104,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                                        <menuItem title="Import audio files…" keyEquivalent="i" id="v0j-78-UnO" userLabel="Import…"/>
+                                        <menuItem title="Import audio files…" keyEquivalent="i" id="v0j-78-UnO" userLabel="Import…">
+                                            <connections>
+                                                <action selector="importAudioFiles:" target="Ady-hI-5gd" id="gg0-38-kSy"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="9R5-jt-nrz"/>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
@@ -618,7 +622,7 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="320" height="320"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1577"/>
                         <value key="minSize" type="size" width="320" height="320"/>
                         <value key="maxSize" type="size" width="320" height="480"/>
                     </window>
