@@ -15,7 +15,7 @@ class ViewController: NSViewController
 	
 	@IBOutlet weak var window: NSWindow!
 	@IBOutlet weak var document: Document!
-
+	
 	// MARK: Properties
 	
 	var _includeAnd = false
@@ -66,12 +66,34 @@ class ViewController: NSViewController
 		}
 	}
 	
+	// MARK: Actions
+	
+	@IBAction func selectTest(sender: NSMenuItem)
+	{
+		if (sender.tag != document.currentTest)
+		{
+			document.currentTest = sender.tag
+		}
+	}
+	
+	@IBAction func selectNumber(sender: NSMenuItem)
+	{
+		if (sender.tag != document.numberTag)
+		{
+			document.numberTag = sender.tag
+		}
+	}
+	
 	// MARK: Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		// Do any additional setup after loading the view.
+		let userDefaults = NSUserDefaults.standardUserDefaults()
+		_includeAnd = userDefaults.boolForKey(includeAndKey)
+		_useContinueNumbers = userDefaults.boolForKey(useContinueNumbersKey)
+		_useSingleNumber = userDefaults.boolForKey(useSingleNumberKey)
+		_cyclePhrases = userDefaults.boolForKey(cyclePhrasesKey)
 	}
 
 	override var representedObject: AnyObject? {
