@@ -6,6 +6,8 @@ import Cocoa
 
 class Document: NSDocument
 {
+	var voice: Voice?
+	
 	//	Override functions
 
 	override init() {
@@ -33,23 +35,23 @@ class Document: NSDocument
 	{
 		// Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
 		// throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+		
 
-		let data: NSMutableData = NSMutableData ()
-		
-		
-		
+		let data: NSData = NSKeyedArchiver.archivedDataWithRootObject(voice!)
 		return data
 	}
 	
 	override func readFromData(data: NSData, ofType typeName: String) throws
 	{
-		// Insert code here to read your document from the given data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning false.
-		// throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
-
+		if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObjectWithData (data)
+		{
+			voice = obj as? Voice
+		}
 	
-	
-	
-	
+		else
+		{
+			throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+		}
 	}
 
 }

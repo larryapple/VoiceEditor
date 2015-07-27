@@ -169,7 +169,7 @@ class Voice : NSObject, NSCoding
 		audioFiles.removeAll()
 		for (var i = 0; i < durations.count; i++)
 		{
-			let data: NSData = aDecoder.decodeObjectForKey(audioFileKey)
+			let data: NSData = aDecoder.decodeObjectForKey(audioFileKey) as! NSData
 			audioFiles.append(data)
 		}
 	
