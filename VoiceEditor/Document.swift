@@ -764,7 +764,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 
 	override init() {
 	    super.init()
-		// Add your subclass-specific initialization here.
+		voice = Voice.init ()
 	}
 
 	override func windowControllerDidLoadNib(aController: NSWindowController) {

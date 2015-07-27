@@ -86,23 +86,68 @@ class ViewController: NSViewController
 	
 	@IBAction func importAudioFiles(sender: NSMenuItem)
 	{
-		//	Get the main window for this document
+		let openPanel: NSOpenPanel = NSOpenPanel ()
+		openPanel.canChooseDirectories = true
+		openPanel.allowsMultipleSelection = false
+		openPanel.message = "Import all audio files from directory"
 		
-		let appDelegate: AppDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
-		print(appDelegate.description)
-		
-		
-		
-//		let window: NSWindow = windowControllers
+		openPanel.beginWithCompletionHandler { (result: Int) -> Void in
+			if result == NSFileHandlingPanelOKButton {
+				let fileManager = NSFileManager.defaultManager()
+				let path = openPanel.URL!.path
+				let contents = try! fileManager.contentsOfDirectoryAtPath(path!)
+				for (var i = 0; i < contents.count; i++)
+				{
+					let fileName: String = contents [i]
+					if (fileName.hasSuffix(".m4a"))
+					{
+						let filePath = path?.stringByAppendingPathComponent(fileName)
+						let data: NSData = NSData (contentsOfURL: NSURL (fileURLWithPath: filePath!))!
+						
+						var newString = fileName as NSString
+						newString = newString.stringByDeletingPathExtension
+						var isLast = true
+						if (fileName.hasPrefix("C_"))
+						{
+							newString = newString.substringFromIndex(2)
+							isLast = false
+						}
+						
+						let number = Int (String (newString))
+						if (number != nil)
+						{
+							let index = (isLast ? 91 : 60) + number!
+							self.document.voice.audioFiles [index] = data
+						}
+						
+						else
+						{
+							for (var j = 0; j < Voice.fileNames.count; j++)
+							{
+								let voiceFileName = Voice.fileNames [j]
+								if (voiceFileName.compare (String (newString)) == NSComparisonResult.OrderedSame)
+								{
+									self.document.voice.audioFiles [j] = data
+									break
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	// MARK: Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+	}
+	
+	override func viewWillAppear() {
+			super.viewWillAppear()
 		
-
-//		document = window.windowController!.document as! Document
+		document = view.window!.windowController!.document as! Document
 	}
 
 	override var representedObject: AnyObject? {
@@ -110,7 +155,5 @@ class ViewController: NSViewController
 		// Update the view, if already loaded.
 		}
 	}
-
-
 }
 

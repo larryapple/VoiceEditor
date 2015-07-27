@@ -86,6 +86,7 @@ class Voice : NSObject, NSCoding
 		set
 		{
 			_daText = newValue
+			durationAdjustments.removeAll()
 			repeat {
 				let range: NSRange = _daText.rangeOfString("\n")
 				var index = range.location
@@ -116,7 +117,7 @@ class Voice : NSObject, NSCoding
 	
 	//	The audio files
 	
-	var audioFiles: [NSData] = [NSData] ()
+	var audioFiles: [NSData] = [NSData] (count: 123, repeatedValue: NSData ())
 	
 	//	Keys for coding and decoding
 	
@@ -129,6 +130,11 @@ class Voice : NSObject, NSCoding
 	let audioFileKey = "audioFile"
 	
 	// MARK: NSCoding
+	
+	override init ()
+	{
+		super.init()
+	}
 	
 	func encodeWithCoder(aCoder: NSCoder)
 	{
@@ -198,8 +204,5 @@ class Voice : NSObject, NSCoding
 		let index = (isLast ? 91 : 60) + number
 		return Int (durations [index])
 	}
-	
-	
-	
 	
 }
