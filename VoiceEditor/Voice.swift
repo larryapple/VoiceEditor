@@ -32,6 +32,7 @@ enum Phrase: Int
 }
 
 class Voice : NSObject, NSCoding
+
 {
 	//	The file names used for the audio files created for import, in the same sequence as above
 	
@@ -74,11 +75,11 @@ class Voice : NSObject, NSCoding
 	
 	//	The durations of all the phrases (61), plus the numbers 1-31 twice, once as spoken in the middle of a sentence and once as spoken at the end
 	
-	var durations: [Int32] = [Int32] (count: 123, repeatedValue: 0)
+	var durations: [Int] = [Int] (count: 123, repeatedValue: 0)
 	
 	//	The dictionary of duration adjustments is created from the text field
 	
-	var durationAdjustments = [String: Int16] ()
+	var durationAdjustments = [String: Int] ()
 	var _daText: NSString = NSString ()
 	var durationAdjustmentsText: String {
 		get {return String (_daText)}
@@ -105,7 +106,7 @@ class Voice : NSObject, NSCoding
 				let key = str.substringToIndex(index)
 				index++
 				let valueStr = str.substringFromIndex(index)
-				let value = Int16 (valueStr)
+				let value = Int (valueStr)
 				
 				durationAdjustments [key] = value;
 				
@@ -138,7 +139,7 @@ class Voice : NSObject, NSCoding
 		aCoder.encodeInt32(Int32 (durations.count), forKey: durationsCountKey)
 		for (var i = 0; i < durations.count; i++)
 		{
-			aCoder.encodeInt32(durations[i], forKey: durationKey)
+			aCoder.encodeInt32(Int32 (durations[i]), forKey: durationKey)
 		}
 		
 		aCoder.encodeObject(_daText, forKey: durationAdjustmentsKey)
@@ -160,7 +161,7 @@ class Voice : NSObject, NSCoding
 		let durationsCount = aDecoder.decodeInt32ForKey(durationsCountKey)
 		for (var i = 0; i < Int(durationsCount); i++)
 		{
-			let duration = aDecoder.decodeInt32ForKey(durationKey)
+			let duration: Int = Int (aDecoder.decodeInt32ForKey(durationKey))
 			durations.append(duration)
 		}
 		
@@ -172,13 +173,31 @@ class Voice : NSObject, NSCoding
 			let data: NSData = aDecoder.decodeObjectForKey(audioFileKey) as! NSData
 			audioFiles.append(data)
 		}
-	
 	}
 
-	// MARK: Utilities
+	// MARK: Accessors
 	
+	func dataforPhrase (phrase: Phrase) -> NSData
+	{
+		return audioFiles [phrase.rawValue]
+	}
 	
+	func dataForNumber (number: Int, isLast: Bool) ->NSData
+	{
+		let index = (isLast ? 91 : 60) + number
+		return audioFiles [index]
+	}
 	
+	func durationForPhrase (phrase: Phrase) ->Int
+	{
+		return Int (durations [phrase.rawValue])
+	}
+	
+	func durationForNumber (number: Int, isLast: Bool) -> Int
+	{
+		let index = (isLast ? 91 : 60) + number
+		return Int (durations [index])
+	}
 	
 	
 	
