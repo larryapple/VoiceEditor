@@ -18,7 +18,27 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		get {return _voice!}
 		set {_voice = newValue}
 	}
+
+	var	language: String {
+		get {return voice.language}
+		set {voice.language = newValue}
+	}
 	
+	var locale: String {
+		get {return voice.locale}
+		set {voice.locale = newValue}
+	}
+	
+	var voiceName: String {
+		get {return voice.voiceName}
+		set {voice.voiceName = newValue}
+	}
+	
+	var durationAdjustments: String {
+		get {return voice.durationAdjustmentsText}
+		set {voice.durationAdjustmentsText = newValue}
+	}
+
 	var sounds: [Sound] = []
 	var audioPlayers: [AVAudioPlayer] = []
 	
@@ -55,7 +75,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	}
 	
 	var numberTag: Int {
-		get {return voice.currentNumber + 50}
+		get {return voice.currentNumber}
 		set
 		{
 			voice.currentNumber = newValue - 50

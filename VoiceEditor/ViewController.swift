@@ -4,9 +4,13 @@
 
 import Cocoa
 
-class ViewController: NSViewController
+class ViewController: NSViewController, NSTextFieldDelegate
 {	
 	@IBOutlet weak var document: Document!
+	@IBOutlet var language: NSTextField!
+	@IBOutlet var locale: NSTextField!
+	@IBOutlet var voiceName: NSTextField!
+	@IBOutlet var adjustments: NSTextField!
 	
 	override func validateMenuItem(menuItem: NSMenuItem) -> Bool
 	{
@@ -26,6 +30,26 @@ class ViewController: NSViewController
 	}
 	
 	// MARK: Actions
+	
+	@IBAction func editLanguage(sender: NSTextField)
+	{
+		document.language = sender.stringValue
+	}
+	
+	@IBAction func editLocale(sender: NSTextField)
+	{
+		document.locale = sender.stringValue
+	}
+	
+	@IBAction func editVoiceName(sender: NSTextField)
+	{
+		document.voiceName = sender.stringValue
+	}
+	
+	@IBAction func editAdjustments(sender: NSTextField)
+	{
+		document.durationAdjustments = sender.stringValue
+	}
 	
 	@IBAction func selectTest(sender: NSMenuItem)
 	{
