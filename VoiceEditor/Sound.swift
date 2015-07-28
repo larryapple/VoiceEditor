@@ -15,10 +15,6 @@ class Sound
 		data = fileData
 		delay = adjust
 		duration = voice.durationForPhrase(phrase)
-		if (duration == 0)
-		{
-			duration = 1000
-		}
 	}
 	
 	init (number: Int, voice: Voice, fileData: NSData, isLast: Bool)
@@ -26,9 +22,5 @@ class Sound
 		data = fileData
 		delay = 0
 		duration = voice.durationForNumber(number, isLast: isLast)
-		if (duration == 0)
-		{
-			duration = 1000
-		}
 	}
 }

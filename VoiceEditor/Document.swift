@@ -21,39 +21,44 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	var sounds: [Sound] = []
 	var audioPlayers: [AVAudioPlayer] = []
-	var durations: [Int] = []
 	
 	var now: NSTimeInterval = 0;
 	var testNumber = -1;
 	let maxTest = 4;
 	
-	var useSavedDurations = true
-	var doit = false
+	var includeAnd: Bool {
+		get {return voice.includeAnd}
+		set {voice.includeAnd = newValue}
+	}
 	
-	var includeAnd: Bool = false
-	var useContinueNumbers = false
-	var useSingleNumber = false
-	var cyclePhrases = false
+	var useContinueNumbers: Bool {
+		get {return voice.useContinueNumbers}
+		set {voice.useContinueNumbers = newValue}
+	}
 	
-	var currentNumber = 2;
+	var useSingleNumber: Bool {
+		get {return voice.useSingleNumber}
+		set {voice.useSingleNumber = newValue}
+	}
 	
-	var _currentTest = 0
-	var currentTest: Int
-		{
-		get {return _currentTest}
+	var cyclePhrases: Bool {
+		get {return voice.cyclePhrases}
+		set {voice.cyclePhrases = newValue}
+	}
+	
+	var currentTest: Int {
+		get {return voice.currentTest}
 		set
 		{
-			_currentTest = newValue
+			voice.currentTest = newValue
 		}
 	}
 	
-	var _numberTag: Int = 0
-	var numberTag: Int
-		{
-		get {return _numberTag}
+	var numberTag: Int {
+		get {return voice.currentNumber + 50}
 		set
 		{
-			_numberTag = newValue - 50
+			voice.currentNumber = newValue - 50
 		}
 	}
 	
@@ -74,7 +79,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	func startTest ()
 	{
-		durations.removeAll()
 		switch (currentTest)
 		{
 		case 1: testNumbers ("", count: 31)
@@ -145,7 +149,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			audioPlayer.delegate = self;
 			audioPlayer.prepareToPlay()
 			audioPlayer.playAtTime(now)
-			now += useSavedDurations ? Double (sound.duration) / Double (1000) : audioPlayer.duration
+			now += Double (sound.duration)
 			
 			audioPlayers.append(audioPlayer)
 		}
@@ -175,8 +179,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			audioPlayer.delegate = self;
 			audioPlayer.prepareToPlay()
 			audioPlayer.playAtTime(now)
-			now += useSavedDurations ? Double (sound.duration) / Double (1000) : audioPlayer.duration
-			
+			now += Double (sound.duration) / Double (1000)
 			audioPlayers.append(audioPlayer)
 		}
 	}
@@ -292,7 +295,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			audioPlayer.delegate = self;
 			audioPlayer.prepareToPlay()
 			audioPlayer.playAtTime(now)
-			now += useSavedDurations ? Double (sound.duration + sound.delay) / Double (1000) : audioPlayer.duration
+			now += Double (sound.duration + sound.delay) / Double (1000)
 			
 			audioPlayers.append(audioPlayer)
 		}
@@ -541,7 +544,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			audioPlayer.delegate = self;
 			audioPlayer.prepareToPlay()
 			audioPlayer.playAtTime(now)
-			now += useSavedDurations ? Double (sound.duration) / Double (1000) : audioPlayer.duration
+			now += Double (sound.duration) / Double (1000)
 			
 			audioPlayers.append(audioPlayer)
 		}
@@ -549,14 +552,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	func audioPlayerDidFinishPlaying (player: AVAudioPlayer, successfully flag: Bool)
 	{
-		let ms: Int = Int (round (player.duration * Double (1000)))
-		durations.append(ms)
-		
 		audioPlayers.removeAtIndex(0)
-		if (audioPlayers.count == 0 && doit)
-		{
-			voice.durations = durations
-		}
 	}
 	
 	// MARK: Utilities

@@ -74,6 +74,15 @@ class Voice : NSObject, NSCoding
 	var locale: String = "us"
 	var voiceName: String = ""
 	
+	//	The test parameters saved and restored
+	
+	var currentTest = 0
+	var currentNumber = 0
+	var includeAnd = false
+	var useContinueNumbers = false
+	var useSingleNumber = false
+	var cyclePhrases = false
+	
 	//	The durations of all the phrases (61), plus the numbers 1-31 twice, once as spoken in the middle of a sentence and once as spoken at the end
 	
 	var durations: [Int] = [Int] (count: 123, repeatedValue: 0)
@@ -130,6 +139,13 @@ class Voice : NSObject, NSCoding
 	let durationAdjustmentsKey = "durationAdjustments"
 	let durationKey = "dur"
 	let audioFileKey = "aud"
+	
+	let currentTestKey = "test"
+	let currentNumberKey = "number"
+	let includeAndKey = "and"
+	let useContinueNumbersKey = "continue"
+	let useSingleNumberKey = "single"
+	let cyclePhrasesKey = "cycle"
 	
 	// MARK: Initialization
 	
@@ -222,6 +238,13 @@ class Voice : NSObject, NSCoding
 			let data = audioFiles [i]
 			aCoder.encodeObject(data, forKey: audioFileKey + String (i))
 		}
+		
+		aCoder.encodeInt32(Int32 (currentTest), forKey: currentTestKey)
+		aCoder.encodeInt32(Int32 (currentNumber), forKey: currentNumberKey)
+		aCoder.encodeBool(includeAnd, forKey: includeAndKey)
+		aCoder.encodeBool(useContinueNumbers, forKey: useContinueNumbersKey)
+		aCoder.encodeBool(useSingleNumber, forKey: useSingleNumberKey)
+		aCoder.encodeBool(cyclePhrases, forKey: cyclePhrasesKey)
 	}
 	
 	required init?(coder aDecoder: NSCoder)
@@ -246,6 +269,13 @@ class Voice : NSObject, NSCoding
 			let data: NSData = aDecoder.decodeObjectForKey(audioFileKey + String (i)) as! NSData
 			audioFiles.append(data)
 		}
+		
+		currentTest = Int (aDecoder.decodeInt32ForKey(currentTestKey))
+		currentNumber = Int (aDecoder.decodeInt32ForKey(currentNumberKey))
+		includeAnd = aDecoder.decodeBoolForKey(includeAndKey)
+		useContinueNumbers = aDecoder.decodeBoolForKey(useContinueNumbersKey)
+		useSingleNumber = aDecoder.decodeBoolForKey(useSingleNumberKey)
+		cyclePhrases = aDecoder.decodeBoolForKey(cyclePhrasesKey)
 	}
 
 	// MARK: Accessors
