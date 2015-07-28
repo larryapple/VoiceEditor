@@ -66,6 +66,24 @@ class ViewController: NSViewController
 		}
 	}
 	
+	override func validateMenuItem(menuItem: NSMenuItem) -> Bool
+	{
+		var tag: Int = menuItem.tag
+		if (tag < 50)
+		{
+			menuItem.state = tag == document.currentTest ? NSOnState : NSOffState
+		}
+		
+		else
+		{
+			tag -= 50
+			menuItem.state =  tag == document.numberTag ? NSOnState : NSOffState
+
+		}
+		
+		return true
+	}
+	
 	// MARK: Actions
 	
 	@IBAction func selectTest(sender: NSMenuItem)

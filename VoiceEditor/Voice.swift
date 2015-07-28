@@ -87,22 +87,23 @@ class Voice : NSObject, NSCoding
 		set
 		{
 			_daText = newValue
+			var text: NSString = newValue
 			durationAdjustments.removeAll()
 			repeat {
-				let range: NSRange = _daText.rangeOfString("\n")
+				let range: NSRange = text.rangeOfString("\n")
 				var index = range.location
 				if (range.length == 0)
 				{
 					break
 				}
 				
-				let str: NSString = _daText.substringToIndex(index)
+				let str: NSString = text.substringToIndex(index)
 				if (str.length == 0)
 				{
-					_daText = _daText.substringFromIndex(1)
+					text = text.substringFromIndex(1)
 					continue
 				}
-				_daText = _daText.substringFromIndex(index + 1)
+				text = text.substringFromIndex(index + 1)
 				let range2: NSRange = str.rangeOfString(":")
 				index = range2.location
 				let key = str.substringToIndex(index)

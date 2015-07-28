@@ -52,7 +52,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		get {return _numberTag}
 		set
 		{
-			_numberTag = newValue
+			_numberTag = newValue - 50
 		}
 	}
 	
