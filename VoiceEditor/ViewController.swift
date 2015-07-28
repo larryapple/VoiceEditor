@@ -120,6 +120,8 @@ class ViewController: NSViewController, NSTextFieldDelegate
 			if result == NSFileHandlingPanelOKButton
 			{
 				self.document.voice = Voice.init (url: openPanel.URL!)
+				self.voiceNameTextField.stringValue = self.document.voice.voiceName
+				self.adjustmentsTextField.stringValue = self.document.voice.durationAdjustmentsText
 			}
 		}
 	}

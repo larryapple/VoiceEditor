@@ -133,7 +133,7 @@ class Voice : NSObject, NSCoding
 	//	Keys for coding and decoding
 	
 	let languageKey = "language"
-	let localeKay = "locale"
+	let localeKey = "locale"
 	let voiceNameKey = "voiceName"
 	let durationsCountKey = "durationsCount"
 	let durationAdjustmentsKey = "durationAdjustments"
@@ -149,13 +149,13 @@ class Voice : NSObject, NSCoding
 	
 	// MARK: Initialization
 	
-//	override init ()
-//	{
-//		language = ""
-//		locale = ""
-//		voiceName = ""
-//		super.init()
-//	}
+	override init ()
+	{
+		language = ""
+		locale = ""
+		voiceName = ""
+		super.init()
+	}
 	
 	//	Import audio files (and duration adjustments)
 	
@@ -169,6 +169,7 @@ class Voice : NSObject, NSCoding
 		let fileManager = NSFileManager.defaultManager()
 		let path = url.path
 		let contents = try! fileManager.contentsOfDirectoryAtPath(path!)
+		voiceName = path!.lastPathComponent
 		for (var i = 0; i < contents.count; i++)
 		{
 			let fileName: String = contents [i]
@@ -228,7 +229,7 @@ class Voice : NSObject, NSCoding
 	func encodeWithCoder(aCoder: NSCoder)
 	{
 		aCoder.encodeObject(language, forKey: languageKey)
-		aCoder.encodeObject(locale, forKey: localeKay)
+		aCoder.encodeObject(locale, forKey: localeKey)
 		aCoder.encodeObject(voiceName, forKey: voiceNameKey)
 		
 		aCoder.encodeInt32(Int32 (durations.count), forKey: durationsCountKey)
@@ -256,7 +257,7 @@ class Voice : NSObject, NSCoding
 	required init?(coder aDecoder: NSCoder)
 	{
 		language = aDecoder.decodeObjectForKey(languageKey) as! String
-		locale = aDecoder.decodeObjectForKey(localeKay) as! String
+		locale = aDecoder.decodeObjectForKey(localeKey) as! String
 		voiceName = aDecoder.decodeObjectForKey(voiceNameKey) as! String
 		
 		durations.removeAll()

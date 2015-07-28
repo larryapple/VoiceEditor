@@ -785,10 +785,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	// MARK: Override functions
 
-//	override init() {
-//	    super.init()
-//		voice = Voice.init ()
-//	}
+	override init() {
+	    super.init()
+		voice = Voice.init ()
+	}
 
 	override func windowControllerDidLoadNib(aController: NSWindowController) {
 		super.windowControllerDidLoadNib(aController)

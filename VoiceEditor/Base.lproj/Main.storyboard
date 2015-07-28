@@ -124,6 +124,56 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Edit" id="d5B-Cl-oi8">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Edit" id="X8t-6e-XQS">
+                                    <items>
+                                        <menuItem title="Undo" keyEquivalent="z" id="SAF-n6-are">
+                                            <connections>
+                                                <action selector="undo:" target="Ady-hI-5gd" id="PcO-pZ-bAQ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Redo" keyEquivalent="Z" id="bo8-HJ-Dtr">
+                                            <connections>
+                                                <action selector="redo:" target="Ady-hI-5gd" id="TMC-7u-aG4"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="sug-0b-FHd"/>
+                                        <menuItem title="Cut" keyEquivalent="x" id="osi-21-Dxc">
+                                            <connections>
+                                                <action selector="cut:" target="Ady-hI-5gd" id="YwE-Iu-1Am"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Copy" keyEquivalent="c" id="2va-gv-eAv">
+                                            <connections>
+                                                <action selector="copy:" target="Ady-hI-5gd" id="JH1-fs-QbU"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Paste" keyEquivalent="v" id="MnO-Mt-nq9">
+                                            <connections>
+                                                <action selector="paste:" target="Ady-hI-5gd" id="xkZ-GO-gRe"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Paste and Match Style" keyEquivalent="V" id="h3u-Xe-jRI">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="pasteAsPlainText:" target="Ady-hI-5gd" id="fGf-cE-MiD"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Delete" id="UxC-cX-v5W">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="delete:" target="Ady-hI-5gd" id="gXr-lA-Iqk"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Select All" keyEquivalent="a" id="mdO-PL-4QL">
+                                            <connections>
+                                                <action selector="selectAll:" target="Ady-hI-5gd" id="ibR-8q-BO5"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Phrases" id="mFA-Kh-1eE">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Phrases" id="pwf-Ax-TYH">
