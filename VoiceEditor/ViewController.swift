@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTextFieldDelegate
+class ViewController: NSViewController
 {	
 	@IBOutlet weak var document: Document!
 
@@ -128,8 +128,9 @@ class ViewController: NSViewController, NSTextFieldDelegate
 	
 	// MARK: Overrides
 
-	override func viewWillAppear() {
-			super.viewWillAppear()
+	override func viewWillAppear()
+	{
+		super.viewWillAppear()
 		
 		document = view.window!.windowController!.document as! Document
 		languageTextField.stringValue = self.document.voice.language
@@ -137,6 +138,11 @@ class ViewController: NSViewController, NSTextFieldDelegate
 		voiceNameTextField.stringValue = self.document.voice.voiceName
 		adjustmentsTextField.stringValue = self.document.voice.durationAdjustmentsText
 	}
-
+	
+	override func viewWillDisappear()
+	{
+		super.viewWillDisappear()
+		view.window!.resignFirstResponder()
+	}
 }
 
