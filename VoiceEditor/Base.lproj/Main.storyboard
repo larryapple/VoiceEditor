@@ -740,10 +740,10 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="adjustments" destination="Cfx-AI-Wav" id="aVa-rf-Bbz"/>
-                        <outlet property="language" destination="rW4-eQ-3HF" id="7vO-aA-VoX"/>
-                        <outlet property="locale" destination="DS0-qj-iTt" id="Avv-tc-PZV"/>
-                        <outlet property="voiceName" destination="Re4-Y7-gSW" id="6IF-ad-zHu"/>
+                        <outlet property="adjustmentsTextField" destination="Cfx-AI-Wav" id="M51-iV-a5R"/>
+                        <outlet property="languageTextField" destination="rW4-eQ-3HF" id="c3r-mQ-W4X"/>
+                        <outlet property="localeTextField" destination="DS0-qj-iTt" id="i0a-1y-q8v"/>
+                        <outlet property="voiceNameTextField" destination="Re4-Y7-gSW" id="5aD-4h-P4i"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

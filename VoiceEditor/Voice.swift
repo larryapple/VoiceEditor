@@ -70,9 +70,9 @@ class Voice : NSObject, NSCoding
 	
 	//	The language (2 characters), locale (2 characters), and name of the voice
 	
-	var	language: String = "en"
-	var locale: String = "us"
-	var voiceName: String = ""
+	var	language: String
+	var locale: String
+	var voiceName: String
 	
 	//	The test parameters saved and restored
 	
@@ -149,15 +149,21 @@ class Voice : NSObject, NSCoding
 	
 	// MARK: Initialization
 	
-	override init ()
-	{
-		super.init()
-	}
+//	override init ()
+//	{
+//		language = ""
+//		locale = ""
+//		voiceName = ""
+//		super.init()
+//	}
 	
 	//	Import audio files (and duration adjustments)
 	
 	init (url: NSURL)
 	{
+		language = ""
+		locale = ""
+		voiceName = ""
 		super.init ()
 		
 		let fileManager = NSFileManager.defaultManager()

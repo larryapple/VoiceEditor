@@ -7,10 +7,11 @@ import Cocoa
 class ViewController: NSViewController, NSTextFieldDelegate
 {	
 	@IBOutlet weak var document: Document!
-	@IBOutlet var language: NSTextField!
-	@IBOutlet var locale: NSTextField!
-	@IBOutlet var voiceName: NSTextField!
-	@IBOutlet var adjustments: NSTextField!
+
+	@IBOutlet var languageTextField: NSTextField!
+	@IBOutlet var localeTextField: NSTextField!
+	@IBOutlet var voiceNameTextField: NSTextField!
+	@IBOutlet var adjustmentsTextField: NSTextField!
 	
 	override func validateMenuItem(menuItem: NSMenuItem) -> Bool
 	{
@@ -34,21 +35,25 @@ class ViewController: NSViewController, NSTextFieldDelegate
 	@IBAction func editLanguage(sender: NSTextField)
 	{
 		document.language = sender.stringValue
+		document.invalidateRestorableState()
 	}
 	
 	@IBAction func editLocale(sender: NSTextField)
 	{
 		document.locale = sender.stringValue
+		document.invalidateRestorableState()
 	}
 	
 	@IBAction func editVoiceName(sender: NSTextField)
 	{
 		document.voiceName = sender.stringValue
+		document.invalidateRestorableState()
 	}
 	
 	@IBAction func editAdjustments(sender: NSTextField)
 	{
 		document.durationAdjustments = sender.stringValue
+		document.invalidateRestorableState()
 	}
 	
 	@IBAction func selectTest(sender: NSMenuItem)
@@ -125,6 +130,10 @@ class ViewController: NSViewController, NSTextFieldDelegate
 			super.viewWillAppear()
 		
 		document = view.window!.windowController!.document as! Document
+		languageTextField.stringValue = self.document.voice.language
+		localeTextField.stringValue = self.document.voice.locale
+		voiceNameTextField.stringValue = self.document.voice.voiceName
+		adjustmentsTextField.stringValue = self.document.voice.durationAdjustmentsText
 	}
 
 }

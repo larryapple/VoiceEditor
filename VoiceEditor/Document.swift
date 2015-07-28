@@ -18,6 +18,12 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		get {return _voice!}
 		set {_voice = newValue}
 	}
+	
+	var _viewController: ViewController? = nil
+	var viewController: ViewController {
+		get {return _viewController!}
+		set {_viewController = newValue}
+	}	
 
 	var	language: String {
 		get {return voice.language}
@@ -779,10 +785,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	// MARK: Override functions
 
-	override init() {
-	    super.init()
-		voice = Voice.init ()
-	}
+//	override init() {
+//	    super.init()
+//		voice = Voice.init ()
+//	}
 
 	override func windowControllerDidLoadNib(aController: NSWindowController) {
 		super.windowControllerDidLoadNib(aController)
