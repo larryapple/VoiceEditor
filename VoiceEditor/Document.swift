@@ -34,6 +34,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	var useContinueNumbers = false
 	var useSingleNumber = false
 	var cyclePhrases = false
+	
 	var currentNumber = 2;
 	
 	var _currentTest = 0
