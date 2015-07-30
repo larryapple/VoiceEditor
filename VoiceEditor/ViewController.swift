@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController
+class ViewController: NSViewController, NSTextFieldDelegate
 {	
 	@IBOutlet weak var document: Document!
 
@@ -35,25 +35,21 @@ class ViewController: NSViewController
 	@IBAction func editLanguage(sender: NSTextField)
 	{
 		document.language = sender.stringValue
-		document.invalidateRestorableState()
 	}
 	
 	@IBAction func editLocale(sender: NSTextField)
 	{
 		document.locale = sender.stringValue
-		document.invalidateRestorableState()
 	}
 	
 	@IBAction func editVoiceName(sender: NSTextField)
 	{
 		document.voiceName = sender.stringValue
-		document.invalidateRestorableState()
 	}
 	
 	@IBAction func editAdjustments(sender: NSTextField)
 	{
 		document.durationAdjustments = sender.stringValue
-		document.invalidateRestorableState()
 	}
 	
 	@IBAction func selectTest(sender: NSMenuItem)
@@ -139,10 +135,10 @@ class ViewController: NSViewController
 		adjustmentsTextField.stringValue = self.document.voice.durationAdjustmentsText
 	}
 	
-	override func viewWillDisappear()
-	{
-		super.viewWillDisappear()
-		view.window!.resignFirstResponder()
-	}
+//	override func viewWillDisappear()
+//	{
+//		super.viewWillDisappear()
+//		view.window!.resignFirstResponder()
+//	}
 }
 

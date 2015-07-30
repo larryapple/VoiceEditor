@@ -709,17 +709,6 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rW4-eQ-3HF" userLabel="Text Language">
-                                <rect key="frame" x="89" y="435" width="38" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="jKb-X8-nHp">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <action selector="editLanguage:" target="5gI-5U-AMq" id="gp3-li-cTu"/>
-                                </connections>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pJI-Ev-xKK">
                                 <rect key="frame" x="18" y="396" width="78" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Voice Name" id="H6p-ID-ICk">
@@ -737,6 +726,7 @@
                                 </textFieldCell>
                                 <connections>
                                     <action selector="editVoiceName:" target="5gI-5U-AMq" id="DEj-eF-eJx"/>
+                                    <outlet property="delegate" destination="5gI-5U-AMq" id="96b-xD-M3A"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jf9-ec-Xzs">
@@ -786,6 +776,19 @@
                                 </textFieldCell>
                                 <connections>
                                     <action selector="editAdjustments:" target="5gI-5U-AMq" id="Djv-Tq-chH"/>
+                                    <outlet property="delegate" destination="5gI-5U-AMq" id="6GC-0T-NKi"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rW4-eQ-3HF" userLabel="Text Language">
+                                <rect key="frame" x="89" y="435" width="38" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="jKb-X8-nHp">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="editLanguage:" target="5gI-5U-AMq" id="gp3-li-cTu"/>
+                                    <outlet property="delegate" destination="5gI-5U-AMq" id="nWp-4i-bvc"/>
                                 </connections>
                             </textField>
                         </subviews>

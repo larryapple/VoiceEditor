@@ -16,7 +16,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	var _voice: Voice?
 	var voice: Voice {
 		get {return _voice!}
-		set {_voice = newValue}
+		set {
+			_voice = newValue
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
+		}
 	}
 	
 	var _viewController: ViewController? = nil
@@ -27,22 +30,34 @@ class Document: NSDocument, AVAudioPlayerDelegate
 
 	var	language: String {
 		get {return voice.language}
-		set {voice.language = newValue}
+		set {
+			voice.language = newValue
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
+		}
 	}
 	
 	var locale: String {
 		get {return voice.locale}
-		set {voice.locale = newValue}
+		set {
+			voice.locale = newValue
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
+		}
 	}
 	
 	var voiceName: String {
 		get {return voice.voiceName}
-		set {voice.voiceName = newValue}
+		set {
+			voice.voiceName = newValue
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
+		}
 	}
 	
 	var durationAdjustments: String {
 		get {return voice.durationAdjustmentsText}
-		set {voice.durationAdjustmentsText = newValue}
+		set {
+			voice.durationAdjustmentsText = newValue
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
+		}
 	}
 
 	var sounds: [Sound] = []
@@ -54,37 +69,49 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	var includeAnd: Bool {
 		get {return voice.includeAnd}
-		set {voice.includeAnd = newValue}
+		set {
+			voice.includeAnd = newValue
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
+		}
 	}
 	
 	var useContinueNumbers: Bool {
 		get {return voice.useContinueNumbers}
-		set {voice.useContinueNumbers = newValue}
+		set {
+			voice.useContinueNumbers = newValue
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
+		}
 	}
 	
 	var useSingleNumber: Bool {
 		get {return voice.useSingleNumber}
-		set {voice.useSingleNumber = newValue}
+		set {
+			voice.useSingleNumber = newValue
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
+		}
 	}
 	
 	var cyclePhrases: Bool {
 		get {return voice.cyclePhrases}
-		set {voice.cyclePhrases = newValue}
+		set {
+			voice.cyclePhrases = newValue
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
+		}
 	}
 	
 	var currentTest: Int {
 		get {return voice.currentTest}
-		set
-		{
+		set {
 			voice.currentTest = newValue
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
 		}
 	}
 	
 	var numberTag: Int {
 		get {return voice.currentNumber}
-		set
-		{
+		set {
 			voice.currentNumber = newValue - 50
+			updateChangeCount(NSDocumentChangeType.ChangeDone)
 		}
 	}
 	

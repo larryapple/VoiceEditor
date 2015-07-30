@@ -96,7 +96,12 @@ class Voice : NSObject, NSCoding
 		set
 		{
 			_daText = newValue
-			var text: NSString = newValue
+			if (!_daText.hasSuffix("\n"))
+			{
+				_daText = newValue + "\n"
+			}
+			
+			var text: NSString = _daText
 			durationAdjustments.removeAll()
 			repeat {
 				let range: NSRange = text.rangeOfString("\n")
@@ -114,7 +119,12 @@ class Voice : NSObject, NSCoding
 				}
 				text = text.substringFromIndex(index + 1)
 				let range2: NSRange = str.rangeOfString(":")
+				if (range2.length == 0)
+				{
+					continue;
+				}
 				index = range2.location
+				
 				let key = str.substringToIndex(index)
 				index++
 				let valueStr = str.substringFromIndex(index)
