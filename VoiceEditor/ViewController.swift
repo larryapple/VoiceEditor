@@ -134,11 +134,5 @@ class ViewController: NSViewController, NSTextFieldDelegate
 		voiceNameTextField.stringValue = self.document.voice.voiceName
 		adjustmentsTextField.stringValue = self.document.voice.durationAdjustmentsText
 	}
-	
-//	override func viewWillDisappear()
-//	{
-//		super.viewWillDisappear()
-//		view.window!.resignFirstResponder()
-//	}
 }
 
