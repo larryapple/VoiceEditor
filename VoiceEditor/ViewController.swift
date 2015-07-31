@@ -4,14 +4,14 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTextFieldDelegate
+class ViewController: NSViewController, NSTextDelegate
 {	
 	@IBOutlet weak var document: Document!
 
 	@IBOutlet var languageTextField: NSTextField!
 	@IBOutlet var localeTextField: NSTextField!
 	@IBOutlet var voiceNameTextField: NSTextField!
-	@IBOutlet var adjustmentsTextField: NSTextField!
+	@IBOutlet var adjustmentsTextView: NSTextView!
 	
 	override func validateMenuItem(menuItem: NSMenuItem) -> Bool
 	{
@@ -30,6 +30,11 @@ class ViewController: NSViewController, NSTextFieldDelegate
 		return true
 	}
 	
+	func textDidChange(notif: NSNotification)
+	{
+		document.durationAdjustments = self.adjustmentsTextView.string!
+	}
+	
 	// MARK: Actions
 	
 	@IBAction func editLanguage(sender: NSTextField)
@@ -45,11 +50,6 @@ class ViewController: NSViewController, NSTextFieldDelegate
 	@IBAction func editVoiceName(sender: NSTextField)
 	{
 		document.voiceName = sender.stringValue
-	}
-	
-	@IBAction func editAdjustments(sender: NSTextField)
-	{
-		document.durationAdjustments = sender.stringValue
 	}
 	
 	@IBAction func selectTest(sender: NSMenuItem)
@@ -117,7 +117,10 @@ class ViewController: NSViewController, NSTextFieldDelegate
 			{
 				self.document.voice = Voice.init (url: openPanel.URL!)
 				self.voiceNameTextField.stringValue = self.document.voice.voiceName
-				self.adjustmentsTextField.stringValue = self.document.voice.durationAdjustmentsText
+				
+				let range = NSMakeRange (0, 0)
+				self.adjustmentsTextView.textStorage!.replaceCharactersInRange(range,
+					withString: self.document.voice.durationAdjustmentsText)
 			}
 		}
 	}
@@ -132,7 +135,10 @@ class ViewController: NSViewController, NSTextFieldDelegate
 		languageTextField.stringValue = self.document.voice.language
 		localeTextField.stringValue = self.document.voice.locale
 		voiceNameTextField.stringValue = self.document.voice.voiceName
-		adjustmentsTextField.stringValue = self.document.voice.durationAdjustmentsText
+		let range = NSMakeRange (0, 0)
+		adjustmentsTextView.textStorage!.replaceCharactersInRange(range,
+			withString: self.document.voice.durationAdjustmentsText)
+
 	}
 }
 
