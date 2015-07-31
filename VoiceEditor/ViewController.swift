@@ -30,7 +30,11 @@ class ViewController: NSViewController, NSTextDelegate
 		return true
 	}
 	
-	func textDidChange(notif: NSNotification)
+	// MARK: Delegate functions
+	
+	//.	Note: should make sure the notification is from the adjustmentsTextView
+	
+	func textDidChange(notification: NSNotification)
 	{
 		document.durationAdjustments = self.adjustmentsTextView.string!
 	}

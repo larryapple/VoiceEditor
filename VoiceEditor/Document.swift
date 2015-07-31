@@ -259,62 +259,35 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	func AddScore (phrase: Phrase, score: Int, isLast: Bool)
 	{
 		//	Adjust the duration to the following number if needed:
-		//	First try the actual phrase and the score
 		
 		let durationIndex = phrase.rawValue - Phrase.PointsGo.rawValue
-		let key: String = Voice.durationAdjustKeys [durationIndex]
-		let phraseKey = key + String (score)
-		var adjust: Int? = voice.durationAdjustments [phraseKey]
+		let phraseKey: String = Voice.durationAdjustKeys [durationIndex]
+		let phraseScoreKey = phraseKey + String (score)
+		let allKey = "all"
+		let allScoreKey = allKey + String (score)
+
+		//	First try the actual phrase and the score
+		
+		var adjust: Int? = voice.durationAdjustments [phraseScoreKey]
 		if (adjust == nil)
 		{
-			//	Further tests vary for fifteens, scores, and plays
+			//	Then try the phrase for any score
 			
-			if (phrase.rawValue == Phrase.ScoreFifteen.rawValue)
+			adjust = voice.durationAdjustments [phraseKey]
+			if (adjust == nil)
 			{
-				//	For fifteens, try the 15 phrase for all numbers
+				//	Then try "all" and the score
 				
-				adjust = voice.durationAdjustments ["15"]
+				adjust = voice.durationAdjustments [allScoreKey]
 				if (adjust == nil)
 				{
-					adjust = 0
-				}
-			}
-				
-			else if (phrase.rawValue > Phrase.ScoreFifteen.rawValue)
-			{
-				//	For scores, try the phrase with all numbers
-				
-				adjust = voice.durationAdjustments [key]
-				if (adjust == nil)
-				{
-					//	Next tray all scores with the number
+					//	Then try "all" for any score
 					
-					let allKey = "all" + String (score)
 					adjust = voice.durationAdjustments [allKey]
 					if (adjust == nil)
 					{
-						//	Last chance is all scores and all numbers
+						//	Nothing matched, use 0
 						
-						adjust = voice.durationAdjustments ["all"]
-						if (adjust == nil)
-						{
-							adjust = 0
-						}
-					}
-				}
-			}
-				
-				//	For plays, try the play phrase for the numbers, then all numbers
-				
-			else
-			{
-				let playKey = "play" + String (score)
-				adjust = voice.durationAdjustments [playKey]
-				if (adjust == nil)
-				{
-					adjust = voice.durationAdjustments ["play"]
-					if (adjust == nil)
-					{
 						adjust = 0
 					}
 				}
