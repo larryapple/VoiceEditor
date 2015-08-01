@@ -190,22 +190,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			sounds.append(sound)
 		}
 		
-		for (var i: Int = 0; i < count; i++)
-		{
-			let sound = sounds [Int(i)]
-			let audioPlayer = try! AVAudioPlayer (data: sound.data, fileTypeHint: AVFileTypeAppleM4A)
-			if (i == 0)
-			{
-				now = audioPlayer.deviceCurrentTime + 0.5
-			}
-			
-			audioPlayer.delegate = self;
-			audioPlayer.prepareToPlay()
-			audioPlayer.playAtTime(now)
-			now += Double (sound.duration)
-			
-			audioPlayers.append(audioPlayer)
-		}
+		playSounds()
 	}
 	
 	func testNumbers (prefix: String, count: Int)
@@ -219,22 +204,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let sound = Sound.init (number: i, voice: voice, fileData: data, isLast: isLast)
 			sounds.append(sound)
 		}
-		
-		for (var i: Int = 0; i < count; i++)
-		{
-			let sound = sounds [Int(i)]
-			let audioPlayer = try! AVAudioPlayer (data: sound.data, fileTypeHint: AVFileTypeAppleM4A)
-			if (i == 0)
-			{
-				now = audioPlayer.deviceCurrentTime + 0.5
-			}
-			
-			audioPlayer.delegate = self;
-			audioPlayer.prepareToPlay()
-			audioPlayer.playAtTime(now)
-			now += Double (sound.duration) / Double (1000)
-			audioPlayers.append(audioPlayer)
-		}
+		playSounds()
 	}
 	
 	func testPlays (phrase: Phrase, startNumber: Int, endNumber: Int, incr: Int)
@@ -313,13 +283,13 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		{
 			let sound = sounds [Int(i)]
 			let audioPlayer = try! AVAudioPlayer (data: sound.data, fileTypeHint: AVFileTypeAppleM4A)
+			audioPlayer.delegate = self;
+			audioPlayer.prepareToPlay()
 			if (i == 0)
 			{
 				now = audioPlayer.deviceCurrentTime + 0.5
 			}
 			
-			audioPlayer.delegate = self;
-			audioPlayer.prepareToPlay()
 			audioPlayer.playAtTime(now)
 			now += Double (sound.duration + sound.delay) / Double (1000)
 			
@@ -361,6 +331,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		var myPhrase = Phrase (rawValue: rawPhraseNumber)!
 		
 		sounds.removeAll()
+		now = 0
 		for (var i = rawPhraseNumber; i <= lastPhraseNumber; i++)
 		{
 			for (var score: Int = 2; score <= 29; score++)
