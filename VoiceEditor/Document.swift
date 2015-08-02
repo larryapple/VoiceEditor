@@ -186,7 +186,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let phrase = Phrase (rawValue: firstPhrase.rawValue + i - 1)
 			let data = voice.dataforPhrase(phrase!)
 			
-			let sound = Sound.init (phrase: phrase!, voice: voice, fileData: data, adjust: 0)
+			let sound = Sound.init (phrase: phrase!, voice: voice, fileData: data, adjust: 333)
 			sounds.append(sound)
 		}
 		
@@ -202,8 +202,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			
 			let isLast = i == count - 1
 			let sound = Sound.init (number: i, voice: voice, fileData: data, isLast: isLast)
+			sound.delay = 333
 			sounds.append(sound)
 		}
+		
 		playSounds()
 	}
 	
@@ -549,7 +551,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	func audioPlayerDidFinishPlaying (player: AVAudioPlayer, successfully flag: Bool)
 	{
-		audioPlayers.removeAtIndex(0)
+		if (audioPlayers.count > 0)
+		{
+			audioPlayers.removeAtIndex(0)
+		}
 	}
 	
 	// MARK: Utilities
