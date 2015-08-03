@@ -118,6 +118,262 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	var handScores = Array<Phrase>()
 	var handCounts = Array<Int> ()
 	
+	// MARK: Generate all possible scores
+	
+	var scoreNames: [String] =
+	[
+
+		"fifteen ", "a pair is ", "2 pairs is ", "3 pairs is ", "6 pairs is ",
+		"a run is ", "a run of 4 is ", "a run of 5 is ", "a double run is ", "a double run of 4 is ",
+		"a triple run is ", "a double double run is ", "4 of the same suit is ", "5 of the same suit is ",
+		"the right jack is "
+	]
+	
+	var countDict: [String: Int] = [String: Int] ()
+
+	func generateScores ()
+	{
+		countDict = [String: Int] ()
+		var avails: [Int] = [Int] (count: 13, repeatedValue: 4)
+		var ranks: [Rank] = [Rank] (count: 5, repeatedValue: Rank.Ace)
+		var suits: [Suit] = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Diamonds, Suit.Hearts]
+
+		for var i = 0; i < 13; i++
+		{
+			avails [i]--
+			var index = 0
+			ranks [index++] = Rank (rawValue: i)!
+			for var j = 0; j < 13; j++
+			{
+				avails [j]--
+				ranks [index++] = Rank (rawValue: j)!
+				for var k = 0; k < 13; k++
+				{
+					avails [k]--
+					ranks [index++] = Rank (rawValue: k)!
+					for var m = 0; m < 13; m++
+					{
+						avails [m]--
+						ranks [index++] = Rank (rawValue: m)!
+						for var n = 0; n < 13; n++
+						{
+							if (avails [n] == 0)
+							{
+								continue
+							}
+							
+							ranks [index] = Rank (rawValue: n)!
+							var cards = Array<Card> ()
+							
+							for (var a = 0; a < 5; a++)
+							{
+								let card = Card(rank: ranks[a], suit: suits[a])
+								cards.append (card)
+							}
+							
+							let result = countHand(cards)
+							let fifteens = result.count15
+							var pairs = result.countPairs
+							var runs = result.countRuns
+							var doubleRun = 0
+							var doubleRunOf4 = 0
+							var tripleRun = 0
+							var doubleDoubleRun = 0
+							
+							if pairs > 0 && runs > 0
+							{
+								if pairs == 2 && runs == 6
+								{
+									doubleRun = 8
+									pairs = 0
+									runs = 0
+								}
+								
+								else if pairs == 2 && runs == 8
+								{
+									doubleRunOf4 = 10
+									pairs = 0
+									runs = 0
+								}
+								
+								else if pairs == 6 && runs == 9
+								{
+									tripleRun = 15
+									pairs = 0
+									runs = 0
+								}
+								
+								else if pairs == 4 && runs == 12
+								{
+									doubleDoubleRun = 16
+									pairs = 0
+									runs = 0
+								}
+							}
+							
+							evaluateCount(fifteens, pairs: pairs, runs: runs,
+								doubleRun: doubleRun, doubleRunOf4: doubleRunOf4,
+								tripleRun: tripleRun, doubleDoubleRun: doubleDoubleRun)
+						}
+						avails [m]++
+						index--
+					}
+					avails [k]++
+					index--
+				}
+				avails [j]++
+				index--
+			}
+			avails [i]++
+			index--
+		}
+		
+		print (countDict)
+	}
+	
+	func evaluateCount (fifteens: Int, pairs: Int, runs: Int, doubleRun: Int, doubleRunOf4: Int,
+						tripleRun: Int, doubleDoubleRun: Int)
+	{
+		var str: String = ""
+		var count: Int = 0
+		if fifteens > 0
+		{
+			count += fifteens
+			str = scoreNames [0] + String (count) + " "
+		}
+		
+		if pairs == 2
+		{
+			count += pairs
+			if (count > pairs)
+			{
+				str += "and "
+			}
+			str += scoreNames [1] + String (count) + " "
+		}
+		
+		else if pairs == 4
+		{
+			count += pairs
+			if (count > pairs)
+			{
+				str += "and "
+			}
+			str += scoreNames [2] + String (count) + " "
+		}
+		
+		else if pairs == 6
+		{
+			count += pairs
+			if (count > pairs)
+			{
+				str += "and "
+			}
+			str += scoreNames [3] + String (count) + " "
+		}
+		
+		else if pairs == 12
+		{
+			count += pairs
+			if (count > pairs)
+			{
+				str += "and "
+			}
+			str += scoreNames [4] + String (count) + " "
+		}
+		
+		if runs == 3
+		{
+			count += runs
+			if (count > runs)
+			{
+				str += "and "
+			}
+			str += scoreNames [5] + String (count) + " "
+		}
+		
+		else if runs == 4
+		{
+			count += runs
+			if (count > runs)
+			{
+				str += "and "
+			}
+			str += scoreNames [6] + String (count) + " "
+		}
+			
+		else if runs == 5
+		{
+			count += runs
+			if (count > runs)
+			{
+				str += "and "
+			}
+			str += scoreNames [7] + String (count) + " "
+		}
+		
+		if doubleRun == 8
+		{
+			count += doubleRun
+			if (count > doubleRun)
+			{
+				str += "and "
+			}
+			str += scoreNames [8] + String (count) + " "
+		}
+		
+		if doubleRunOf4 == 10
+		{
+			count += doubleRunOf4
+			if (count > doubleRunOf4)
+			{
+				str += "and "
+			}
+			str += scoreNames [9] + String (count) + " "
+		}
+			
+		else if tripleRun == 15
+		{
+			count += tripleRun
+			if (count > tripleRun)
+			{
+				str += "and "
+			}
+			str += scoreNames [10] + String (count) + " "
+		}
+			
+		else if doubleDoubleRun	== 16
+		{
+			count += doubleDoubleRun
+			if (count > doubleDoubleRun)
+			{
+				str += "and "
+			}
+			str += scoreNames [11] + String (count) + " "
+		}
+		
+		if count == 0
+		{
+			return
+		}
+	
+		str += "\n"
+		var stringCount: Int? = countDict [str]
+		if (stringCount != nil)
+		{
+			stringCount = stringCount! + 1
+			
+		}
+		
+		else
+		{
+			stringCount = 1
+		}
+		
+		countDict [str] = stringCount!
+		
+	}
+	
 	// MARK: Accessors
 	
 	func isBusy() ->Bool
@@ -154,7 +410,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		case 16: testPlays (Phrase.PointsRun, startNumber: 3, endNumber: 9, incr: 1)
 		case 17: testPlays (Phrase.Points31, startNumber: 4, endNumber: 14, incr: 1)
 			
-		case 21: testFifteens()
+		case 21: generateScores()
 		case 22: testOtherScores(Phrase.ScorePair)
 		case 23: testOtherScores(Phrase.ScorePairs2)
 		case 24: testOtherScores(Phrase.ScorePairs3)
@@ -387,12 +643,13 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			suits = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Hearts, Suit.Clubs]
 			
 		case 1:
-			ranks = [Rank.Ace, Rank.Two, Rank.Three, Rank.Four, Rank.Five]
+			ranks = [Rank.Nine, Rank.Two, Rank.Two, Rank.Two, Rank.Two]
 			suits = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Diamonds, Suit.Clubs]
 			
 		case 2:
-			ranks = [Rank.Ace, Rank.Two, Rank.Three, Rank.Four, Rank.Five]
-			suits = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Clubs]
+			ranks = [Rank.Four, Rank.Five, Rank.Six, Rank.Seven, Rank.Seven]
+			suits = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Diamonds
+			]
 			
 		case 3:
 			ranks = [Rank.Five, Rank.Five, Rank.Five, Rank.Jack, Rank.Five]
@@ -419,6 +676,13 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		{
 			handScores.append(Phrase.ScoreFifteen)
 			count += result.count15
+			handCounts.append(count)
+		}
+		
+		if result.countPairs == 6 && result.countRuns == 0
+		{
+			handScores.append(Phrase.ScorePairs3)
+			count += result.countPairs
 			handCounts.append(count)
 		}
 		
