@@ -129,29 +129,39 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"the right jack is "
 	]
 	
-	var countDict: [String: Int] = [String: Int] ()
+	struct ScoreKey
+	{
+		var fifteens: Int8
+		var pairs: Int8
+		var runs: Int8
+		var suit: Int8
+		var jack: Int8
+	}
+	
+	var countDict: [String: String] = [String: String] ()
+	let omitSuitsAndJack = true
 
 	func generateScores ()
 	{
-		countDict = [String: Int] ()
+		countDict = [String: String] ()
 		var avails: [Int] = [Int] (count: 13, repeatedValue: 4)
 		var ranks: [Rank] = [Rank] (count: 5, repeatedValue: Rank.Ace)
 		var suits: [Suit] = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Diamonds, Suit.Hearts]
-
+		
 		for var i = 0; i < 13; i++
 		{
 			avails [i]--
 			var index = 0
 			ranks [index++] = Rank (rawValue: i)!
-			for var j = 0; j < 13; j++
+			for var j = i; j < 13; j++
 			{
 				avails [j]--
 				ranks [index++] = Rank (rawValue: j)!
-				for var k = 0; k < 13; k++
+				for var k = j; k < 13; k++
 				{
 					avails [k]--
 					ranks [index++] = Rank (rawValue: k)!
-					for var m = 0; m < 13; m++
+					for var m = k; m < 13; m++
 					{
 						avails [m]--
 						ranks [index++] = Rank (rawValue: m)!
@@ -165,55 +175,75 @@ class Document: NSDocument, AVAudioPlayerDelegate
 							ranks [index] = Rank (rawValue: n)!
 							var cards = Array<Card> ()
 							
+							//	Evaluate first with no possible suit matches
+							
 							for (var a = 0; a < 5; a++)
 							{
 								let card = Card(rank: ranks[a], suit: suits[a])
 								cards.append (card)
 							}
 							
-							let result = countHand(cards)
-							let fifteens = result.count15
-							var pairs = result.countPairs
-							var runs = result.countRuns
-							var doubleRun = 0
-							var doubleRunOf4 = 0
-							var tripleRun = 0
-							var doubleDoubleRun = 0
+							evaluateHand (cards, anySuits: 0, rightJack: false)
 							
-							if pairs > 0 && runs > 0
+							//	If there is a jack in the hand, make it the right jack
+							
+							var rightJack: Bool = false
+							for (var a = 0; a < 4; a++)
 							{
-								if pairs == 2 && runs == 6
+								if ranks[a] == Rank.Jack
 								{
-									doubleRun = 8
-									pairs = 0
-									runs = 0
-								}
-								
-								else if pairs == 2 && runs == 8
-								{
-									doubleRunOf4 = 10
-									pairs = 0
-									runs = 0
-								}
-								
-								else if pairs == 6 && runs == 9
-								{
-									tripleRun = 15
-									pairs = 0
-									runs = 0
-								}
-								
-								else if pairs == 4 && runs == 12
-								{
-									doubleDoubleRun = 16
-									pairs = 0
-									runs = 0
+									rightJack = true
+									evaluateHand(cards, anySuits: 0, rightJack: rightJack)
+									break
 								}
 							}
 							
-							evaluateCount(fifteens, pairs: pairs, runs: runs,
-								doubleRun: doubleRun, doubleRunOf4: doubleRunOf4,
-								tripleRun: tripleRun, doubleDoubleRun: doubleDoubleRun)
+							//	If there are any pairs in the hand, we are done
+							
+							var anyPairs = false
+							for (var a = 1; a < 4; a++)
+							{
+								if ranks[a] == ranks[a-1]
+								{
+									anyPairs = true
+									break
+								}
+							}
+							
+							//	Evaluate a hand with a 4 or 5-card flush and with the right jack
+							
+							if !anyPairs
+							{
+								var anySuits = 5;
+								for (var a = 0; a < 4; a++)
+								{
+									if ranks[a] == ranks[4]
+									{
+										anySuits = 4
+										rightJack = false
+										break
+									}
+								}
+								
+								//	First evaluate with and without the right jack
+								
+								evaluateHand (cards, anySuits: anySuits, rightJack: false)
+								if (rightJack)
+								{
+									evaluateHand (cards, anySuits: anySuits, rightJack: true)
+								}
+								
+								//	Then if it is a 5-card flush, do it again for 4 cards
+								
+								if (anySuits == 5)
+								{
+									evaluateHand (cards, anySuits: 4, rightJack: false)
+									if (rightJack)
+									{
+										evaluateHand (cards, anySuits: 4, rightJack: true)
+									}
+								}
+							}
 						}
 						avails [m]++
 						index--
@@ -228,14 +258,90 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			index--
 		}
 		
-		print (countDict)
+		print (String (countDict.count) + " unique counts")
+		
+		var array: [String] = [String] ()
+		for (key, value) in countDict
+		{
+			var str1 = String (value)
+			var str: NSString = NSString (string: str1)
+			while (str.length < 5)
+			{
+				str1 = "0" + str1
+				str = NSString (string:str1)
+			}
+			
+			str1 += " " + key
+			array.append(str1)
+		}
+		
+		array = array.sort { $0.compare($1) == .OrderedAscending }
+		print (array)
+	}
+	
+	func evaluateHand (cards: [Card], anySuits: Int, rightJack: Bool)
+	{
+		let result = countHand(cards)
+		let fifteens = result.count15
+		var pairs = result.countPairs
+		var runs = result.countRuns
+		var doubleRun = 0
+		var doubleRunOf4 = 0
+		var tripleRun = 0
+		var doubleDoubleRun = 0
+		
+		let sortKeyNumber = fifteens + ((pairs + runs) << 5) + (anySuits << 10) + ((rightJack ? 1 : 0) << 15)
+		
+		var sortKey = String (sortKeyNumber)
+		var str: NSString = NSString (string: sortKey)
+		while (str.length < 5)
+		{
+			sortKey = "0" + sortKey
+			str = NSString (string: sortKey)
+		}
+
+		if pairs > 0 && runs > 0
+		{
+			if pairs == 2 && runs == 6
+			{
+				doubleRun = 8
+				pairs = 0
+				runs = 0
+			}
+				
+			else if pairs == 2 && runs == 8
+			{
+				doubleRunOf4 = 10
+				pairs = 0
+				runs = 0
+			}
+				
+			else if pairs == 6 && runs == 9
+			{
+				tripleRun = 15
+				pairs = 0
+				runs = 0
+			}
+				
+			else if pairs == 4 && runs == 12
+			{
+				doubleDoubleRun = 16
+				pairs = 0
+				runs = 0
+			}
+		}
+		
+		evaluateCount(fifteens, pairs: pairs, runs: runs,
+			doubleRun: doubleRun, doubleRunOf4: doubleRunOf4, tripleRun: tripleRun,
+			doubleDoubleRun: doubleDoubleRun, anySuits: anySuits, rightJack: rightJack, sortKey: sortKey)
 	}
 	
 	func evaluateCount (fifteens: Int, pairs: Int, runs: Int, doubleRun: Int, doubleRunOf4: Int,
-						tripleRun: Int, doubleDoubleRun: Int)
+		tripleRun: Int, doubleDoubleRun: Int, anySuits: Int, rightJack: Bool, sortKey: String)
 	{
 		var str: String = ""
 		var count: Int = 0
+		
 		if fifteens > 0
 		{
 			count += fifteens
@@ -269,6 +375,18 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			{
 				str += "and "
 			}
+			str += scoreNames [3] + String (count) + " "
+		}
+			
+		else if pairs == 8
+		{
+			count += pairs
+			if (count > pairs)
+			{
+				str += "and "
+			}
+			str += scoreNames [1] + String (count - 6) + " "
+			str += "and "
 			str += scoreNames [3] + String (count) + " "
 		}
 		
@@ -352,25 +470,58 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			str += scoreNames [11] + String (count) + " "
 		}
 		
+		if (!omitSuitsAndJack)
+		{
+			if anySuits == 4
+			{
+				count += 4
+				if (count > 4)
+				{
+					str += "and "
+				}
+				str += scoreNames [12] + String (count) + " "
+			}
+			
+			if anySuits == 5
+			{
+				count += 5
+				if (count > 5)
+				{
+					str += "and "
+				}
+				str += scoreNames [13] + String (count) + " "
+			}
+			
+			if rightJack
+			{
+				count++
+				if (count > 1)
+				{
+					str += "and "
+				}
+				str += scoreNames [14] + String (count) + " "
+			}
+
+		}
+		
 		if count == 0
 		{
 			return
 		}
+		
+		if count == 19
+		{
+			print ("oops")
+		}
 	
 		str += "\n"
-		var stringCount: Int? = countDict [str]
-		if (stringCount != nil)
+		var theSortKey = String (count) + " " + sortKey
+		if (count < 10)
 		{
-			stringCount = stringCount! + 1
-			
+			theSortKey = "0" + theSortKey
 		}
 		
-		else
-		{
-			stringCount = 1
-		}
-		
-		countDict [str] = stringCount!
+		countDict [str] = theSortKey
 		
 	}
 	
