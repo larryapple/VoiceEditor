@@ -118,6 +118,129 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	var handScores = Array<Phrase>()
 	var handCounts = Array<Int> ()
 	
+	// MARK: Sort text
+	
+	let input = [
+		"the right jack is 1\n",
+		"a pair is 2\n",
+		"fifteen 2\n",
+		"a run is 3\n",
+		"fifteen 2 and the right jack is 3\n",
+		"a pair is 2 and the right jack is 3\n",
+		"fifteen 2 and a pair is 4\n",
+		"a pair is 2 and a pair is 4\n",
+		"fifteen 4\n",
+		"a run of 4 is 4\n",
+		"4 of the same suit is 4\n",
+		"a run is 3 and the right jack is 4\n",
+		"a pair is 2 and a run is 5\n",
+		"fifteen 2 and a run is 5\n",
+		"a run of 5 is 5\n",
+		"4 of the same suit is 4 and the right jack is 5\n",
+		"5 of the same suit is 5\n",
+		"fifteen 4 and the right jack is 5\n",
+		"fifteen 2 and a pair is 4 and the right jack is 5\n",
+		"a run of 4 is 4 and the right jack is 5\n",
+		"fifteen 4 and a pair is 6\n",
+		"fifteen 2 and a pair is 4 and a pair is 6\n",
+		"3 pairs is 6\n",
+		"fifteen 6\n",
+		"a pair is 2 and a run of 4 is 6\n",
+		"fifteen 2 and a run of 4 is 6\n",
+		"fifteen 2 and 4 of the same suit is 6\n",
+		"a pair is 2 and 4 of the same suit is 6\n",
+		"5 of the same suit is 5 and the right jack is 6\n",
+		"a run of 5 is 5 and the right jack is 6\n",
+		"fifteen 2 and a pair is 4 and a run is 7\n",
+		"fifteen 4 and a run is 7\n",
+		"fifteen 2 and a run of 5 is 7\n",
+		"a run is 3 and 4 of the same suit is 7\n",
+		"fifteen 2 and 5 of the same suit is 7\n",
+		"fifteen 6 and the right jack is 7\n",
+		"3 pairs is 6 and the right jack is 7\n",
+		"fifteen 6 and a pair is 8\n",
+		"fifteen 4 and a pair is 6 and a pair is 8\n",
+		"fifteen 2 and 3 pairs is 8\n",
+		"fifteen 2 and a pair is 4 and a run of 4 is 8\n",
+		"a pair is 2 and 3 pairs is 8\n",
+		"fifteen 8\n",
+		"a double run is 8\n",
+		"fifteen 4 and a run of 4 is 8\n",
+		"fifteen 4 and 4 of the same suit is 8\n",
+		"a run of 4 is 4 and 4 of the same suit is 8\n",
+		"a run is 3 and 5 of the same suit is 8\n",
+		"fifteen 4 and a pair is 6 and a run is 9\n",
+		"fifteen 4 and a run of 5 is 9\n",
+		"fifteen 6 and a run is 9\n",
+		"a run of 5 is 5 and 4 of the same suit is 9\n",
+		"fifteen 4 and 5 of the same suit is 9\n",
+		"a run of 4 is 4 and 5 of the same suit is 9\n",
+		"fifteen 8 and the right jack is 9\n",
+		"a double run is 8 and the right jack is 9\n",
+		"fifteen 8 and a pair is 10\n",
+		"fifteen 6 and a pair is 8 and a pair is 10\n",
+		"fifteen 4 and 3 pairs is 10\n",
+		"fifteen 4 and a pair is 6 and a run of 4 is 10\n",
+		"fifteen 2 and a pair is 4 and 3 pairs is 10\n",
+		"a double run of 4 is 10\n",
+		"fifteen 2 and a double run is 10\n",
+		"fifteen 6 and a run of 4 is 10\n",
+		"fifteen 6 and 4 of the same suit is 10\n",
+		"a run of 5 is 5 and 5 of the same suit is 10\n",
+		"fifteen 6 and a pair is 8 and a run is 11\n",
+		"fifteen 6 and 5 of the same suit is 11\n",
+		"fifteen 8 and a pair is 10 and a pair is 12\n",
+		"fifteen 6 and 3 pairs is 12\n",
+		"fifteen 6 and a pair is 8 and a run of 4 is 12\n",
+		"fifteen 4 and a pair is 6 and 3 pairs is 12\n",
+		"fifteen 2 and a double run of 4 is 12\n",
+		"6 pairs is 12\n",
+		"fifteen 4 and a double run is 12\n",
+		"fifteen 8 and a run of 4 is 12\n",
+		"fifteen 8 and 4 of the same suit is 12\n",
+		"a double run is 8 and 4 of the same suit is 12\n",
+		"fifteen 8 and a pair is 10 and a run is 13\n",
+		"fifteen 8 and 5 of the same suit is 13\n",
+		"6 pairs is 12 and the right jack is 13\n",
+		"fifteen 10 and a pair is 12 and a pair is 14\n",
+		"fifteen 8 and 3 pairs is 14\n",
+		"fifteen 6 and a pair is 8 and 3 pairs is 14\n",
+		"fifteen 4 and a double run of 4 is 14\n",
+		"fifteen 2 and 6 pairs is 14\n",
+		"fifteen 12 and a pair is 14\n",
+		"fifteen 6 and a double run is 14\n",
+		"a double run of 4 is 10 and 4 of the same suit is 14\n",
+		"a triple run is 15\n",
+		"fifteen 12 and a pair is 14 and a pair is 16\n",
+		"fifteen 10 and 3 pairs is 16\n",
+		"a double double run is 16\n",
+		"fifteen 6 and a double run of 4 is 16\n",
+		"a triple run is 15 and the right jack is 16\n",
+		"fifteen 8 and a double run is 16\n",
+		"fifteen 2 and a triple run is 17\n",
+		"fifteen 12 and a pair is 14 and a run is 17\n",
+		"a double double run is 16 and the right jack is 17\n",
+		"fifteen 12 and 3 pairs is 18\n",
+		"fifteen 10 and a pair is 12 and 3 pairs is 18\n",
+		"fifteen 2 and a double double run is 18\n",
+		"fifteen 14 and 3 pairs is 20\n",
+		"fifteen 12 and a pair is 14 and 3 pairs is 20\n",
+		"fifteen 8 and 6 pairs is 20\n",
+		"fifteen 4 and a double double run is 20\n",
+		"fifteen 6 and a triple run is 21\n",
+		"fifteen 14 and a pair is 16 and 3 pairs is 22\n",
+		"fifteen 8 and a triple run is 23\n",
+		"fifteen 12 and 6 pairs is 24\n",
+		"fifteen 8 and a double double run is 24\n",
+		"fifteen 16 and 6 pairs is 28 "
+	]
+	
+	func sortText ()
+	{
+		let text = input.sort { $0.compare($1) == .OrderedAscending }
+		print (text)
+	}
+	
 	// MARK: Generate all possible scores
 	
 	var scoreNames: [String] =
@@ -541,7 +664,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		case 17: testPlays (Phrase.Points31, startNumber: 4, endNumber: 14, incr: 1)
 			
 		case 21: generateScores()
-		case 22: testOtherScores(Phrase.ScorePair)
+		case 22: sortText()
 		case 23: testOtherScores(Phrase.ScorePairs2)
 		case 24: testOtherScores(Phrase.ScorePairs3)
 		case 25: testOtherScores(Phrase.ScorePairs6)
