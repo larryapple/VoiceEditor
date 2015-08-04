@@ -129,21 +129,12 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"the right jack is "
 	]
 	
-	struct ScoreKey
-	{
-		var fifteens: Int8
-		var pairs: Int8
-		var runs: Int8
-		var suit: Int8
-		var jack: Int8
-	}
-	
-	var countDict: [String: String] = [String: String] ()
-	let omitSuitsAndJack = true
+	var countDict: [String: Int] = [String: Int] ()
+	let omitSuitsAndJack = false
 
 	func generateScores ()
 	{
-		countDict = [String: String] ()
+		countDict = [String: Int] ()
 		var avails: [Int] = [Int] (count: 13, repeatedValue: 4)
 		var ranks: [Rank] = [Rank] (count: 5, repeatedValue: Rank.Ace)
 		var suits: [Suit] = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Diamonds, Suit.Hearts]
@@ -265,7 +256,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		{
 			var str1 = String (value)
 			var str: NSString = NSString (string: str1)
-			while (str.length < 5)
+			while (str.length < 8)
 			{
 				str1 = "0" + str1
 				str = NSString (string:str1)
@@ -289,17 +280,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		var doubleRunOf4 = 0
 		var tripleRun = 0
 		var doubleDoubleRun = 0
+		let total = fifteens + pairs + runs
 		
-		let sortKeyNumber = fifteens + ((pairs + runs) << 5) + (anySuits << 10) + ((rightJack ? 1 : 0) << 15)
+		let sortKey = fifteens + ((pairs + runs) << 5) + (anySuits << 10) + ((rightJack ? 1 : 0) << 15) + (total << 20)
 		
-		var sortKey = String (sortKeyNumber)
-		var str: NSString = NSString (string: sortKey)
-		while (str.length < 5)
-		{
-			sortKey = "0" + sortKey
-			str = NSString (string: sortKey)
-		}
-
 		if pairs > 0 && runs > 0
 		{
 			if pairs == 2 && runs == 6
@@ -337,7 +321,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	}
 	
 	func evaluateCount (fifteens: Int, pairs: Int, runs: Int, doubleRun: Int, doubleRunOf4: Int,
-		tripleRun: Int, doubleDoubleRun: Int, anySuits: Int, rightJack: Bool, sortKey: String)
+		tripleRun: Int, doubleDoubleRun: Int, anySuits: Int, rightJack: Bool, sortKey: Int)
 	{
 		var str: String = ""
 		var count: Int = 0
@@ -515,13 +499,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 	
 		str += "\n"
-		var theSortKey = String (count) + " " + sortKey
-		if (count < 10)
-		{
-			theSortKey = "0" + theSortKey
-		}
 		
-		countDict [str] = theSortKey
+		countDict [str] = sortKey
 		
 	}
 	
