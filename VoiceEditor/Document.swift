@@ -232,7 +232,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"fifteen 8 and a triple run is 23\n",
 		"fifteen 12 and 6 pairs is 24\n",
 		"fifteen 8 and a double double run is 24\n",
-		"fifteen 16 and 6 pairs is 28 "
+		"fifteen 16 and 6 pairs is 28\n"
 	]
 	
 	func sortText ()
@@ -253,7 +253,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	]
 	
 	var countDict: [String: Int] = [String: Int] ()
-	let omitSuitsAndJack = false
+	let omitSuits = false
+	let omitJack = false
 
 	func generateScores ()
 	{
@@ -577,7 +578,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			str += scoreNames [11] + String (count) + " "
 		}
 		
-		if (!omitSuitsAndJack)
+		if (!omitSuits)
 		{
 			if anySuits == 4
 			{
@@ -598,7 +599,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				}
 				str += scoreNames [13] + String (count) + " "
 			}
-			
+		}
+		
+		if (!omitJack)
+		{
 			if rightJack
 			{
 				count++

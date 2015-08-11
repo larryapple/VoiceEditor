@@ -32,6 +32,8 @@ enum Phrase: Int
 	Count
 }
 
+
+
 class Voice : NSObject, NSCoding
 
 {
