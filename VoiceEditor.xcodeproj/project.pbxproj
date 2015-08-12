@@ -23,7 +23,7 @@
 		57C163471B643F1700EFCDFB /* VoiceEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57C1634A1B643F1700EFCDFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57C1634C1B643F1700EFCDFB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		57C1634E1B643F1700EFCDFB /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		57C1634E1B643F1700EFCDFB /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 2; path = Document.swift; sourceTree = "<group>"; };
 		57C163501B643F1700EFCDFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57C163531B643F1700EFCDFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57C163551B643F1700EFCDFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };

@@ -65,6 +65,21 @@ class ViewController: NSViewController, NSTextDelegate
 		}
 	}
 	
+	@IBAction func exportAudioFolder(sender: NSMenuItem)
+	{
+		let savePanel: NSSavePanel = NSSavePanel ()
+		savePanel.canCreateDirectories = true
+		savePanel.message = "Export audio folder"
+		savePanel.nameFieldStringValue = self.document.voiceName
+		
+		savePanel.beginWithCompletionHandler { (result: Int) -> Void in
+			if result == NSFileHandlingPanelOKButton
+			{
+				self.document.exportAudioFolder (savePanel.URL!)
+			}
+		}
+	}
+	
 	// MARK: Overrides
 
 	override func viewWillAppear()

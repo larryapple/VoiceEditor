@@ -163,6 +163,11 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		set {voice.voiceName = newValue}
 	}
 	
+	var audioFiles: [NSData] {
+		get {return voice.audioFiles}
+		set {voice.audioFiles = newValue}
+	}
+	
 	var fileDurations: [Int] {
 		get {return voice.fileDurations}
 		set {voice.fileDurations = newValue}
@@ -998,6 +1003,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		let contents = try! fileManager.contentsOfDirectoryAtPath(path!)
 		voiceName = String (nsPath.lastPathComponent)
 		Announcer.playerVoice = voiceName.lowercaseString
+		var audioData: [NSData] = [NSData] ()
 		var durations: [Int] = [Int] (count: Document.fileNames.count, repeatedValue: -1)
 		
 		//	Examine every file in the folder
@@ -1025,6 +1031,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 						audioPlayer.prepareToPlay()
 						let ms: Int = Int (round (audioPlayer.duration * Double (1000)))
 						durations [i] = ms
+						audioData.append(data)
 						break
 					}
 				}
@@ -1047,9 +1054,46 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			}
 		}
 
-		//	Save the new durations
+		//	Save the data and durations
 		
+		audioFiles = audioData
 		fileDurations = durations
+	}
+	
+	// MARK: ExportAudioFolder
+	
+	func exportAudioFolder (url: NSURL)
+	{
+		let fileManager = NSFileManager.defaultManager()
+		do {
+			try fileManager.createDirectoryAtURL (url, withIntermediateDirectories: false, attributes: nil)
+		}
+		catch
+		{
+			try! fileManager.removeItemAtPath(url.path!)
+			try! fileManager.createDirectoryAtURL (url, withIntermediateDirectories: false, attributes: nil)
+		}
+		
+		for var i = 0; i < audioFiles.count; i++
+		{
+			let data = audioFiles [i]
+			let fileName = Document.fileNames [i]
+			let string = url.path! + "/" + fileName + ".m4a"
+			
+			fileManager.createFileAtPath(string, contents: data, attributes: nil)
+		}
+		
+		var data: NSData = NSKeyedArchiver.archivedDataWithRootObject(fileDict)
+		var path = url.path! + "/" + "_fileDict.data"
+		data.writeToFile(path, atomically: true)
+
+		data = NSKeyedArchiver.archivedDataWithRootObject(durationDict)
+		path = url.path! + "/" + "_durationDict.data"
+		data.writeToFile(path, atomically: true)
+		
+		data = NSKeyedArchiver.archivedDataWithRootObject(speakDict)
+		path = url.path! + "/" + "_speakDict.data"
+		data.writeToFile(path, atomically: true)
 	}
 	
 	// MARK: SpeakHandText

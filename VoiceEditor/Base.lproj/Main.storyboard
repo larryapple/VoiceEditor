@@ -109,6 +109,11 @@
                                                 <action selector="importAudioFiles:" target="Ady-hI-5gd" id="gg0-38-kSy"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="export audio folder…" keyEquivalent="e" id="Bvg-pF-Etg" userLabel="Import…">
+                                            <connections>
+                                                <action selector="exportAudioFolder:" target="Ady-hI-5gd" id="gnU-Oz-fnR"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="9R5-jt-nrz"/>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
@@ -170,19 +175,6 @@
                                             <connections>
                                                 <action selector="selectAll:" target="Ady-hI-5gd" id="ibR-8q-BO5"/>
                                             </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Actions" id="mFA-Kh-1eE" userLabel="Actions">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Actions" id="pwf-Ax-TYH">
-                                    <items>
-                                        <menuItem title="Numbers Cont." tag="2" id="Sa6-6F-ZIV">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Numbers" tag="1" id="9Mx-nX-dtd">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                     </items>
                                 </menu>
