@@ -1161,7 +1161,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let speech: String? = speakDict [count]
 			if speech != nil
 			{
-				Announcer.speak(speech!)
+				Announcer.speak(voiceName.lowercaseString, speech: speech!)
 			}
 		}
 		
@@ -1178,7 +1178,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let speech: String? = speakDict [key]
 			if speech != nil
 			{
-				Announcer.speak(speech!)
+				Announcer.speak(voiceName.lowercaseString, speech: speech!)
 			}
 				
 			else
@@ -1198,7 +1198,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let speech: String? = speakDict [key]
 			if speech != nil
 			{
-				Announcer.speak(speech!)
+				Announcer.speak(voiceName.lowercaseString, speech: speech!)
 			}
 				
 			else
@@ -1218,7 +1218,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let speech: String? = speakDict [key]
 			if speech != nil
 			{
-				Announcer.speak(speech!)
+				Announcer.speak(voiceName.lowercaseString, speech: speech!)
 			}
 				
 			else

@@ -28,11 +28,11 @@ class Announcer {
 	
 	private
 	static var pendingSpeeches: [String] = []
-	var isSilent: Bool = false
+	static var isSilent: Bool = false
 
-	static func speak (speech: String)
+	static func speak (voice: String, speech: String)
 	{
-//		guard !isSilent else { return }
+		guard !Announcer.isSilent else { return }
 		
 		Announcer.pendingSpeeches.append (speech)
 		
@@ -40,7 +40,7 @@ class Announcer {
 		{
 			dispatch_async (dispatch_get_global_queue (QOS_CLASS_USER_INITIATED, 0))
 				{
-					Announcer.speechSynthesizer.setVoice (Announcer._playerVoice)
+					Announcer.speechSynthesizer.setVoice ("com.apple.speech.synthesis.voice." + voice)
 					Announcer.speechSynthesizer.startSpeakingString (speech)
 			}
 		}
