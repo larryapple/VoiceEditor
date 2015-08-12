@@ -19,17 +19,20 @@ class Announcer {
 		return result
 	} ()
 	
-	static let playerVoice = "com.apple.speech.synthesis.voice.daniel"
+	static var _playerVoice: String = "com.apple.speech.synthesis.voice.samantha"
+	
+	static var playerVoice: String {
+		get {return Announcer._playerVoice}
+		set {Announcer._playerVoice = "com.apple.speech.synthesis.voice." + newValue}
+	}
 	
 	private
 	static var pendingSpeeches: [String] = []
 	var isSilent: Bool = false
 
-	func speak (speech: String)
+	static func speak (speech: String)
 	{
-		guard !isSilent else { return }
-		
-		let voice = Announcer.playerVoice
+//		guard !isSilent else { return }
 		
 		Announcer.pendingSpeeches.append (speech)
 		
@@ -37,7 +40,7 @@ class Announcer {
 		{
 			dispatch_async (dispatch_get_global_queue (QOS_CLASS_USER_INITIATED, 0))
 				{
-					Announcer.speechSynthesizer.setVoice (voice)
+					Announcer.speechSynthesizer.setVoice (Announcer._playerVoice)
 					Announcer.speechSynthesizer.startSpeakingString (speech)
 			}
 		}
@@ -61,7 +64,6 @@ class AnnouncerDelegate: NSObject, NSSpeechSynthesizerDelegate
 		
 		dispatch_async (dispatch_get_global_queue (QOS_CLASS_USER_INITIATED, 0)) {
 			
-			Announcer.speechSynthesizer.setVoice (Announcer.playerVoice)
 			Announcer.speechSynthesizer.startSpeakingString (speech)
 		}
 	}

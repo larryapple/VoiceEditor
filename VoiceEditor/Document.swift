@@ -79,9 +79,11 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	[
 		"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 		"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",
+		
 		"C_1", "C_2", "C_3", "C_4", "C_5", "C_6", "C_7", "C_8", "C_9", "C_10", "C_11",
 		"C_12", "C_13", "C_14", "C_15", "C_16", "C_17", "C_18", "C_19", "C_20", "C_21",
 		"C_22", "C_23", "C_24", "C_25", "C_26", "C_27", "C_28", "C_29", "C_30", "C_31",
+		
 		"Game_1", "Game_2", "Game_3", "Game_4", "Game_5", "Game_6", "Game_7", "Game_8",
 		"Game_9", "Game_10", "Game_11", "Game_12", "Game_13", "Game_14",
 		
@@ -143,7 +145,12 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	var	language: String = ""
 	var locale: String = ""
-	var voiceName: String = ""
+	var _voiceName: String = ""
+	var voiceName: String {
+		get {return _voiceName}
+		set {_voiceName = newValue}
+	}
+	
 	var fileDurations: [Int] = [Int] ()					// The duration in ms of each elementary file in the voice, stored in the voice folder
 	var fileDict: [Int: String] = [Int: String] ()		// Dictionary of file names for elementary phrase keys
 	var durationDict: [Int: Int] = [Int: Int] ()		// Dictionary of durations for elementary phrase keys
@@ -975,6 +982,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		let nsPath = path! as NSString
 		let contents = try! fileManager.contentsOfDirectoryAtPath(path!)
 		voiceName = String (nsPath.lastPathComponent)
+		Announcer.playerVoice = voiceName.lowercaseString
 		var durations: [Int] = [Int] (count: Document.fileNames.count, repeatedValue: -1)
 		
 		//	Examine every file in the folder
@@ -1028,32 +1036,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		fileDurations = durations
 
-		//	See if any durations have changed
-		
-//		var durationsChanged = durations.count != fileDurations.count
-//		if !durationsChanged
-//		{
-//			for var i = 0; i < durations.count; i++
-//			{
-//				if durations [i] != fileDurations [i]
-//				{
-//					durationsChanged = true
-//					break
-//				}
-//			}
-//		}
-//		
-//		voiceNameText.stringValue = voiceName
-//		
-//		//	If this is a new voice or the durations have changed, clear the dictionaries
-//		
-//		if durationsChanged || newVoiceName.compare (voiceName) != NSComparisonResult.OrderedSame
-//		{
-//			fileDict.removeAll()
-//			durationDict.removeAll()
-//			speakDict.removeAll()
-//		}
-//		
 //		//	Load the dictionaries from the folder if they exist
 //		
 //		for var i = 0; i < contents.count; i++
@@ -1076,8 +1058,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	}
 	
 	// MARK: SpeakHandText
-	
-	let announcer = Announcer ()
 	
 	func speakHandText (text: String)
 	{
@@ -1181,7 +1161,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let speech: String? = speakDict [count]
 			if speech != nil
 			{
-				announcer.speak(speech!)
+				Announcer.speak(speech!)
 			}
 		}
 		
@@ -1198,7 +1178,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let speech: String? = speakDict [key]
 			if speech != nil
 			{
-				announcer.speak(speech!)
+				Announcer.speak(speech!)
 			}
 				
 			else
@@ -1218,7 +1198,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let speech: String? = speakDict [key]
 			if speech != nil
 			{
-				announcer.speak(speech!)
+				Announcer.speak(speech!)
 			}
 				
 			else
@@ -1238,7 +1218,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let speech: String? = speakDict [key]
 			if speech != nil
 			{
-				announcer.speak(speech!)
+				Announcer.speak(speech!)
 			}
 				
 			else
@@ -1473,11 +1453,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		speakHandText(sender.stringValue)
 	}
 	
-
-	override init() {
-	    super.init()
-	}
-
 	override func windowControllerDidLoadNib(aController: NSWindowController) {
 		super.windowControllerDidLoadNib(aController)
 		// Add any code here that needs to be executed once the windowController has loaded the document's window.
