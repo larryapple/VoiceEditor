@@ -141,20 +141,47 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"la buena sota gana "
 	]
 	
-	//	MARK: Variables required to build and access the data for playing audio files and speaking text
-	
-	var	language: String = ""
-	var locale: String = ""
-	var _voiceName: String = ""
-	var voiceName: String {
-		get {return _voiceName}
-		set {_voiceName = newValue}
+	override init ()
+	{
+		voice = Voice ()
+		
+		super.init()
 	}
 	
-	var fileDurations: [Int] = [Int] ()					// The duration in ms of each elementary file in the voice, stored in the voice folder
-	var fileDict: [Int: String] = [Int: String] ()		// Dictionary of file names for elementary phrase keys
-	var durationDict: [Int: Int] = [Int: Int] ()		// Dictionary of durations for elementary phrase keys
-	var speakDict: [Int: String] = [Int: String] ()		// Dictionary of text to speech strings for elementary phrase keys
+	var voice: Voice
+
+	var	language: String {
+		get {return voice.language}
+		set {voice.language = newValue;}
+	}
+	var locale: String {
+		get {return voice.locale}
+		set {voice.locale = newValue}
+	}
+	var voiceName: String {
+		get {return voice.voiceName}
+		set {voice.voiceName = newValue}
+	}
+	
+	var fileDurations: [Int] {
+		get {return voice.fileDurations}
+		set {voice.fileDurations = newValue}
+	}
+	
+	var fileDict: [Int: String] {
+		get {return voice.fileDict}
+		set {voice.fileDict = newValue}
+	}
+	
+	var durationDict: [Int: Int] {
+		get {return voice.durationDict}
+		set {voice.durationDict = newValue}
+	}
+	
+	var speakDict: [Int: String] {
+		get {return voice.speakDict}
+		set {voice.speakDict = newValue}
+	}
 	
 	// MARK: External call to get the files for counting a hand out loud
 	
@@ -579,18 +606,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			stringArray.append(scriptText)
 		}
 		
-//		var data: NSData = NSKeyedArchiver.archivedDataWithRootObject(fileDict)
-//		var path = "/users/larryapplegate/Desktop/_fileDict.data"
-//		data.writeToFile(path, atomically: true)
-//		
-//		data = NSKeyedArchiver.archivedDataWithRootObject(durationDict)
-//		path = "/users/larryapplegate/Desktop/_durationDict.data"
-//		data.writeToFile(path, atomically: true)
-//		
-//		data = NSKeyedArchiver.archivedDataWithRootObject(speakDict)
-//		path = "/users/larryapplegate/Desktop/_speakDict.data"
-//		data.writeToFile(path, atomically: true)
-//		
 		print (String(stringArray.count) + " unique phrases")
 //		print (stringArray)
 	}
@@ -1035,26 +1050,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		//	Save the new durations
 		
 		fileDurations = durations
-
-//		//	Load the dictionaries from the folder if they exist
-//		
-//		for var i = 0; i < contents.count; i++
-//		{
-//			let fileName: String = contents [i]
-//			let filePath = path?.stringByAppendingPathComponent(fileName)
-//			let data: NSData = NSData (contentsOfURL: NSURL (fileURLWithPath: filePath!))!
-//			
-//			switch (fileName)
-//			{
-//			case "FileDict.data": fileDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Int: String]
-//				
-//			case "DurationDict.data": durationDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Int: Int]
-//				
-//			case "SpeakDict.data": speakDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Int: String]
-//				
-//			default: break
-//			}
-//		}
 	}
 	
 	// MARK: SpeakHandText
@@ -1469,27 +1464,27 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		self.addWindowController(windowController)
 	}
 
-//	override func dataOfType(typeName: String) throws -> NSData
-//	{
-//		// Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
-//		// throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
-//
-//		let data: NSData = NSKeyedArchiver.archivedDataWithRootObject(voice)
-//		return data
-//	}
-//	
-//	override func readFromData(data: NSData, ofType typeName: String) throws
-//	{
-//		if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObjectWithData (data)
-//		{
-//			voice = obj as! Voice
-//		}
-//	
-//		else
-//		{
-//			throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
-//		}
-//	}
+	override func dataOfType(typeName: String) throws -> NSData
+	{
+		// Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
+		// throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+
+		let data: NSData = NSKeyedArchiver.archivedDataWithRootObject(voice)
+		return data
+	}
+	
+	override func readFromData(data: NSData, ofType typeName: String) throws
+	{
+		if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObjectWithData (data)
+		{
+			voice = obj as! Voice
+		}
+	
+		else
+		{
+			throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+		}
+	}
 
 }
 

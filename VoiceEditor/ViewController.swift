@@ -1,4 +1,4 @@
-//
+	//
 //  Copyright © 2015 Rivergate Software. All rights reserved.
 //
 
@@ -19,13 +19,6 @@ class ViewController: NSViewController, NSTextDelegate
 	}
 	
 	// MARK: Delegate functions
-	
-	//.	Note: should make sure the notification is from the adjustmentsTextView
-	
-	func textDidChange(notification: NSNotification)
-	{
-		//document.durationAdjustments = self.adjustmentsTextView.string!
-	}
 	
 	// MARK: Actions
 	
