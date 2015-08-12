@@ -77,6 +77,11 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	static let fileNames: [String] =
 	[
+		"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
+		"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",
+		"C_1", "C_2", "C_3", "C_4", "C_5", "C_6", "C_7", "C_8", "C_9", "C_10", "C_11",
+		"C_12", "C_13", "C_14", "C_15", "C_16", "C_17", "C_18", "C_19", "C_20", "C_21",
+		"C_22", "C_23", "C_24", "C_25", "C_26", "C_27", "C_28", "C_29", "C_30", "C_31",
 		"Game_1", "Game_2", "Game_3", "Game_4", "Game_5", "Game_6", "Game_7", "Game_8",
 		"Game_9", "Game_10", "Game_11", "Game_12", "Game_13", "Game_14",
 		
@@ -532,24 +537,53 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				print ("duplicate file dictionary entries")
 			}
 			
+			//	Create the duration dictionary entry
+			
+			var i: Int = 0
+			for i = 0; i < Document.fileNames.count; i++
+			{
+				if fileName.compare (Document.fileNames [i]) == NSComparisonResult.OrderedSame
+				{
+					let ms = fileDurations [i]
+					let oldKey = durationDict [key!]
+					
+					if (oldKey == nil)
+					{
+						durationDict [key!] = ms
+					}
+					else
+					{
+						print ("duplicate duration dictionary entries")
+					}
+					
+					break
+				}
+			}
+			
+			if i >= Document.fileNames.count
+			{
+				print ("we just tried to create an invalid file name")
+				return
+			}
+			
 			//	Add the script text to the array
 			
 			let scriptText = String (str.substringFromIndex(15))
 			stringArray.append(scriptText)
 		}
 		
-		var data: NSData = NSKeyedArchiver.archivedDataWithRootObject(fileDict)
-		var path = "/users/larryapplegate/Desktop/_fileDict.data"
-		data.writeToFile(path, atomically: true)
-		
-		data = NSKeyedArchiver.archivedDataWithRootObject(durationDict)
-		path = "/users/larryapplegate/Desktop/_durationDict.data"
-		data.writeToFile(path, atomically: true)
-		
-		data = NSKeyedArchiver.archivedDataWithRootObject(speakDict)
-		path = "/users/larryapplegate/Desktop/_speakDict.data"
-		data.writeToFile(path, atomically: true)
-		
+//		var data: NSData = NSKeyedArchiver.archivedDataWithRootObject(fileDict)
+//		var path = "/users/larryapplegate/Desktop/_fileDict.data"
+//		data.writeToFile(path, atomically: true)
+//		
+//		data = NSKeyedArchiver.archivedDataWithRootObject(durationDict)
+//		path = "/users/larryapplegate/Desktop/_durationDict.data"
+//		data.writeToFile(path, atomically: true)
+//		
+//		data = NSKeyedArchiver.archivedDataWithRootObject(speakDict)
+//		path = "/users/larryapplegate/Desktop/_speakDict.data"
+//		data.writeToFile(path, atomically: true)
+//		
 		print (String(stringArray.count) + " unique phrases")
 		print (stringArray)
 	}
@@ -938,8 +972,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	{
 		let fileManager = NSFileManager.defaultManager()
 		let path = url.path
+		let nsPath = path! as NSString
 		let contents = try! fileManager.contentsOfDirectoryAtPath(path!)
-		let newVoiceName = String (path!.lastPathComponent)
+		voiceName = String (nsPath.lastPathComponent)
 		var durations: [Int] = [Int] (count: Document.fileNames.count, repeatedValue: -1)
 		
 		//	Examine every file in the folder
@@ -947,18 +982,19 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		for var i = 0; i < contents.count; i++
 		{
 			var fileName: String = contents [i]
-			let filePath = path?.stringByAppendingPathComponent(fileName)
+			let filePath = nsPath.stringByAppendingPathComponent(fileName)
 			
 			if fileName.hasSuffix(".m4a")
 			{
 				//	Save the duration in ms of each audio file
 				
-				let data: NSData = NSData (contentsOfURL: NSURL (fileURLWithPath: filePath!))!
+				let data: NSData = NSData (contentsOfURL: NSURL (fileURLWithPath: filePath))!
 				var newString = fileName as NSString
 				newString = newString.stringByDeletingPathExtension
 				fileName = String (newString)
 				
-				for var i = 0; i < Document.fileNames.count; i++
+				var i = 0
+				for i = 0; i < Document.fileNames.count; i++
 				{
 					if fileName.compare (Document.fileNames [i]) == NSComparisonResult.OrderedSame
 					{
@@ -966,7 +1002,13 @@ class Document: NSDocument, AVAudioPlayerDelegate
 						audioPlayer.prepareToPlay()
 						let ms: Int = Int (round (audioPlayer.duration * Double (1000)))
 						durations [i] = ms
+						break
 					}
+				}
+				
+				if i >= Document.fileNames.count
+				{
+					print (fileName)
 				}
 			}
 		}
@@ -981,59 +1023,56 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				return
 			}
 		}
-		
-		//	See if any durations have changed
-		
-		var durationsChanged = durations.count != fileDurations.count
-		if !durationsChanged
-		{
-			for var i = 0; i < durations.count; i++
-			{
-				if durations [i] != fileDurations [i]
-				{
-					durationsChanged = true
-					break
-				}
-			}
-		}
-		
+
 		//	Save the new durations
 		
 		fileDurations = durations
-		voiceNameText.stringValue = voiceName
+
+		//	See if any durations have changed
 		
-		//	If this is a new voice or the durations have changed, clear the dictionaries
-		
-		if durationsChanged || newVoiceName.compare (voiceName) != NSComparisonResult.OrderedSame
-		{
-			fileDict.removeAll()
-			durationDict.removeAll()
-			speakDict.removeAll()
-		}
-		
-		//	Load the dictionaries from the folder if they exist
-		
-		for var i = 0; i < contents.count; i++
-		{
-			let fileName: String = contents [i]
-			let filePath = path?.stringByAppendingPathComponent(fileName)
-			let data: NSData = NSData (contentsOfURL: NSURL (fileURLWithPath: filePath!))!
-			
-			switch (fileName)
-			{
-			case "FileDict.data": fileDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Int: String]
-				
-			case "DurationDict.data": durationDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Int: Int]
-				
-			case "SpeakDict.data": speakDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Int: String]
-				
-			default: break
-			}
-		}
-	}
-	
-	private func loadFileDictFromPath (path: String)
-	{
+//		var durationsChanged = durations.count != fileDurations.count
+//		if !durationsChanged
+//		{
+//			for var i = 0; i < durations.count; i++
+//			{
+//				if durations [i] != fileDurations [i]
+//				{
+//					durationsChanged = true
+//					break
+//				}
+//			}
+//		}
+//		
+//		voiceNameText.stringValue = voiceName
+//		
+//		//	If this is a new voice or the durations have changed, clear the dictionaries
+//		
+//		if durationsChanged || newVoiceName.compare (voiceName) != NSComparisonResult.OrderedSame
+//		{
+//			fileDict.removeAll()
+//			durationDict.removeAll()
+//			speakDict.removeAll()
+//		}
+//		
+//		//	Load the dictionaries from the folder if they exist
+//		
+//		for var i = 0; i < contents.count; i++
+//		{
+//			let fileName: String = contents [i]
+//			let filePath = path?.stringByAppendingPathComponent(fileName)
+//			let data: NSData = NSData (contentsOfURL: NSURL (fileURLWithPath: filePath!))!
+//			
+//			switch (fileName)
+//			{
+//			case "FileDict.data": fileDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Int: String]
+//				
+//			case "DurationDict.data": durationDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Int: Int]
+//				
+//			case "SpeakDict.data": speakDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Int: String]
+//				
+//			default: break
+//			}
+//		}
 	}
 	
 	// MARK: SpeakHandText

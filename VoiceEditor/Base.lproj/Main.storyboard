@@ -180,15 +180,9 @@
                                     <items>
                                         <menuItem title="Numbers Cont." tag="2" id="Sa6-6F-ZIV">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="selectTest:" target="Ady-hI-5gd" id="cFf-ij-gQy"/>
-                                            </connections>
                                         </menuItem>
                                         <menuItem title="Numbers" tag="1" id="9Mx-nX-dtd">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="selectTest:" target="Ady-hI-5gd" id="4IX-Jc-xft"/>
-                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -293,17 +287,6 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Re4-Y7-gSW" userLabel="Text Voice Name">
-                                <rect key="frame" x="101" y="393" width="218" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="jHK-bF-Uya">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <action selector="editVoiceName:" target="5gI-5U-AMq" id="DEj-eF-eJx"/>
-                                </connections>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jf9-ec-Xzs">
                                 <rect key="frame" x="138" y="438" width="45" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Locale" id="On6-vY-3iw">
@@ -329,10 +312,18 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="startTest:" target="5gI-5U-AMq" id="His-1v-PSU"/>
-                                </connections>
                             </button>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Re4-Y7-gSW" userLabel="Text Voice Name">
+                                <rect key="frame" x="101" y="393" width="218" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="jHK-bF-Uya">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="editVoiceName:" target="5gI-5U-AMq" id="DEj-eF-eJx"/>
+                                </connections>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
