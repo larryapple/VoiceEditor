@@ -592,7 +592,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 //		data.writeToFile(path, atomically: true)
 //		
 		print (String(stringArray.count) + " unique phrases")
-		print (stringArray)
+//		print (stringArray)
 	}
 	
 	func keysForScores (fifteens: Int, pairs: Int, runs: Int, anySuits: Int, rightJack: Int) -> [Int]
