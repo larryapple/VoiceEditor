@@ -304,6 +304,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="speak:" target="5gI-5U-AMq" id="1N1-By-YRF"/>
+                                </connections>
                             </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Re4-Y7-gSW" userLabel="Text Voice Name">
                                 <rect key="frame" x="101" y="393" width="218" height="22"/>
@@ -335,12 +338,20 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WFZ-fR-JZG">
+                                <rect key="frame" x="19" y="319" width="157" height="18"/>
+                                <buttonCell key="cell" type="check" title="Speak with audio files" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vdE-4k-HNg">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="handText" destination="3MF-f2-nCc" id="JaG-Fn-X0c"/>
                         <outlet property="languageTextField" destination="rW4-eQ-3HF" id="c3r-mQ-W4X"/>
                         <outlet property="localeTextField" destination="DS0-qj-iTt" id="i0a-1y-q8v"/>
-                        <outlet property="voiceNameTextField" destination="Re4-Y7-gSW" id="5aD-4h-P4i"/>
+                        <outlet property="voiceNameTextField" destination="Re4-Y7-gSW" id="b1h-Pb-4NA"/>
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

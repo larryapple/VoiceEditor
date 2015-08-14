@@ -188,7 +188,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		set {voice.speakDict = newValue}
 	}
 	
-	let useAudioFiles = true
+	var useAudioFiles = true
 	
 	var audioPlayers: [AVAudioPlayer] = [AVAudioPlayer] ()
 	
@@ -253,7 +253,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			switch (phrase2)
 			{
 			case AnnouncedPhrase.CountedNone: break
-			default: phrases.append(phrase)
+			default: phrases.append(phrase2)
 			}
 		}
 		
@@ -274,14 +274,25 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		let files = filesForAnnouncedPhrases(phrases)
 		var sounds: [NSData] = [NSData] ()
+		var durations: [Int] = [Int] ()
 		for var i = 0; i < files.files.count; i++
 		{
-			let fileName = files.files [i] + ".m4a"
-			let path = "/Users/larryapplegate/Desktop/Daniel/" + fileName
+			let fileName = files.files [i]
+			let url = NSBundle.mainBundle().URLForResource(fileName, withExtension: "m4a", subdirectory: voiceName)
+			let path = url!.path!
 			let data: NSData? = NSData (contentsOfFile: path)
 			if (data != nil)
 			{
 				sounds.append(data!)
+				for var j = 0; j < Document.fileNames.count; j++
+				{
+					let documentFileName = Document.fileNames [j]
+					if documentFileName.compare(files.files [i]) == NSComparisonResult.OrderedSame
+					{
+						durations.append(fileDurations [j])
+						break
+					}
+				}
 			}
 			
 			else
@@ -306,8 +317,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			audioPlayer.delegate = self;
 			audioPlayer.prepareToPlay()
 			audioPlayer.playAtTime(now)
-			print (Double (fileDurations [i + 62]) / 1000.0)
-			now += Double (fileDurations [i + 62]) / 1000.0
+			now += Double (durations [i]) / 1000.0
 			
 			audioPlayers.append(audioPlayer)
 		}
@@ -1310,12 +1320,40 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			}
 		}
 		
+		var suitsOk = 5
+		for var i = 0; i < 4; i++
+		{
+			if ranks [4] == ranks [i] && suitsOk == 5
+			{
+				suitsOk = 4
+			}
+			for var j = i+1; j < 4; j++
+			{
+				if ranks [j] == ranks[i]
+				{
+					suitsOk = 0
+				}
+			}
+		}
+		
+		let rawValue = (suits [0].rawValue + 1) & 3
+		if (suitsOk == 4)
+		{
+			suits [4] = Suit (rawValue: rawValue)!
+		}
+		
+		else if (suitsOk == 0)
+		{
+			suits [1] = Suit (rawValue: rawValue)!
+		}
+		
 		var cards: [Card] = [Card] ()
-		for (var i = 0; i < 5; i++)
+		for var i = 0; i < 5; i++
 		{
 			let card = Card(rank: ranks[i], suit: suits[i])
 			cards.append (card)
 		}
+		
 		
 		
 		if (useAudioFiles)

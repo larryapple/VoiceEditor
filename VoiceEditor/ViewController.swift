@@ -5,12 +5,20 @@
 import Cocoa
 
 class ViewController: NSViewController, NSTextDelegate
-{	
+{
+	var speakWithAudioFiles: Bool {
+		get {return document.useAudioFiles}
+		set {document.useAudioFiles = newValue}
+	}
+	
+	let speakWithAudioFilesAudioFiles = "speakAudio"
+	
 	@IBOutlet weak var document: Document!
 
 	@IBOutlet var languageTextField: NSTextField!
 	@IBOutlet var localeTextField: NSTextField!
 	@IBOutlet var voiceNameTextField: NSTextField!
+	@IBOutlet var handText: NSTextField!
 	
 	override func validateMenuItem(menuItem: NSMenuItem) -> Bool
 	{
@@ -45,6 +53,11 @@ class ViewController: NSViewController, NSTextDelegate
 	@IBAction func speakHand(sender: NSTextField)
 	{
 		document.speakHandText(sender.stringValue)
+	}
+	
+	@IBAction func speak(sender: AnyObject)
+	{
+		document.speakHandText(handText.stringValue)
 	}
 	
 	@IBAction func importAudioFiles(sender: NSMenuItem)
@@ -90,6 +103,7 @@ class ViewController: NSViewController, NSTextDelegate
 		languageTextField.stringValue = self.document.language
 		localeTextField.stringValue = self.document.locale
 		voiceNameTextField.stringValue = self.document.voiceName
+		speakWithAudioFiles = self.document.useAudioFiles
 	}
 }
 

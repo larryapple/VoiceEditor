@@ -15,6 +15,10 @@
 		57C163541B643F1700EFCDFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57C163521B643F1700EFCDFB /* Main.storyboard */; };
 		57C163601B65BF8F00EFCDFB /* Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C1635D1B65BF8F00EFCDFB /* Rank.swift */; };
 		57C163621B65BF8F00EFCDFB /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C1635F1B65BF8F00EFCDFB /* Suit.swift */; };
+		57C31C5E1B7DB3A00038D039 /* Daniel in Resources */ = {isa = PBXBuildFile; fileRef = 57C31C5D1B7DB3A00038D039 /* Daniel */; };
+		57C31C621B7DB5E80038D039 /* Karen in Resources */ = {isa = PBXBuildFile; fileRef = 57C31C5F1B7DB5E80038D039 /* Karen */; };
+		57C31C631B7DB5E80038D039 /* Moira in Resources */ = {isa = PBXBuildFile; fileRef = 57C31C601B7DB5E80038D039 /* Moira */; };
+		57C31C641B7DB5E80038D039 /* Samantha in Resources */ = {isa = PBXBuildFile; fileRef = 57C31C611B7DB5E80038D039 /* Samantha */; };
 		57F42A591B7BBDE6000E8EA4 /* Voice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F42A581B7BBDE6000E8EA4 /* Voice.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +33,10 @@
 		57C163551B643F1700EFCDFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57C1635D1B65BF8F00EFCDFB /* Rank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rank.swift; sourceTree = "<group>"; };
 		57C1635F1B65BF8F00EFCDFB /* Suit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suit.swift; sourceTree = "<group>"; };
+		57C31C5D1B7DB3A00038D039 /* Daniel */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Daniel; sourceTree = "<group>"; };
+		57C31C5F1B7DB5E80038D039 /* Karen */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Karen; sourceTree = "<group>"; };
+		57C31C601B7DB5E80038D039 /* Moira */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Moira; sourceTree = "<group>"; };
+		57C31C611B7DB5E80038D039 /* Samantha */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Samantha; sourceTree = "<group>"; };
 		57F42A581B7BBDE6000E8EA4 /* Voice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Voice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +77,10 @@
 				57A9663C1B7AC97C00939DE2 /* Announcer.swift */,
 				57C1635D1B65BF8F00EFCDFB /* Rank.swift */,
 				57C1635F1B65BF8F00EFCDFB /* Suit.swift */,
+				57C31C5D1B7DB3A00038D039 /* Daniel */,
+				57C31C5F1B7DB5E80038D039 /* Karen */,
+				57C31C601B7DB5E80038D039 /* Moira */,
+				57C31C611B7DB5E80038D039 /* Samantha */,
 				57C163501B643F1700EFCDFB /* Assets.xcassets */,
 				57C163521B643F1700EFCDFB /* Main.storyboard */,
 				57C163551B643F1700EFCDFB /* Info.plist */,
@@ -133,8 +145,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57C31C631B7DB5E80038D039 /* Moira in Resources */,
 				57C163511B643F1700EFCDFB /* Assets.xcassets in Resources */,
 				57C163541B643F1700EFCDFB /* Main.storyboard in Resources */,
+				57C31C641B7DB5E80038D039 /* Samantha in Resources */,
+				57C31C621B7DB5E80038D039 /* Karen in Resources */,
+				57C31C5E1B7DB3A00038D039 /* Daniel in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
