@@ -188,6 +188,132 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		set {voice.speakDict = newValue}
 	}
 	
+	let useAudioFiles = true
+	
+	var audioPlayers: [AVAudioPlayer] = [AVAudioPlayer] ()
+	
+	// MARK: Speak cards with audio files
+	
+	func SpeakAudioWithCards (cards: [Card])
+	{
+		let result = countHand(cards)
+		var phrases: [AnnouncedPhrase] = [AnnouncedPhrase] ()
+		var phrase: AnnouncedPhrase = AnnouncedPhrase.CountedNone
+		var phrase2: AnnouncedPhrase = AnnouncedPhrase.CountedNone
+		
+		if (result.count15 > 0)
+		{
+			phrase = AnnouncedPhrase.CountedFifteen(result.count15)
+			phrases.append(phrase)
+		}
+		
+		let pairs = result.countPairs
+		let runs = result.countRuns
+		if (pairs + runs > 0)
+		{
+			switch pairs
+			{
+			case 2: phrase = AnnouncedPhrase.CountedPair
+				switch runs
+				{
+				case 3: phrase2 = AnnouncedPhrase.CountedRun3
+				case 4: phrase2 = AnnouncedPhrase.CountedRun4
+				case 5: phrase2 = AnnouncedPhrase.CountedRun5
+				case 6: phrase = AnnouncedPhrase.CountedDoubleRun3
+				case 8: phrase = AnnouncedPhrase.CountedDoubleRun4
+				default: break
+				}
+			case 4:
+				switch runs
+				{
+				case 12: phrase = AnnouncedPhrase.CountedDoubleDoubleRun
+				default: phrase = AnnouncedPhrase.CountedPairs2
+				}
+			case 6:
+				switch runs
+				{
+				case 9: phrase = AnnouncedPhrase.CountedTripleRun
+				default: phrase = AnnouncedPhrase.CountedPairs3
+				}
+			case 8:
+				phrase = AnnouncedPhrase.CountedPair
+				phrase2 = AnnouncedPhrase.CountedPairs3
+			case 12: phrase = AnnouncedPhrase.CountedPairs6
+			default:
+				switch runs
+				{
+				case 3: phrase = AnnouncedPhrase.CountedRun3
+				case 4: phrase = AnnouncedPhrase.CountedRun4
+				case 5: phrase = AnnouncedPhrase.CountedRun5
+				default: break
+				}
+			}
+			
+			phrases.append(phrase)
+			switch (phrase2)
+			{
+			case AnnouncedPhrase.CountedNone: break
+			default: phrases.append(phrase)
+			}
+		}
+		
+		if (result.countSuit > 0)
+		{
+			switch (result.countSuit)
+			{
+			case 4: phrases.append(AnnouncedPhrase.CountedFlush4)
+			case 5: phrases.append(AnnouncedPhrase.CountedFlush5)
+			default: break
+			}
+		}
+		
+		if (result.countJack > 0)
+		{
+			phrases.append(AnnouncedPhrase.CountedNobs)
+		}
+		
+		let files = filesForAnnouncedPhrases(phrases)
+		var sounds: [NSData] = [NSData] ()
+		for var i = 0; i < files.files.count; i++
+		{
+			let fileName = files.files [i] + ".m4a"
+			let path = "/Users/larryapplegate/Desktop/Daniel/" + fileName
+			let data: NSData? = NSData (contentsOfFile: path)
+			if (data != nil)
+			{
+				sounds.append(data!)
+			}
+			
+			else
+			{
+				print ("file " + fileName + " not found")
+				return
+			}
+		}
+		
+		audioPlayers = [AVAudioPlayer] ()
+		var now = 0.0
+		
+		for var i = 0; i < files.files.count; i++
+		{
+			let soundData = sounds [i]
+			let audioPlayer = try! AVAudioPlayer (data: soundData, fileTypeHint: AVFileTypeAppleM4A)
+			if (i == 0)
+			{
+				now = audioPlayer.deviceCurrentTime + 0.5
+			}
+			
+			audioPlayer.delegate = self;
+			audioPlayer.prepareToPlay()
+			audioPlayer.playAtTime(now)
+			print (Double (fileDurations [i + 62]) / 1000.0)
+			now += Double (fileDurations [i + 62]) / 1000.0
+			
+			audioPlayers.append(audioPlayer)
+		}
+		
+	}
+	
 	// MARK: External call to get the files for counting a hand out loud
 	
 	func filesForAnnouncedPhrases (phrases: [AnnouncedPhrase]) -> (files: [String], starts: [Double], durations: [Double])
@@ -243,7 +369,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			case .CountedDoubleRun3: pairs = 2; runs = 6
 			case .CountedDoubleRun4: pairs = 2; runs = 8
 			case .CountedTripleRun: pairs = 6; runs = 9
-			case .CountedDoubleDoubleRun: pairs = 2; runs = 12
+			case .CountedDoubleDoubleRun: pairs = 4; runs = 12
 			case .CountedFlush4: suits = 4
 			case .CountedFlush5: suits = 5
 			case .CountedNobs: jack = 1
@@ -612,7 +738,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 		
 		print (String(stringArray.count) + " unique phrases")
-//		print (stringArray)
+		print (stringArray)
 	}
 	
 	func keysForScores (fifteens: Int, pairs: Int, runs: Int, anySuits: Int, rightJack: Int) -> [Int]
@@ -639,17 +765,17 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		if (anySuits) > 0
 		{
-			let key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: anySuits, secondScore: 0, count: count, and: and)
+			let key = keyForPartialScoreType(PartialScoreType.Flush, firstScore: anySuits, secondScore: 0, count: count, and: and)
 			keys.append(key)
-			count += pairs + runs
+			count += anySuits
 			and = true
 		}
 		
 		if (rightJack) > 0
 		{
-			let key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: rightJack, secondScore: 0, count: count, and: and)
+			let key = keyForPartialScoreType(PartialScoreType.Nobs, firstScore: rightJack, secondScore: 0, count: count, and: and)
 			keys.append(key)
-			count += pairs + runs
+			count += rightJack
 			and = true
 		}
 		
@@ -1003,7 +1129,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		let contents = try! fileManager.contentsOfDirectoryAtPath(path!)
 		voiceName = String (nsPath.lastPathComponent)
 		Announcer.playerVoice = voiceName.lowercaseString
-		var audioData: [NSData] = [NSData] ()
+		var audioData: [NSData] = [NSData] (count: Document.fileNames.count, repeatedValue: NSData ())
 		var durations: [Int] = [Int] (count: Document.fileNames.count, repeatedValue: -1)
 		
 		//	Examine every file in the folder
@@ -1031,7 +1157,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 						audioPlayer.prepareToPlay()
 						let ms: Int = Int (round (audioPlayer.duration * Double (1000)))
 						durations [i] = ms
-						audioData.append(data)
+						audioData [i] = data
 						break
 					}
 				}
@@ -1189,6 +1315,13 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		{
 			let card = Card(rank: ranks[i], suit: suits[i])
 			cards.append (card)
+		}
+		
+		
+		if (useAudioFiles)
+		{
+			SpeakAudioWithCards (cards)
+			return
 		}
 		
 		let result = countHand(cards)
