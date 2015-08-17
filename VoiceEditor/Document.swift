@@ -117,7 +117,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	// MARK: Score names
 	
-	let scorePhrases: [String] =
+	let scorePhrasesEnglish: [String] =
 	[
 		"fifteen ", "a pair is ", "2 pairs is ", "3 pairs is ", "6 pairs is ",
 		"a run is ", "a run of 4 is ", "a run of 5 is ", "a double run is ", "a double run of 4 is ",
@@ -141,10 +141,24 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"la buena sota gana "
 	]
 	
+	let scorePhrasesCzech: [String] =
+	[
+		"15 ", "pár za tolik ", "2 páry za tolik ", "3 páry za tolik ", "6 párů za tolik ",
+		"postupka za tolik ", "postupka ze 4 za tolik ", "postupka z 5 za tolik ", "dvojitá postupka za tolik ", "dvojitá postupka ze 4 za tolik ",
+		"trojitá postupka za tolik ", "dvojitě dvojitá postupka za tolik ", "4 karty stejné barvy za tolik ", "5 karet stejné barvy za tolik ",
+		"tolik za milostpána"
+	]
+	
+	var scorePhrases: [String] = [String] ()
+	var insertAnd: String = ""
+	var nobsFirst: Bool = false
+	
 	override init ()
 	{
 		voice = Voice ()
-		
+		scorePhrases = scorePhrasesCzech
+		insertAnd = "a "
+		nobsFirst = true
 		super.init()
 	}
 	
@@ -196,6 +210,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	func SpeakAudioWithCards (cards: [Card])
 	{
+		//	Count the hand and convert the results to a list of phrases
+		
 		let result = countHand(cards)
 		var phrases: [AnnouncedPhrase] = [AnnouncedPhrase] ()
 		var phrase: AnnouncedPhrase = AnnouncedPhrase.CountedNone
@@ -272,6 +288,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			phrases.append(AnnouncedPhrase.CountedNobs)
 		}
 		
+		//	Convert the enum list to a list of audio files and their durations
+		
 		let files = filesForAnnouncedPhrases(phrases)
 		var sounds: [NSData] = [NSData] ()
 		var durations: [Int] = [Int] ()
@@ -301,6 +319,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				return
 			}
 		}
+		
+		//	Play the audio files
 		
 		audioPlayers = [AVAudioPlayer] ()
 		var now = 0.0
@@ -958,7 +978,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		if and
 		{
 			key |= 1 << 11
-			string = "and "
+			string = insertAnd
 			sort = "1"
 		}
 		
@@ -1032,7 +1052,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				{
 				case 5:
 					key |= (PairRunType.PairRun3.rawValue << 5)
-					string += scorePhrases [PhraseIndex.Pair.rawValue] + String (count + firstScore) + " and "
+					string += scorePhrases [PhraseIndex.Pair.rawValue] + String (count + firstScore) + " " + insertAnd
 						+ scorePhrases [PhraseIndex.Run3.rawValue] + String (totalScore)
 					sort += "02"
 					
@@ -1082,7 +1102,14 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			}
 			
 		case PartialScoreType.Nobs:
-			string += scorePhrases [PhraseIndex.Nobs.rawValue] + String (totalScore)
+			if (nobsFirst)
+			{
+				string += String (totalScore) + " " + scorePhrases [PhraseIndex.Nobs.rawValue]
+			}
+			else
+			{
+				string += scorePhrases [PhraseIndex.Nobs.rawValue] + String (totalScore)
+			}
 			sort += "16"
 		}
 		
