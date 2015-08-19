@@ -27,7 +27,7 @@ class Voice : NSObject, NSCoding
 	var audioFiles: [NSData] = [NSData] ()				// The audio files data
 	var fileDurations: [Int] = [Int] ()					// The duration in ms of each elementary file in the voice, stored in the voice folder
 	var fileDict: [Int: String] = [Int: String] ()		// Dictionary of file names for elementary phrase keys
-	var durationDict: [Int: Int] = [Int: Int] ()		// Dictionary of durations for elementary phrase keys
+	var durationDict: [String: Int] = [String: Int] ()	// Dictionary of durations for file names
 	var speakDict: [Int: String] = [Int: String] ()		// Dictionary of text to speech strings for elementary phrase keys
 
 	let languageKey = "language"
@@ -70,7 +70,7 @@ class Voice : NSObject, NSCoding
 		audioFiles = aDecoder.decodeObjectForKey(audioFilesKey) as! [NSData]
 		fileDurations = aDecoder.decodeObjectForKey(fileDurationsKey) as! [Int]
 		fileDict = aDecoder.decodeObjectForKey(fileDictKey) as! [Int: String]
-		durationDict = aDecoder.decodeObjectForKey(durationDictKey) as! [Int: Int]
+		durationDict = aDecoder.decodeObjectForKey(durationDictKey) as! [String: Int]
 		speakDict = aDecoder.decodeObjectForKey(speakDictKey) as! [Int: String]
 	}
 

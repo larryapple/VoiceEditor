@@ -80,15 +80,16 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 		"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",
 		
-		"A_1", "A_2", "A_3", "A_4", "A_5", "A_6", "A_7", "A_8", "A_9", "A_10", "A_11", "A_12", "A_13", "A_14",
+		"Game_1", "Game_2", "Game_3", "Game_4", "Game_5", "Game_6", "Game_7",
+		"Game_8", "Game_9", "Game_10", "Game_11", "Game_12", "Game_13", "Game_14",
 		
-		"B_1", "B_2", "B_3", "B_4", "B_5", "B_6", "B_7", "B_8", "B_9", "B_10",
-		"B_11", "B_12", "B_13", "B_14", "B_15", "B_16", "B_17", "B_18", "B_19",
+		"Play_1", "Play_2", "Play_3", "Play_4", "Play_5", "Play_6", "Play_7", "Play_8", "Play_9", "Play_10",
+		"Play_11", "Play_12", "Play_13", "Play_14", "Play_15", "Play_16", "Play_17", "Play_18", "Play_19",
 		
 		"For_3", "For_4", "For_5", "For_6", "For_7", "For_8", "For_9", "For_10",
 		"For_11", "For_12", "For_13", "For_14", "For_15", "For_16",
 		
-		"Fif_1", "Fif_2", "Fif_3", "Fif_4", "Fif_5", "Fif_6", "Fif_7", "Fif_8",
+		"Fifteen_1", "Fifteen_2", "Fifteen_3", "Fifteen_4", "Fifteen_5", "Fifteen_6", "Fifteen_7", "Fifteen_8",
 		
 		"Pair_1", "Pair_2", "Pair_3", "Pair_4", "Pair_5", "Pair_6", "Pair_7", "Pair_8",
 		"Pair_9", "Pair_10", "Pair_11", "Pair_12", "Pair_13", "Pair_14", "Pair_15", "Pair_16",
@@ -188,7 +189,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		set {voice.fileDict = newValue}
 	}
 	
-	var durationDict: [Int: Int] {
+	var durationDict: [String: Int] {
 		get {return voice.durationDict}
 		set {voice.durationDict = newValue}
 	}
@@ -416,7 +417,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				continue
 			}
 			
-			let durationMs = durationDict [key]
+			let durationMs = durationDict [fileName!]
 			if durationMs == nil
 			{
 				print ("missing duration")
@@ -438,8 +439,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	{
 		var fileNames: [String] = [String] (), starts: [Double] = [Double] (), durations: [Double] = [Double] ()
 		
-		let key = keyForFileName (fileName)
-		let durationMs = durationDict [key]
+		let durationMs = durationDict [fileName]
 		if durationMs == nil
 		{
 			print ("missing duration")
@@ -454,21 +454,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		return (fileNames, starts, durations)
 	}
-	
-	func keyForFileName (name: String) -> Int
-	{
-		for var i = 0; i < Document.fileNames.count; i++
-		{
-			let fileName = Document.fileNames[i]
-			if fileName == name
-			{
-				return i + (1 << 30)
-			}
-		}
-		
-		return 0
-	}
-	
 	
 	func filesForPlayPhrase (phrase: AnnouncedPhrase, play: Int) -> (files: [String], starts: [Double], durations: [Double])
 	{
@@ -488,7 +473,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		default: break
 		}
 		
-		var durationMs = durationDict [keyForFileName(fileName)]
+		var durationMs = durationDict [fileName]
 		if durationMs == nil
 		{
 			if durationMs == nil
@@ -505,7 +490,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		durations.append(duration)
 		
 		fileName = String (points)
-		durationMs = durationDict [keyForFileName(fileName)]
+		durationMs = durationDict [fileName]
 		if durationMs == nil
 		{
 			if durationMs == nil
@@ -529,7 +514,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	{
 		scoreString = [String] ()
 		speakDict = [Int: String] ()
-		durationDict = [Int: Int] ()
+		durationDict = [String: Int] ()
 		
 		var avails: [Int] = [Int] (count: 13, repeatedValue: 4)
 		var ranks: [Rank] = [Rank] (count: 5, repeatedValue: Rank.Ace)
@@ -676,7 +661,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			
 			if (prefixNumber == 0)
 			{
-				prefix = "Fif_"
+				prefix = "Fifteen_"
 			}
 				
 			else if (prefixNumber < 7)
@@ -726,35 +711,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			else
 			{
 				print ("duplicate file dictionary entries")
-			}
-			
-			//	Create the duration dictionary entry
-			
-			var i: Int = 0
-			for i = 0; i < Document.fileNames.count; i++
-			{
-				if fileName.compare (Document.fileNames [i]) == NSComparisonResult.OrderedSame
-				{
-					let ms = fileDurations [i]
-					let oldKey = durationDict [key!]
-					
-					if (oldKey == nil)
-					{
-						durationDict [key!] = ms
-					}
-					else
-					{
-						print ("duplicate duration dictionary entries")
-					}
-					
-					break
-				}
-			}
-			
-			if i >= Document.fileNames.count
-			{
-				print ("we just tried to create an invalid file name")
-				return
 			}
 			
 			//	Add the script text to the array
@@ -1181,7 +1137,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		scoreString.append (str)
 	}
 	
-	// MARK: Generate durations
+	// MARK: Generate durations dictionary
 	
 	func generateDurations (url: NSURL)
 	{
@@ -1218,8 +1174,21 @@ class Document: NSDocument, AVAudioPlayerDelegate
 						let audioPlayer = try! AVAudioPlayer (data: data, fileTypeHint: AVFileTypeAppleM4A)
 						audioPlayer.prepareToPlay()
 						let ms: Int = Int (round (audioPlayer.duration * Double (1000)))
-						durations [i] = ms
+					
 						audioData [i] = data
+						durations [i] = ms
+					
+						let oldKey = durationDict [fileName]
+						if (oldKey == nil)
+						{
+							durationDict [fileName] = ms
+						}
+							
+						else
+						{
+							print ("duplicate duration dictionary entries")
+						}
+
 						break
 					}
 				}
