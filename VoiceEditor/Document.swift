@@ -80,39 +80,32 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 		"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",
 		
-		"C_1", "C_2", "C_3", "C_4", "C_5", "C_6", "C_7", "C_8", "C_9", "C_10", "C_11",
-		"C_12", "C_13", "C_14", "C_15", "C_16", "C_17", "C_18", "C_19", "C_20", "C_21",
-		"C_22", "C_23", "C_24", "C_25", "C_26", "C_27", "C_28", "C_29", "C_30", "C_31",
+		"A_1", "A_2", "A_3", "A_4", "A_5", "A_6", "A_7", "A_8", "A_9", "A_10", "A_11", "A_12", "A_13", "A_14",
 		
-		"Game_1", "Game_2", "Game_3", "Game_4", "Game_5", "Game_6", "Game_7", "Game_8",
-		"Game_9", "Game_10", "Game_11", "Game_12", "Game_13", "Game_14",
-		
-		"Play_1", "Play_2", "Play_3", "Play_4", "Play_5", "Play_6", "Play_7", "Play_8",
-		"Play_9", "Play_10", "Play_11", "Play_12", "Play_13",
+		"B_1", "B_2", "B_3", "B_4", "B_5", "B_6", "B_7", "B_8", "B_9", "B_10",
+		"B_11", "B_12", "B_13", "B_14", "B_15", "B_16", "B_17", "B_18", "B_19",
 		
 		"Fif_1", "Fif_2", "Fif_3", "Fif_4", "Fif_5", "Fif_6", "Fif_7", "Fif_8",
-		
-		"First_1", "First_2", "First_3", "First_4", "First_5", "First_6", "First_7", "First_8",
-		"First_9", "First_10", "First_11", "First_12", "First_13", "First_14", "First_15", "First_16",
 		
 		"Pair_1", "Pair_2", "Pair_3", "Pair_4", "Pair_5", "Pair_6", "Pair_7", "Pair_8",
 		"Pair_9", "Pair_10", "Pair_11", "Pair_12", "Pair_13", "Pair_14", "Pair_15", "Pair_16",
 		"Pair_17", "Pair_18", "Pair_19", "Pair_20", "Pair_21", "Pair_22", "Pair_23", "Pair_24",
-		"Pair_25", "Pair_26", "Pair_27", "Pair_28", "Pair_29", "Pair_30", "Pair_31", "Pair_32",
-		"Pair_33",
+		"Pair_25", "Pair_26", "Pair_27", "Pair_28", "Pair_29",
 		
 		"Run_1", "Run_2", "Run_3", "Run_4", "Run_5", "Run_6", "Run_7", "Run_8",
-		"Run_9", "Run_10", "Run_11", "Run_12", "Run_13", "Run_14", "Run_15", "Run_16",
-		"Run_17", "Run_18", "Run_19", "Run_20", "Run_21", "Run_22",
+		"Run_9", "Run_10", "Run_11", "Run_12", "Run_13", "Run_14", "Run_15",
 		
-		"Suit_1", "Suit_2", "Suit_3", "Suit_4", "Suit_5", "Suit_6", "Suit_7", "Suit_8",
-		"Suit_9", "Suit_10", "Suit_11", "Suit_12", "Suit_13", "Suit_14", "Suit_15", "Suit_16",
-		"Suit_17", "Suit_18", "Suit_19", "Suit_20", "Suit_21", "Suit_22", "Suit_23", "Suit_24",
-		"Suit_25",
+		"Double_1", "Double_2", "Double_3", "Double_4", "Double_5", "Double_6", "Double_7", "Double_8", "Double_9",
+		"Double_10", "Double_11", "Double_12", "Double_13", "Double_14", "Double_15", "Double_16", "Double_17",
 		
-		"Jack_1", "Jack_2", "Jack_3", "Jack_4", "Jack_5", "Jack_6", "Jack_7", "Jack_8",
-		"Jack_9", "Jack_10", "Jack_11", "Jack_12", "Jack_13", "Jack_14", "Jack_15", "Jack_16",
-		"Jack_17", "Jack_18", "Jack_19"
+		"Flush_1", "Flush_2", "Flush_3", "Flush_4", "Flush_5", "Flush_6", "Flush_7", "Flush_8",
+		"Flush_9", "Flush_10", "Flush_11", "Flush_12", "Flush_13", "Flush_14", "Flush_15", "Flush_16",
+		"Flush_17", "Flush_18", "Flush_19", "Flush_20", "Flush_21", "Flush_22", "Flush_23", "Flush_24",
+		"Flush_25",
+		
+		"Nobs_1", "Nobs_2", "Nobs_3", "Nobs_4", "Nobs_5", "Nobs_6", "Nobs_7", "Nobs_8",
+		"Nobs_9", "Nobs_10", "Nobs_11", "Nobs_12", "Nobs_13", "Nobs_14", "Nobs_15", "Nobs_16",
+		"Nobs_17", "Nobs_18", "Nobs_19"
 	]
 	
 	// MARK: Score names
@@ -121,8 +114,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	[
 		"fifteen ", "a pair is ", "2 pairs is ", "3 pairs is ", "6 pairs is ",
 		"a run is ", "a run of 4 is ", "a run of 5 is ", "a double run is ", "a double run of 4 is ",
-		"a triple run is ", "a double double run is ", "4 of the same suit is ", "5 of the same suit is ",
-		"the right jack is "
+		"a triple run is ", "a double double run is ", "a flush is ", "a 5 flush is ",
+		"nobs is "
 	]
 	
 	let scorePhrasesGerman: [String] =
@@ -656,9 +649,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		scoreString = scoreString.sort { $0.compare($1) == .OrderedAscending }
 		
-		print (String(scoreString.count) + " unique counts")
-		print (scoreString)
-		return
+//		print (String(scoreString.count) + " unique counts")
+//		print (scoreString)
+//		return
 		
 		//	Create a dictionary of the file names, and an array of the strings with the file name prefix
 		
@@ -670,7 +663,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		for item in scoreString
 		{
 			let str: NSString = item
-			let first3 = str.substringToIndex (3)
+			let first3 = str.substringToIndex (2)
 			var prefix = String (first3)
 			let prefixNumber: Int? = Int (prefix)
 			if (prefixNumber == nil)
@@ -683,32 +676,32 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				prefix = "Fif_"
 			}
 				
-			else if (prefixNumber < 101)
-			{
-				prefix = "First_"
-			}
-				
-			else if (prefixNumber < 107)
+			else if (prefixNumber < 7)
 			{
 				prefix = "Pair_"
 			}
 				
-			else if (prefixNumber < 114)
+			else if (prefixNumber < 10)
 			{
 				prefix = "Run_"
 			}
 				
-			else if (prefixNumber < 116)
+			else if (prefixNumber < 14)
 			{
-				prefix = "Suit_"
+				prefix = "Double"
+			}
+				
+			else if (prefixNumber < 16)
+			{
+				prefix = "Flush_"
 			}
 				
 			else
 			{
-				prefix = "Jack_"
+				prefix = "Nobs_"
 			}
 			
-			var str2: NSString = str.substringFromIndex (6)
+			var str2: NSString = str.substringFromIndex (5)
 			str2 = str2.substringToIndex (8)
 			
 			if (prefix != prevPrefix)
@@ -787,10 +780,35 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		if (pairs + runs) > 0
 		{
-			let key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: pairs, secondScore: runs, count: count, and: and)
-			keys.append(key)
-			count += pairs + runs
-			and = true
+			if (pairs == 8 && runs == 0)
+			{
+				var key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: 2, secondScore: 0, count: count, and: and)
+				keys.append(key)
+				count += 2
+				and = true
+				key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: 6, secondScore: 0, count: count, and: and)
+				keys.append(key)
+				count += 6
+			}
+				
+			else if (pairs == 2 && runs == 3)
+			{
+				var key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: 2, secondScore: 0, count: count, and: and)
+				keys.append(key)
+				count += 2
+				and = true
+				key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: 0, secondScore: 3, count: count, and: and)
+				keys.append(key)
+				count += 3
+			}
+			
+			else
+			{
+				let key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: pairs, secondScore: runs, count: count, and: and)
+				keys.append(key)
+				count += pairs + runs
+				and = true
+			}
 		}
 		
 		if (anySuits) > 0
@@ -831,9 +849,32 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		if pairs + runs > 0
 		{
-			savePartialScoreType (PartialScoreType.PairRun, firstScore: pairs, secondScore: runs, count: count, and: and)
-			count += pairs + runs
-			and = true
+			if (pairs == 8)
+			{
+				savePartialScoreType (PartialScoreType.PairRun, firstScore: 2, secondScore: 0, count: count, and: and)
+				count += 2
+				and = true
+				
+				savePartialScoreType (PartialScoreType.PairRun, firstScore: 6, secondScore: 0, count: count, and: and)
+				count += 6
+			}
+			
+			else if (pairs == 2 && runs == 3)
+			{
+				savePartialScoreType (PartialScoreType.PairRun, firstScore: 2, secondScore: 0, count: count, and: and)
+				count += 2
+				and = true
+				
+				savePartialScoreType (PartialScoreType.PairRun, firstScore: 0, secondScore: 3, count: count, and: and)
+				count += 6
+			}
+			
+			else
+			{
+				savePartialScoreType (PartialScoreType.PairRun, firstScore: pairs, secondScore: runs, count: count, and: and)
+				count += pairs + runs
+				and = true
+			}
 		}
 		
 		if (anySuits > 0)
@@ -861,8 +902,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	enum PairRunType: Int
 	{
-		case Pair, Run3, Pairs2, Run4, PairRun3, Run5, Pairs3, Pairs2and6,
-		DoubleRun3, DoubleRun4, Pairs6, TripleRun, DoubleDoubleRun
+		case Pair, Pairs2, Pairs3, Pairs6, Run3, Run4, Run5,
+		DoubleRun3, DoubleRun4, TripleRun, DoubleDoubleRun
 	}
 	
 	enum PhraseIndex: Int
@@ -895,9 +936,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				case 6:
 					key |= PairRunType.Pairs3.rawValue << 5
 					
-				case 8:
-					key |= (PairRunType.Pairs2and6.rawValue << 5)
-					
 				case 12:
 					key |= PairRunType.Pairs6.rawValue << 5
 					
@@ -926,9 +964,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			{
 				switch (firstScore + secondScore)
 				{
-				case 5:
-					key |= (PairRunType.PairRun3.rawValue << 5)
-					
 				case 8:
 					key |= (PairRunType.DoubleRun3.rawValue << 5)
 					
@@ -973,20 +1008,19 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		let totalScore = count + firstScore + secondScore
 		var key: Int = (type.rawValue << 9) + totalScore
 		var string = ""
-		var sort = "0"
+		var sort = ""
 		
 		if and
 		{
 			key |= 1 << 11
 			string = insertAnd
-			sort = "1"
 		}
 		
 		switch (type)
 		{
 		case PartialScoreType.Fifteen:
 			string = scorePhrases [PhraseIndex.Fifteen.rawValue] + String (totalScore)
-			sort += "00"
+			sort = "00"
 			
 		case PartialScoreType.PairRun:
 			if secondScore == 0
@@ -996,28 +1030,22 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				case 2:
 					key |= PairRunType.Pair.rawValue << 5
 					string += scorePhrases [PhraseIndex.Pair.rawValue] + String (totalScore)
-					sort += "01"
+					sort = "02"
 					
 				case 4:
 					key |= PairRunType.Pairs2.rawValue << 5
 					string += scorePhrases [PhraseIndex.Pairs2.rawValue] + String (totalScore)
-					sort += "03"
+					sort = "03"
 					
 				case 6:
 					key |= PairRunType.Pairs3.rawValue << 5
 					string += scorePhrases [PhraseIndex.Pairs3.rawValue] + String (totalScore)
-					sort += "04"
-					
-				case 8:
-					key |= (PairRunType.Pairs2and6.rawValue << 5)
-					string += scorePhrases [PhraseIndex.Pair.rawValue] + String (count + 2) + " and "
-						+ scorePhrases [PhraseIndex.Pairs3.rawValue] + String (totalScore)
-					sort += "05"
-					
+					sort = "04"
+				
 				case 12:
 					key |= PairRunType.Pairs6.rawValue << 5
 					string += scorePhrases [PhraseIndex.Pairs6.rawValue] + String (totalScore)
-					sort += "06"
+					sort = "06"
 					
 				default: print ("bad first score")
 				}
@@ -1030,17 +1058,17 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				case 3:
 					key |= PairRunType.Run3.rawValue << 5
 					string += scorePhrases [PhraseIndex.Run3.rawValue] + String (totalScore)
-					sort += "07"
+					sort = "07"
 					
 				case 4:
 					key |= PairRunType.Run4.rawValue << 5
 					string += scorePhrases [PhraseIndex.Run4.rawValue] + String (totalScore)
-					sort += "08"
+					sort = "08"
 					
 				case 5:
 					key |= (PairRunType.Run5.rawValue << 5)
 					string += scorePhrases [PhraseIndex.Run5.rawValue] + String (totalScore)
-					sort += "09"
+					sort = "09"
 					
 				default: print ("bad second score")
 				}
@@ -1050,31 +1078,25 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			{
 				switch (firstScore + secondScore)
 				{
-				case 5:
-					key |= (PairRunType.PairRun3.rawValue << 5)
-					string += scorePhrases [PhraseIndex.Pair.rawValue] + String (count + firstScore) + " " + insertAnd
-						+ scorePhrases [PhraseIndex.Run3.rawValue] + String (totalScore)
-					sort += "02"
-					
 				case 8:
 					key |= (PairRunType.DoubleRun3.rawValue << 5)
 					string += scorePhrases [PhraseIndex.DoubleRun3.rawValue] + String (totalScore)
-					sort += "10"
+					sort = "10"
 					
 				case 10:
 					key |= (PairRunType.DoubleRun4.rawValue << 5)
 					string += scorePhrases [PhraseIndex.DoubleRun4.rawValue] + String (totalScore)
-					sort += "11"
+					sort = "11"
 					
 				case 15:
 					key |= (PairRunType.TripleRun.rawValue << 5)
 					string += scorePhrases [PhraseIndex.TripleRun.rawValue] + String (totalScore)
-					sort += "12"
+					sort = "12"
 					
 				case 16:
 					key |= (PairRunType.DoubleDoubleRun.rawValue << 5)
 					string += scorePhrases [PhraseIndex.DoubleDoubleRun.rawValue] + String (totalScore)
-					sort += "13"
+					sort = "13"
 					
 				default: print ("bad first & second score")
 				}
@@ -1086,14 +1108,14 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			{
 				key |= 4 << 5
 				string += scorePhrases [PhraseIndex.Flush4.rawValue] + String (totalScore)
-				sort += "14"
+				sort = "14"
 			}
 				
 			else if firstScore == 5
 			{
 				key |= 5 << 5
 				string += scorePhrases [PhraseIndex.Flush5.rawValue] + String (totalScore)
-				sort += "15"
+				sort = "15"
 			}
 				
 			else
@@ -1110,7 +1132,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			{
 				string += scorePhrases [PhraseIndex.Nobs.rawValue] + String (totalScore)
 			}
-			sort += "16"
+			sort = "16"
 		}
 		
 		//	Finish off the sort key and the speak string
