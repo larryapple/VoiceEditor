@@ -85,6 +85,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"B_1", "B_2", "B_3", "B_4", "B_5", "B_6", "B_7", "B_8", "B_9", "B_10",
 		"B_11", "B_12", "B_13", "B_14", "B_15", "B_16", "B_17", "B_18", "B_19",
 		
+		"For_3", "For_4", "For_5", "For_6", "For_7", "For_8", "For_9", "For_10",
+		"For_11", "For_12", "For_13", "For_14", "For_15", "For_16",
+		
 		"Fif_1", "Fif_2", "Fif_3", "Fif_4", "Fif_5", "Fif_6", "Fif_7", "Fif_8",
 		
 		"Pair_1", "Pair_2", "Pair_3", "Pair_4", "Pair_5", "Pair_6", "Pair_7", "Pair_8",
@@ -105,7 +108,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		"Nobs_1", "Nobs_2", "Nobs_3", "Nobs_4", "Nobs_5", "Nobs_6", "Nobs_7", "Nobs_8",
 		"Nobs_9", "Nobs_10", "Nobs_11", "Nobs_12", "Nobs_13", "Nobs_14", "Nobs_15", "Nobs_16",
-		"Nobs_17", "Nobs_18", "Nobs_19"
+		"Nobs_17", "Nobs_18", "Nobs_19", "Nobs_20"
 	]
 	
 	// MARK: Score names
@@ -688,7 +691,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				
 			else if (prefixNumber < 14)
 			{
-				prefix = "Double"
+				prefix = "Double_"
 			}
 				
 			else if (prefixNumber < 16)
@@ -756,7 +759,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			
 			//	Add the script text to the array
 			
-			let scriptText = String (str.substringFromIndex(15))
+			let scriptText = String (str.substringFromIndex(14))
 			stringArray.append(scriptText)
 		}
 		
