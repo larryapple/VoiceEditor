@@ -156,9 +156,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	override init ()
 	{
 		voice = Voice ()
-		scorePhrases = scorePhrasesCzech
-		insertAnd = "a "
-		nobsFirst = true
+		scorePhrases = scorePhrasesEnglish
+		insertAnd = "and "
+		nobsFirst = false
 		super.init()
 	}
 	
@@ -656,9 +656,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		scoreString = scoreString.sort { $0.compare($1) == .OrderedAscending }
 		
-		//		print (String(scoreString.count) + " unique counts")
-		//		print (scoreString)
-		//		return
+		print (String(scoreString.count) + " unique counts")
+		print (scoreString)
+		return
 		
 		//	Create a dictionary of the file names, and an array of the strings with the file name prefix
 		
