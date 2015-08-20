@@ -105,7 +105,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"Flush_1", "Flush_2", "Flush_3", "Flush_4", "Flush_5", "Flush_6", "Flush_7", "Flush_8",
 		"Flush_9", "Flush_10", "Flush_11", "Flush_12", "Flush_13", "Flush_14", "Flush_15", "Flush_16",
 		"Flush_17", "Flush_18", "Flush_19", "Flush_20", "Flush_21", "Flush_22", "Flush_23", "Flush_24",
-		"Flush_25", "Flush_26", "Flush_27",
+		"Flush_25",
 		
 		"Nobs_1", "Nobs_2", "Nobs_3", "Nobs_4", "Nobs_5", "Nobs_6", "Nobs_7", "Nobs_8",
 		"Nobs_9", "Nobs_10", "Nobs_11", "Nobs_12", "Nobs_13", "Nobs_14", "Nobs_15", "Nobs_16",
@@ -1147,6 +1147,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		Announcer.playerVoice = voiceName.lowercaseString
 		var audioData: [NSData] = [NSData] (count: Document.fileNames.count, repeatedValue: NSData ())
 		var durations: [Int] = [Int] (count: Document.fileNames.count, repeatedValue: -1)
+		durationDict = [String: Int] ()
 		
 		//	Examine every file in the folder
 		
