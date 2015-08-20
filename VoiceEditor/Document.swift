@@ -87,7 +87,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"Play_11", "Play_12", "Play_13", "Play_14", "Play_15", "Play_16", "Play_17", "Play_18", "Play_19",
 		
 		"For_3", "For_4", "For_5", "For_6", "For_7", "For_8", "For_9", "For_10",
-		"For_11", "For_12", "For_13", "For_14", "For_15", "For_16",
+		"For_11", "For_13", "For_14", "For_15", "For_16",
 		
 		"Fifteen_1", "Fifteen_2", "Fifteen_3", "Fifteen_4", "Fifteen_5", "Fifteen_6", "Fifteen_7", "Fifteen_8",
 		
@@ -105,7 +105,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"Flush_1", "Flush_2", "Flush_3", "Flush_4", "Flush_5", "Flush_6", "Flush_7", "Flush_8",
 		"Flush_9", "Flush_10", "Flush_11", "Flush_12", "Flush_13", "Flush_14", "Flush_15", "Flush_16",
 		"Flush_17", "Flush_18", "Flush_19", "Flush_20", "Flush_21", "Flush_22", "Flush_23", "Flush_24",
-		"Flush_25",
+		"Flush_25", "Flush_26", "Flush_27",
 		
 		"Nobs_1", "Nobs_2", "Nobs_3", "Nobs_4", "Nobs_5", "Nobs_6", "Nobs_7", "Nobs_8",
 		"Nobs_9", "Nobs_10", "Nobs_11", "Nobs_12", "Nobs_13", "Nobs_14", "Nobs_15", "Nobs_16",
