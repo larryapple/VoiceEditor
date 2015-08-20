@@ -514,7 +514,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	{
 		scoreString = [String] ()
 		speakDict = [Int: String] ()
-		durationDict = [String: Int] ()
 		
 		var avails: [Int] = [Int] (count: 13, repeatedValue: 4)
 		var ranks: [Rank] = [Rank] (count: 5, repeatedValue: Rank.Ace)
@@ -646,7 +645,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		var stringArray: [String] = [String] ()
 		var index = 1, prevPrefix = ""
 		fileDict.removeAll()
-		durationDict.removeAll() // the duration dictionary will be empty until the file dictionary is reloaded
 		
 		for item in scoreString
 		{
