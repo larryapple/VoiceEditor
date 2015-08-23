@@ -29,6 +29,16 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"For_3", "For_4", "For_5", "For_6", "For_7", "For_8", "For_9", "For_10",
 		"For_11", "For_13", "For_14", "For_15", "For_16",
 		
+		"First_1", "First_2", "First_3", "First_4", "First_5", "First_6", "First_7", "First_8", "First_9", "First_10",
+		"First_11", "First_12", "First_13", "First_14", "First_15", "First_16", "First_17", "First_18", "First_19", "First_20",
+		"First_21", "First_22", "First_23", "First_24", "First_25", "First_26", "First_27", "First_28", "First_29", "First_30",
+		"First_31", "First_32", "First_33", "First_34", "First_35", "First_36", "First_37", "First_38", "First_39", "First_40",
+		"First_41", "First_42", "First_43", "First_44", "First_45", "First_46",
+		
+		"Fif10_1", "Fif10_2", "Fif10_3", "Fif10_4", "Fif10_5", "Fif10_6", "Fif10_7", "Fif10_8", "Fif10_9", "Fif10_10",
+		"Fif10_11", "Fif10_12", "Fif10_13", "Fif10_14", "Fif10_15", "Fif10_16", "Fif10_17", "Fif10_18", "Fif10_19", "Fif10_20",
+		"Fif10_21",
+		
 		"Fif2_1", "Fif2_2", "Fif2_3", "Fif2_4", "Fif2_5", "Fif2_6", "Fif2_7", "Fif2_8", "Fif2_9", "Fif2_10",
 		"Fif2_11", "Fif2_12", "Fif2_13", "Fif2_14", "Fif2_15", "Fif2_16", "Fif2_17", "Fif2_18", "Fif2_19", "Fif2_20",
 		"Fif2_21", "Fif2_22", "Fif2_23", "Fif2_24", "Fif2_25", "Fif2_26", "Fif2_27", "Fif2_28", "Fif2_29", "Fif2_30",
@@ -48,16 +58,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"Fif8_1", "Fif8_2", "Fif8_3", "Fif8_4", "Fif8_5", "Fif8_6", "Fif8_7", "Fif8_8", "Fif8_9", "Fif8_10",
 		"Fif8_11", "Fif8_12", "Fif8_13", "Fif8_14", "Fif8_15", "Fif8_16", "Fif8_17", "Fif8_18", "Fif8_19", "Fif8_20",
 		"Fif8_21", "Fif8_22", "Fif8_23", "Fif8_24", "Fif8_25", "Fif8_26", "Fif8_27", "Fif8_28", "Fif8_29", "Fif8_30",
-
-		"Fif10_1", "Fif10_2", "Fif10_3", "Fif10_4", "Fif10_5", "Fif10_6", "Fif10_7", "Fif10_8", "Fif10_9", "Fif10_10",
-		"Fif10_11", "Fif10_12", "Fif10_13", "Fif10_14", "Fif10_15", "Fif10_16", "Fif10_17", "Fif10_18", "Fif10_19", "Fif10_20",
-		"Fif10_21",
-
-		"First_1", "First_2", "First_3", "First_4", "First_5", "First_6", "First_7", "First_8", "First_9", "First_10",
-		"First_11", "First_12", "First_13", "First_14", "First_15", "First_16", "First_17", "First_18", "First_19", "First_20",
-		"First_21", "First_22", "First_23", "First_24", "First_25", "First_26", "First_27", "First_28", "First_29", "First_30",
-		"First_31", "First_32", "First_33", "First_34", "First_35", "First_36", "First_37", "First_38", "First_39", "First_40",
-		"First_41", "First_42", "First_43", "First_44", "First_45", "First_46"
 		]
 	
 	// MARK: Score names
@@ -132,9 +132,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		set {voice.fileDurations = newValue}
 	}
 	
-	var fileDict: [Int: String] {
-		get {return voice.fileDict}
-		set {voice.fileDict = newValue}
+	var fileNameDict: [Int: String] {
+		get {return voice.fileNameDict}
+		set {voice.fileNameDict = newValue}
 	}
 	
 	var durationDict: [String: Int] {
@@ -144,13 +144,11 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	// MARK: Generate all possible scores
 	
-	var countDict: [String: Int] = [String: Int] ()
-	var freqDict: [String: Int] = [String: Int] ()
+	var countDict: [String: CountScore] = [String: CountScore] ()
 	
 	func generateScores ()
 	{
-		countDict = [String: Int] ()
-		freqDict = [String: Int] ()
+		countDict = [String: CountScore] ()
 		var avails: [Int] = [Int] (count: 13, repeatedValue: 4)
 		var ranks: [Rank] = [Rank] (count: 5, repeatedValue: Rank.Ace)
 		var suits: [Suit] = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Diamonds, Suit.Hearts]
@@ -284,6 +282,38 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		array = array.sort { $0.compare($1) == .OrderedAscending }
 		print (array)
+		
+		// Create the file name dictionary
+		
+		var j: Int
+		for j = 0; j < Document.fileNames.count; j++ {
+			if Document.fileNames [j].compare ("First_1") == NSComparisonResult.OrderedSame {
+				break
+			}
+		}
+		
+		if (j >= Document.fileNames.count) {
+			print ("File names missing")
+			return
+		}
+		
+		fileNameDict.removeAll()
+		for var i = 0; i < array.count; i++ {
+			let phrase = array [i]
+			if let countScore: CountScore = countDict [phrase] {
+				if let oldKey = fileNameDict [countScore.rawValue] {
+					print (oldKey + " is duplicated")
+				}
+				
+				else {
+					fileNameDict [countScore.rawValue] = Document.fileNames [j++]
+				}
+			}
+			else {
+				print ("CountScore invalid")
+			}
+		}
+		
 	}
 	
 	func evaluateHand (cards: [Card], anySuits: Int, rightJack: Int)
@@ -349,7 +379,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		{
 			count += fifteens
 			str = scorePhrases [0] + String (count) + " "
-			key = (fifteens << 8)
+			key = ((fifteens / 2) << 8)
 		}
 		
 		if pairs == 2
@@ -534,8 +564,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			key += (1 << 12)
 		}
 		
-		if count == 0
-		{
+		let countScore: CountScore = CountScore (rawValue: key)
+		
+		if count == 0 {
 			return
 		}
 		
@@ -546,28 +577,18 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		str += "\n"
 		
-		let oldKey = countDict [str]
+		let oldKey: CountScore? = countDict [str]
 		if (oldKey != nil)
 		{
-			if (oldKey != key)
-			{
+			if (oldKey! == countScore) {
+			}
+			else {
 				print ("EEk")
 			}
 		}
 			
-		else
-		{
-			countDict [str] = key
-		}
-		
-		let freq: Int? = freqDict [str]
-		if (freq == nil)
-		{
-			freqDict [str] = 1
-		}
-		else
-		{
-			freqDict [str] = freq! + 1
+		else {
+			countDict [str] = countScore
 		}
 		
 	}
@@ -677,7 +698,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			fileManager.createFileAtPath(string, contents: data, attributes: nil)
 		}
 		
-		var data: NSData = NSKeyedArchiver.archivedDataWithRootObject(fileDict)
+		var data: NSData = NSKeyedArchiver.archivedDataWithRootObject(fileNameDict)
 		var path = url.path! + "/" + "_fileDict.data"
 		data.writeToFile(path, atomically: true)
 

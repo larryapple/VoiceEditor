@@ -2,6 +2,25 @@
 //  Copyright © 2015 Rivergate Software, Inc. All rights reserved.
 //
 
+enum CommonError: ErrorType, CustomStringConvertible
+{
+	case Code (Int)
+	
+	init (_ code: Int)
+	{
+		self = CommonError.Code (code)
+	}
+	
+	var description: String
+		{
+			switch self
+			{
+			case .Code (let code):
+				return "Common Error \(code)"
+			}
+	}
+}
+
 public struct CountScore: RawRepresentable
 {
 	public var rawValue: Int {
