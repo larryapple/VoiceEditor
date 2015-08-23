@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		57A9663D1B7AC97C00939DE2 /* Announcer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A9663C1B7AC97C00939DE2 /* Announcer.swift */; };
+		57B21C5A1B8A756E00A9DC00 /* CountScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B21C591B8A756E00A9DC00 /* CountScore.swift */; };
 		57C1634B1B643F1700EFCDFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C1634A1B643F1700EFCDFB /* AppDelegate.swift */; };
 		57C1634D1B643F1700EFCDFB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C1634C1B643F1700EFCDFB /* ViewController.swift */; };
 		57C1634F1B643F1700EFCDFB /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C1634E1B643F1700EFCDFB /* Document.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		57A9663C1B7AC97C00939DE2 /* Announcer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Announcer.swift; sourceTree = "<group>"; };
+		57B21C591B8A756E00A9DC00 /* CountScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountScore.swift; sourceTree = "<group>"; };
 		57C163471B643F1700EFCDFB /* VoiceEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57C1634A1B643F1700EFCDFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57C1634C1B643F1700EFCDFB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				57C1634A1B643F1700EFCDFB /* AppDelegate.swift */,
 				57C1634C1B643F1700EFCDFB /* ViewController.swift */,
 				57C1634E1B643F1700EFCDFB /* Document.swift */,
+				57B21C591B8A756E00A9DC00 /* CountScore.swift */,
 				57F42A581B7BBDE6000E8EA4 /* Voice.swift */,
 				57A9663C1B7AC97C00939DE2 /* Announcer.swift */,
 				57C1635D1B65BF8F00EFCDFB /* Rank.swift */,
@@ -161,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57B21C5A1B8A756E00A9DC00 /* CountScore.swift in Sources */,
 				57C1634D1B643F1700EFCDFB /* ViewController.swift in Sources */,
 				57C1634B1B643F1700EFCDFB /* AppDelegate.swift in Sources */,
 				57F42A591B7BBDE6000E8EA4 /* Voice.swift in Sources */,

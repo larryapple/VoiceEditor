@@ -5,66 +5,6 @@
 import Cocoa
 import AVFoundation
 
-enum AnnouncedPhrase
-{
-	case CribYour						// "it's your crib"
-	case CribMy							// "it's my crib"
-	
-	case Play (Int)						// <card total>
-	
-	case Go								// "go"
-	case Pass							// "pass"
-	
-	case PlayFifteen					// "15 for 2"
-	case PlayThirtyOne					// "31 for 2"
-	
-	case PlayedGo1						// "[and] 1 for go"
-	case PlayedLast1					// "and 1 for last card"
-	
-	case PlayedPair (Int)				// "and a pair for <points>"
-	case PlayedPairs3 (Int)				// "and a pair royal for <points>"
-	case PlayedPairs6 (Int)				// "and a double pair royal for <points>"
-	case PlayedRun (Int)				// "and a run for <points>"
-	case PlayedGo (Int)					// "and go for <points>"
-	case Played31 (Int)					// "and 31 for <points>"
-	case PlayedLast	(Int)				// "and last card for <points>"
-	
-	case CountHandYour					// "in your hand"
-	case CountHandMy					// "in my hand"
-	case CountCribYour					// "in your crib"
-	case CountCribMy					// "in my crib"
-	
-	case CountedHeels					// "2 for his heels”
-	
-	case CountedFifteen (Int)			// "fifteen <points>"
-	
-	case CountedPair					// "[and] a pair is <points>"
-	case CountedPairs2					// "[and] 2 pairs is <points>"
-	case CountedPairs3					// "[and] 3 pairs is <points>"
-	case CountedPairs6					// "[and] 6 pairs is <points>"
-	case CountedRun3					// "[and] a run is <points>"
-	case CountedRun4					// "[and] a run of 4 is <points>"
-	case CountedRun5					// "[and] a run of 5 is <points>"
-	case CountedDoubleRun3				// "[and] a double run is <points>"
-	case CountedDoubleRun4				// "[and] a double run of 4 is <points>"
-	case CountedTripleRun				// "[and] a triple run is <points>"
-	case CountedDoubleDoubleRun			// "[and] a double double run is <points>"
-	case CountedFlush4					// "[and] 4 of the same suit is <points>"
-	case CountedFlush5					// "[and] 5 of the same suit is <points>”
-	
-	case CountedNobs					// "[and] the right jack is <points>"
-	
-	case CountedNone					// "no score"
-	
-	case YouWon							// "you won this game"
-	case YouWonSkunky					// "you won this game and they were skunked"
-	case YouWonDoubleSkunky				// "you won this game and they were double skunked"
-	
-	case YouLost						// "you lost this game"
-	case YouLostSkunky					// "you lost this game and you were skunked"
-	case YouLostDoubleSkunky			// "you lost this game and you were double skunked"
-}
-
 struct Card
 {
 	var rank: Rank
@@ -89,28 +29,36 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"For_3", "For_4", "For_5", "For_6", "For_7", "For_8", "For_9", "For_10",
 		"For_11", "For_13", "For_14", "For_15", "For_16",
 		
-		"Fifteen_1", "Fifteen_2", "Fifteen_3", "Fifteen_4", "Fifteen_5", "Fifteen_6", "Fifteen_7", "Fifteen_8",
+		"Fif2_1", "Fif2_2", "Fif2_3", "Fif2_4", "Fif2_5", "Fif2_6", "Fif2_7", "Fif2_8", "Fif2_9", "Fif2_10",
+		"Fif2_11", "Fif2_12", "Fif2_13", "Fif2_14", "Fif2_15", "Fif2_16", "Fif2_17", "Fif2_18", "Fif2_19", "Fif2_20",
+		"Fif2_21", "Fif2_22", "Fif2_23", "Fif2_24", "Fif2_25", "Fif2_26", "Fif2_27", "Fif2_28", "Fif2_29", "Fif2_30",
+		"Fif2_31", "Fif2_32", "Fif2_33", "Fif2_34", "Fif2_35", "Fif2_36", "Fif2_37", "Fif2_38", "Fif2_39", "Fif2_40",
+		"Fif2_41", "Fif2_42", "Fif2_43",
 		
-		"Pair_1", "Pair_2", "Pair_3", "Pair_4", "Pair_5", "Pair_6", "Pair_7", "Pair_8",
-		"Pair_9", "Pair_10", "Pair_11", "Pair_12", "Pair_13", "Pair_14", "Pair_15", "Pair_16",
-		"Pair_17", "Pair_18", "Pair_19", "Pair_20", "Pair_21", "Pair_22", "Pair_23", "Pair_24",
-		"Pair_25", "Pair_26", "Pair_27", "Pair_28", "Pair_29",
+		"Fif4_1", "Fif4_2", "Fif4_3", "Fif4_4", "Fif4_5", "Fif4_6", "Fif4_7", "Fif4_8", "Fif4_9", "Fif4_10",
+		"Fif4_11", "Fif4_12", "Fif4_13", "Fif4_14", "Fif4_15", "Fif4_16", "Fif4_17", "Fif4_18", "Fif4_19", "Fif4_20",
+		"Fif4_21", "Fif4_22", "Fif4_23", "Fif4_24", "Fif4_25", "Fif4_26", "Fif4_27", "Fif4_28", "Fif4_29", "Fif4_30",
+		"Fif4_31", "Fif4_32", "Fif4_33", "Fif4_34", "Fif4_35", "Fif4_36", "Fif4_37",
 		
-		"Run_1", "Run_2", "Run_3", "Run_4", "Run_5", "Run_6", "Run_7", "Run_8",
-		"Run_9", "Run_10", "Run_11", "Run_12", "Run_13", "Run_14", "Run_15",
-		
-		"Double_1", "Double_2", "Double_3", "Double_4", "Double_5", "Double_6", "Double_7", "Double_8", "Double_9",
-		"Double_10", "Double_11", "Double_12", "Double_13", "Double_14", "Double_15", "Double_16", "Double_17",
-		
-		"Flush_1", "Flush_2", "Flush_3", "Flush_4", "Flush_5", "Flush_6", "Flush_7", "Flush_8",
-		"Flush_9", "Flush_10", "Flush_11", "Flush_12", "Flush_13", "Flush_14", "Flush_15", "Flush_16",
-		"Flush_17", "Flush_18", "Flush_19", "Flush_20", "Flush_21", "Flush_22", "Flush_23", "Flush_24",
-		"Flush_25",
-		
-		"Nobs_1", "Nobs_2", "Nobs_3", "Nobs_4", "Nobs_5", "Nobs_6", "Nobs_7", "Nobs_8",
-		"Nobs_9", "Nobs_10", "Nobs_11", "Nobs_12", "Nobs_13", "Nobs_14", "Nobs_15", "Nobs_16",
-		"Nobs_17", "Nobs_18", "Nobs_19", "Nobs_20"
-	]
+		"Fif6_1", "Fif6_2", "Fif6_3", "Fif6_4", "Fif6_5", "Fif6_6", "Fif6_7", "Fif6_8", "Fif6_9", "Fif6_10",
+		"Fif6_11", "Fif6_12", "Fif6_13", "Fif6_14", "Fif6_15", "Fif6_16", "Fif6_17", "Fif6_18", "Fif6_19", "Fif6_20",
+		"Fif6_21", "Fif6_22", "Fif6_23", "Fif6_24", "Fif6_25", "Fif6_26", "Fif6_27", "Fif6_28", "Fif6_29", "Fif6_30",
+		"Fif6_31", "Fif6_32", "Fif6_33", "Fif6_33", "Fif6_34",
+
+		"Fif8_1", "Fif8_2", "Fif8_3", "Fif8_4", "Fif8_5", "Fif8_6", "Fif8_7", "Fif8_8", "Fif8_9", "Fif8_10",
+		"Fif8_11", "Fif8_12", "Fif8_13", "Fif8_14", "Fif8_15", "Fif8_16", "Fif8_17", "Fif8_18", "Fif8_19", "Fif8_20",
+		"Fif8_21", "Fif8_22", "Fif8_23", "Fif8_24", "Fif8_25", "Fif8_26", "Fif8_27", "Fif8_28", "Fif8_29", "Fif8_30",
+
+		"Fif10_1", "Fif10_2", "Fif10_3", "Fif10_4", "Fif10_5", "Fif10_6", "Fif10_7", "Fif10_8", "Fif10_9", "Fif10_10",
+		"Fif10_11", "Fif10_12", "Fif10_13", "Fif10_14", "Fif10_15", "Fif10_16", "Fif10_17", "Fif10_18", "Fif10_19", "Fif10_20",
+		"Fif10_21",
+
+		"First_1", "First_2", "First_3", "First_4", "First_5", "First_6", "First_7", "First_8", "First_9", "First_10",
+		"First_11", "First_12", "First_13", "First_14", "First_15", "First_16", "First_17", "First_18", "First_19", "First_20",
+		"First_21", "First_22", "First_23", "First_24", "First_25", "First_26", "First_27", "First_28", "First_29", "First_30",
+		"First_31", "First_32", "First_33", "First_34", "First_35", "First_36", "First_37", "First_38", "First_39", "First_40",
+		"First_41", "First_42", "First_43", "First_44", "First_45", "First_46"
+		]
 	
 	// MARK: Score names
 	
@@ -119,7 +67,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"fifteen ", "a pair is ", "2 pairs is ", "3 pairs is ", "6 pairs is ",
 		"a run is ", "a run of 4 is ", "a run of 5 is ", "a double run is ", "a double run of 4 is ",
 		"a triple run is ", "a double double run is ", "a flush is ", "a 5 flush is ",
-		"nobs is "
+		"his nobs is "
 	]
 	
 	let scorePhrasesGerman: [String] =
@@ -194,327 +142,15 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		set {voice.durationDict = newValue}
 	}
 	
-	var speakDict: [Int: String] {
-		get {return voice.speakDict}
-		set {voice.speakDict = newValue}
-	}
-	
-	var useAudioFiles = true
-	
-	var audioPlayers: [AVAudioPlayer] = [AVAudioPlayer] ()
-	
-	// MARK: Speak cards with audio files
-	
-	func SpeakAudioWithCards (cards: [Card])
-	{
-		//	Count the hand and convert the results to a list of phrases
-		
-		let result = countHand(cards)
-		var phrases: [AnnouncedPhrase] = [AnnouncedPhrase] ()
-		var phrase: AnnouncedPhrase = AnnouncedPhrase.CountedNone
-		var phrase2: AnnouncedPhrase = AnnouncedPhrase.CountedNone
-		
-		if (result.count15 > 0)
-		{
-			phrase = AnnouncedPhrase.CountedFifteen(result.count15)
-			phrases.append(phrase)
-		}
-		
-		let pairs = result.countPairs
-		let runs = result.countRuns
-		if (pairs + runs > 0)
-		{
-			switch pairs
-			{
-			case 2: phrase = AnnouncedPhrase.CountedPair
-				switch runs
-				{
-				case 3: phrase2 = AnnouncedPhrase.CountedRun3
-				case 4: phrase2 = AnnouncedPhrase.CountedRun4
-				case 5: phrase2 = AnnouncedPhrase.CountedRun5
-				case 6: phrase = AnnouncedPhrase.CountedDoubleRun3
-				case 8: phrase = AnnouncedPhrase.CountedDoubleRun4
-				default: break
-				}
-			case 4:
-				switch runs
-				{
-				case 12: phrase = AnnouncedPhrase.CountedDoubleDoubleRun
-				default: phrase = AnnouncedPhrase.CountedPairs2
-				}
-			case 6:
-				switch runs
-				{
-				case 9: phrase = AnnouncedPhrase.CountedTripleRun
-				default: phrase = AnnouncedPhrase.CountedPairs3
-				}
-			case 8:
-				phrase = AnnouncedPhrase.CountedPair
-				phrase2 = AnnouncedPhrase.CountedPairs3
-			case 12: phrase = AnnouncedPhrase.CountedPairs6
-			default:
-				switch runs
-				{
-				case 3: phrase = AnnouncedPhrase.CountedRun3
-				case 4: phrase = AnnouncedPhrase.CountedRun4
-				case 5: phrase = AnnouncedPhrase.CountedRun5
-				default: break
-				}
-			}
-			
-			phrases.append(phrase)
-			switch (phrase2)
-			{
-			case AnnouncedPhrase.CountedNone: break
-			default: phrases.append(phrase2)
-			}
-		}
-		
-		if (result.countSuit > 0)
-		{
-			switch (result.countSuit)
-			{
-			case 4: phrases.append(AnnouncedPhrase.CountedFlush4)
-			case 5: phrases.append(AnnouncedPhrase.CountedFlush5)
-			default: break
-			}
-		}
-		
-		if (result.countJack > 0)
-		{
-			phrases.append(AnnouncedPhrase.CountedNobs)
-		}
-		
-		//	Convert the enum list to a list of audio files and their durations
-		
-		let files = filesForAnnouncedPhrases(phrases)
-		var sounds: [NSData] = [NSData] ()
-		var durations: [Int] = [Int] ()
-		for var i = 0; i < files.files.count; i++
-		{
-			let fileName = files.files [i]
-			let url = NSBundle.mainBundle().URLForResource(fileName, withExtension: "m4a", subdirectory: voiceName)
-			let path = url!.path!
-			let data: NSData? = NSData (contentsOfFile: path)
-			if (data != nil)
-			{
-				sounds.append(data!)
-				for var j = 0; j < Document.fileNames.count; j++
-				{
-					let documentFileName = Document.fileNames [j]
-					if documentFileName.compare(files.files [i]) == NSComparisonResult.OrderedSame
-					{
-						durations.append(fileDurations [j])
-						break
-					}
-				}
-			}
-			
-			else
-			{
-				print ("file " + fileName + " not found")
-				return
-			}
-		}
-		
-		//	Play the audio files
-		
-		audioPlayers = [AVAudioPlayer] ()
-		var now = 0.0
-		
-		for var i = 0; i < files.files.count; i++
-		{
-			let soundData = sounds [i]
-			let audioPlayer = try! AVAudioPlayer (data: soundData, fileTypeHint: AVFileTypeAppleM4A)
-			if (i == 0)
-			{
-				now = audioPlayer.deviceCurrentTime + 0.5
-			}
-			
-			audioPlayer.delegate = self;
-			audioPlayer.prepareToPlay()
-			audioPlayer.playAtTime(now)
-			now += Double (durations [i]) / 1000.0
-			
-			audioPlayers.append(audioPlayer)
-		}
-		
-	}
-	
-	// MARK: External call to get the files for counting a hand out loud
-	
-	func filesForAnnouncedPhrases (phrases: [AnnouncedPhrase]) -> (files: [String], starts: [Double], durations: [Double])
-	{
-		var fileNames: [String] = [String] ()
-		var starts: [Double] = [Double] ()
-		var durations: [Double] = [Double] ()
-		var fifteens: Int = 0, pairs: Int = 0, runs: Int = 0, suits: Int = 0, jack: Int = 0
-		
-		for phrase in phrases
-		{
-			switch (phrase)
-			{
-			case .CribYour: return filesForFileName("Game_1")
-			case .CribMy: return filesForFileName("Game_2")
-			case .CountHandYour: return filesForFileName("Game_3")
-			case .CountHandMy: return filesForFileName("Game_4")
-			case .CountCribYour: return filesForFileName("Game_5")
-			case .CountCribMy: return filesForFileName("Game_6")
-			case .CountedHeels: return filesForFileName("Game_7")
-			case .YouWon: return filesForFileName("Game_8")
-			case .YouWonSkunky: return filesForFileName("Game_9")
-			case .YouWonDoubleSkunky: return filesForFileName("Game_10")
-			case .YouLost: return filesForFileName("Game_11")
-			case .YouLostSkunky: return filesForFileName("Game_12")
-			case .YouLostDoubleSkunky: return filesForFileName("Game_13")
-				
-			case .Play(let points): return filesForFileName(String (points))
-				
-			case .Go: return filesForFileName("Play_1")
-			case .Pass: return filesForFileName("Play_2")
-			case .PlayFifteen: return filesForFileName("Play_3")
-			case .PlayThirtyOne: return filesForFileName("Play_4")
-			case .PlayedGo1: return filesForFileName("Play_5")
-			case .PlayedLast1: return filesForFileName("Play_6")
-				
-			case .PlayedPair(let points): return filesForPlayPhrase(phrase, play: points)
-			case .PlayedPairs3(let points): return filesForPlayPhrase(phrase, play: points)
-			case .PlayedPairs6(let points): return filesForPlayPhrase(phrase, play: points)
-			case .PlayedRun(let points): return filesForPlayPhrase(phrase, play: points)
-			case .PlayedGo(let points): return filesForPlayPhrase(phrase, play: points)
-			case .Played31(let points): return filesForPlayPhrase(phrase, play: points)
-			case .PlayedLast(let points): return filesForPlayPhrase(phrase, play: points)
-				
-			case .CountedFifteen(let points): fifteens = points
-			case .CountedPair: pairs += 2
-			case .CountedPairs2: pairs = 4
-			case .CountedPairs3: pairs += 6
-			case .CountedPairs6: pairs = 12
-			case .CountedRun3: runs = 3
-			case .CountedRun4: runs = 4
-			case .CountedRun5: runs = 5
-			case .CountedDoubleRun3: pairs = 2; runs = 6
-			case .CountedDoubleRun4: pairs = 2; runs = 8
-			case .CountedTripleRun: pairs = 6; runs = 9
-			case .CountedDoubleDoubleRun: pairs = 4; runs = 12
-			case .CountedFlush4: suits = 4
-			case .CountedFlush5: suits = 5
-			case .CountedNobs: jack = 1
-			case .CountedNone: return filesForFileName("Game_14")
-			}
-		}
-		
-		let keys: [Int] = keysForScores(fifteens, pairs: pairs, runs: runs, anySuits: suits, rightJack: jack)
-		var start = 0.0
-		
-		for var i = 0; i < keys.count; i++
-		{
-			let key = keys [i]
-			let fileName: String? = fileDict [key]
-			if fileName == nil
-			{
-				print ("missing file name")
-				continue
-			}
-			
-			let durationMs = durationDict [fileName!]
-			if durationMs == nil
-			{
-				print ("missing duration")
-				continue
-			}
-			
-			fileNames.append(fileName!)
-			starts.append(start)
-			let duration = Double (durationMs!) / 1000.0
-			start += duration
-			durations.append(duration)
-		}
-		
-		
-		return (fileNames, starts, durations)
-	}
-	
-	func filesForFileName (fileName: String) -> (files: [String], starts: [Double], durations: [Double])
-	{
-		var fileNames: [String] = [String] (), starts: [Double] = [Double] (), durations: [Double] = [Double] ()
-		
-		let durationMs = durationDict [fileName]
-		if durationMs == nil
-		{
-			print ("missing duration")
-		}
-			
-		else
-		{
-			fileNames.append (fileName);
-			starts.append(0.0)
-			durations.append(Double (durationMs!) / 1000.0)
-		}
-		
-		return (fileNames, starts, durations)
-	}
-	
-	func filesForPlayPhrase (phrase: AnnouncedPhrase, play: Int) -> (files: [String], starts: [Double], durations: [Double])
-	{
-		var fileNames: [String] = [String] (), starts: [Double] = [Double] (), durations: [Double] = [Double] ()
-		var fileName: String = ""
-		var points = 0
-		
-		switch (phrase)
-		{
-		case .PlayedPair(let pts):	 fileName = "Play_7"; points = pts
-		case .PlayedPairs3(let pts): fileName = "Play_8"; points = pts
-		case .PlayedPairs6(let pts): fileName = "Play_9"; points = pts
-		case .PlayedRun(let pts):	 fileName = "Play_10"; points = pts
-		case .PlayedGo(let pts):	 fileName = "Play_11"; points = pts
-		case .Played31(let pts):	 fileName = "Play_12"; points = pts
-		case .PlayedLast(let pts):	 fileName = "Play_13"; points = pts
-		default: break
-		}
-		
-		var durationMs = durationDict [fileName]
-		if durationMs == nil
-		{
-			if durationMs == nil
-			{
-				print ("missing duration")
-				return (fileNames, starts, durations)
-			}
-		}
-		
-		fileNames.append (fileName);
-		starts.append(0.0)
-		
-		let duration = Double (durationMs!) / 1000.0
-		durations.append(duration)
-		
-		fileName = String (points)
-		durationMs = durationDict [fileName]
-		if durationMs == nil
-		{
-			if durationMs == nil
-			{
-				print ("missing duration")
-				return (fileNames, starts, durations)
-			}
-		}
-		
-		fileNames.append (fileName);
-		starts.append(duration)
-		durations.append(Double (durationMs!) / 1000.0)
-		return (fileNames, starts, durations)
-	}
-	
 	// MARK: Generate all possible scores
 	
-	var scoreString: [String] = [String] ()
+	var countDict: [String: Int] = [String: Int] ()
+	var freqDict: [String: Int] = [String: Int] ()
 	
 	func generateScores ()
 	{
-		scoreString = [String] ()
-		speakDict = [Int: String] ()
-		
+		countDict = [String: Int] ()
+		freqDict = [String: Int] ()
 		var avails: [Int] = [Int] (count: 13, repeatedValue: 4)
 		var ranks: [Rank] = [Rank] (count: 5, repeatedValue: Rank.Ace)
 		var suits: [Suit] = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Diamonds, Suit.Hearts]
@@ -569,7 +205,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 								}
 							}
 							
-							//	If there are any pairs in the hand, we are done with suits
+							//	If there are any pairs in the hand, we are done
 							
 							var anyPairs = false
 							for (var a = 1; a < 4; a++)
@@ -586,9 +222,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 							if !anyPairs
 							{
 								var anySuits = 5;
-								
-								//	If the starter matches any card, it cannot be the same suit when we count the 4-card flush
-								
 								for (var a = 0; a < 4; a++)
 								{
 									if ranks[a] == ranks[4]
@@ -632,508 +265,313 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			index--
 		}
 		
-		//	Sort the strings by the generated sort key
+		print (String (countDict.count) + " unique counts")
 		
-		scoreString = scoreString.sort { $0.compare($1) == .OrderedAscending }
-		
-//		print (String(scoreString.count) + " unique counts")
-//		print (scoreString)
-//		return
-		
-		//	Create a dictionary of the file names, and an array of the strings with the file name prefix
-		
-		var stringArray: [String] = [String] ()
-		var index = 1, prevPrefix = ""
-		fileDict.removeAll()
-		
-		for item in scoreString
+		var array: [String] = [String] ()
+		for (key, value) in countDict
 		{
-			let str: NSString = item
-			let first3 = str.substringToIndex (2)
-			var prefix = String (first3)
-			let prefixNumber: Int? = Int (prefix)
-			if (prefixNumber == nil)
+			var str1 = String (value)
+			var str: NSString = NSString (string: str1)
+			while (str.length < 8)
 			{
-				continue
+				str1 = "0" + str1
+				str = NSString (string:str1)
 			}
 			
-			if (prefixNumber == 0)
-			{
-				prefix = "Fifteen_"
-			}
-				
-			else if (prefixNumber < 7)
-			{
-				prefix = "Pair_"
-			}
-				
-			else if (prefixNumber < 10)
-			{
-				prefix = "Run_"
-			}
-				
-			else if (prefixNumber < 14)
-			{
-				prefix = "Double_"
-			}
-				
-			else if (prefixNumber < 16)
-			{
-				prefix = "Flush_"
-			}
-				
-			else
-			{
-				prefix = "Nobs_"
-			}
-			
-			var str2: NSString = str.substringFromIndex (5)
-			str2 = str2.substringToIndex (8)
-			
-			if (prefix != prevPrefix)
-			{
-				prevPrefix = prefix
-				index = 1
-			}
-			
-			//	Create the file dictionary entry
-			
-			let key = Int (String (str2))
-			let fileName: String = prefix + String (index++)
-			let oldKey = fileDict [key!]
-			
-			if (oldKey == nil)
-			{
-				fileDict [key!] = fileName
-			}
-			else
-			{
-				print ("duplicate file dictionary entries")
-			}
-			
-			//	Add the script text to the array
-			
-			let scriptText = String (str.substringFromIndex(14))
-			stringArray.append(scriptText)
+			str1 += " " + key
+			array.append(key)
 		}
 		
-		print (String(stringArray.count) + " unique phrases")
-		print (stringArray)
-	}
-	
-	func keysForScores (fifteens: Int, pairs: Int, runs: Int, anySuits: Int, rightJack: Int) -> [Int]
-	{
-		var keys: [Int] = [Int] ()
-		var count = 0
-		var and: Bool = false
-		
-		if (fifteens > 0)
-		{
-			let key = keyForPartialScoreType(PartialScoreType.Fifteen, firstScore: fifteens, secondScore: 0, count: 0, and: false)
-			keys.append(key)
-			count += fifteens
-			and = true
-		}
-		
-		if (pairs + runs) > 0
-		{
-			if (pairs == 8 && runs == 0)
-			{
-				var key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: 2, secondScore: 0, count: count, and: and)
-				keys.append(key)
-				count += 2
-				and = true
-				key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: 6, secondScore: 0, count: count, and: and)
-				keys.append(key)
-				count += 6
-			}
-				
-			else if (pairs == 2 && runs == 3)
-			{
-				var key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: 2, secondScore: 0, count: count, and: and)
-				keys.append(key)
-				count += 2
-				and = true
-				key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: 0, secondScore: 3, count: count, and: and)
-				keys.append(key)
-				count += 3
-			}
-			
-			else
-			{
-				let key = keyForPartialScoreType(PartialScoreType.PairRun, firstScore: pairs, secondScore: runs, count: count, and: and)
-				keys.append(key)
-				count += pairs + runs
-				and = true
-			}
-		}
-		
-		if (anySuits) > 0
-		{
-			let key = keyForPartialScoreType(PartialScoreType.Flush, firstScore: anySuits, secondScore: 0, count: count, and: and)
-			keys.append(key)
-			count += anySuits
-			and = true
-		}
-		
-		if (rightJack) > 0
-		{
-			let key = keyForPartialScoreType(PartialScoreType.Nobs, firstScore: rightJack, secondScore: 0, count: count, and: and)
-			keys.append(key)
-			count += rightJack
-			and = true
-		}
-		
-		return keys
+		array = array.sort { $0.compare($1) == .OrderedAscending }
+		print (array)
 	}
 	
 	func evaluateHand (cards: [Card], anySuits: Int, rightJack: Int)
 	{
 		let result = countHand(cards)
 		let fifteens = result.count15
-		let pairs = result.countPairs
-		let runs = result.countRuns
+		var pairs = result.countPairs
+		var runs = result.countRuns
+		var doubleRun = 0
+		var doubleRunOf4 = 0
+		var tripleRun = 0
+		var doubleDoubleRun = 0
 		
-		var count = 0
-		var and: Bool = false
+		if pairs > 0 && runs > 0
+		{
+			if pairs == 2 && runs == 6
+			{
+				doubleRun = 8
+				pairs = 0
+				runs = 0
+			}
+				
+			else if pairs == 2 && runs == 8
+			{
+				doubleRunOf4 = 10
+				pairs = 0
+				runs = 0
+			}
+				
+			else if pairs == 6 && runs == 9
+			{
+				tripleRun = 15
+				pairs = 0
+				runs = 0
+			}
+				
+			else if pairs == 4 && runs == 12
+			{
+				doubleDoubleRun = 16
+				pairs = 0
+				runs = 0
+			}
+			
+		}
+		
+		evaluateCount(fifteens, pairs: pairs, runs: runs,
+			doubleRun: doubleRun, doubleRunOf4: doubleRunOf4, tripleRun: tripleRun,
+			doubleDoubleRun: doubleDoubleRun, anySuits: anySuits, rightJack: rightJack)
+	}
+	
+	enum PairsRuns: Int {
+		case None = 0, Pairs1, Pairs2, Pairs3, Pairs4, Pairs6, Pairs1Run3, Run3, Run3Double, Run3DoubleDouble, Run3Triple, Run4, Run4Double, Run5
+	}
+	
+	func evaluateCount (fifteens: Int, pairs: Int, runs: Int, doubleRun: Int, doubleRunOf4: Int,
+		tripleRun: Int, doubleDoubleRun: Int, anySuits: Int, rightJack: Int)
+	{
+		var str: String = ""
+		var count: Int = 0
+		var key = 0
 		
 		if fifteens > 0
 		{
-			savePartialScoreType (PartialScoreType.Fifteen, firstScore: fifteens, secondScore: 0, count: 0, and: false)
 			count += fifteens
-			and = true
+			str = scorePhrases [0] + String (count) + " "
+			key = (fifteens << 8)
 		}
 		
-		if pairs + runs > 0
+		if pairs == 2
 		{
-			if (pairs == 8)
-			{
-				savePartialScoreType (PartialScoreType.PairRun, firstScore: 2, secondScore: 0, count: count, and: and)
-				count += 2
-				and = true
-				
-				savePartialScoreType (PartialScoreType.PairRun, firstScore: 6, secondScore: 0, count: count, and: and)
-				count += 6
-			}
+			count += pairs
+			if (count > pairs)
+			{ str += "and " }
+			str += scorePhrases [1] + String (count) + " "
 			
-			else if (pairs == 2 && runs == 3)
+			if runs == 0
 			{
-				savePartialScoreType (PartialScoreType.PairRun, firstScore: 2, secondScore: 0, count: count, and: and)
-				count += 2
-				and = true
-				
-				savePartialScoreType (PartialScoreType.PairRun, firstScore: 0, secondScore: 3, count: count, and: and)
-				count += 6
+				key += PairsRuns.Pairs1.rawValue
 			}
-			
-			else
+			else if runs == 3
 			{
-				savePartialScoreType (PartialScoreType.PairRun, firstScore: pairs, secondScore: runs, count: count, and: and)
-				count += pairs + runs
-				and = true
-			}
-		}
-		
-		if (anySuits > 0)
-		{
-			savePartialScoreType (PartialScoreType.Flush, firstScore: anySuits, secondScore: 0, count: count, and: and)
-			count += anySuits
-			and = true
-		}
-		
-		if (rightJack > 0)
-		{
-			savePartialScoreType (PartialScoreType.Nobs, firstScore: rightJack, secondScore: 0, count: count, and: and)
-			count += rightJack
-			and = true
-		}
-	}
-	
-	enum PartialScoreType: Int
-	{
-		case Fifteen
-		case PairRun
-		case Flush
-		case Nobs
-	}
-	
-	enum PairRunType: Int
-	{
-		case Pair, Pairs2, Pairs3, Pairs6, Run3, Run4, Run5,
-		DoubleRun3, DoubleRun4, TripleRun, DoubleDoubleRun
-	}
-	
-	enum PhraseIndex: Int
-	{
-		case Fifteen, Pair, Pairs2, Pairs3, Pairs6, Run3, Run4, Run5,
-		DoubleRun3, DoubleRun4, TripleRun, DoubleDoubleRun, Flush4, Flush5, Nobs
-	}
-	
-	func keyForPartialScoreType (type: PartialScoreType, firstScore: Int, secondScore: Int, count: Int, and: Bool) -> Int
-	{
-		let totalScore = count + firstScore + secondScore
-		var key: Int = (type.rawValue << 9) + totalScore
-		if and
-		{
-			key |= 1 << 11
-		}
-		
-		if type == PartialScoreType.PairRun
-		{
-			if secondScore == 0
-			{
-				switch (firstScore)
-				{
-				case 2:
-					key |= PairRunType.Pair.rawValue << 5
-					
-				case 4:
-					key |= PairRunType.Pairs2.rawValue << 5
-					
-				case 6:
-					key |= PairRunType.Pairs3.rawValue << 5
-					
-				case 12:
-					key |= PairRunType.Pairs6.rawValue << 5
-					
-				default: print ("bad first score")
-				}
-			}
-				
-			else if firstScore == 0
-			{
-				switch (secondScore)
-				{
-				case 3:
-					key |= PairRunType.Run3.rawValue << 5
-					
-				case 4:
-					key |= PairRunType.Run4.rawValue << 5
-					
-				case 5:
-					key |= (PairRunType.Run5.rawValue << 5)
-					
-				default: print ("bad second score")
-				}
+				count += runs
+				str += "and " + scorePhrases [5] + String (count) + " "
+				key += PairsRuns.Pairs1Run3.rawValue
 			}
 				
 			else
 			{
-				switch (firstScore + secondScore)
+				print ("A run of " + String (runs) + " is not possible here")
+			}
+		}
+			
+		else if pairs == 4
+		{
+			count += pairs
+			if (count > pairs)
+			{
+				str += "and "
+			}
+			str += scorePhrases [2] + String (count) + " "
+			key += PairsRuns.Pairs2.rawValue
+		}
+			
+		else if pairs == 6
+		{
+			count += pairs
+			if (count > pairs)
+			{
+				str += "and "
+			}
+			str += scorePhrases [3] + String (count) + " "
+			key += PairsRuns.Pairs3.rawValue
+		}
+			
+		else if pairs == 8
+		{
+			count += pairs
+			if (count > pairs)
+			{
+				str += "and "
+			}
+			str += scorePhrases [1] + String (count - 6) + " "
+			str += "and "
+			str += scorePhrases [3] + String (count) + " "
+			key += PairsRuns.Pairs4.rawValue
+		}
+			
+		else if pairs == 12
+		{
+			count += pairs
+			if (count > pairs)
+			{
+				str += "and "
+			}
+			str += scorePhrases [4] + String (count) + " "
+			key += PairsRuns.Pairs6.rawValue
+		}
+			
+		else if (pairs == 0)
+		{
+			if runs == 3
+			{
+				count += runs
+				if (count > runs)
 				{
-				case 8:
-					key |= (PairRunType.DoubleRun3.rawValue << 5)
-					
-				case 10:
-					key |= (PairRunType.DoubleRun4.rawValue << 5)
-					
-				case 15:
-					key |= (PairRunType.TripleRun.rawValue << 5)
-					
-				case 16:
-					key |= (PairRunType.DoubleDoubleRun.rawValue << 5)
-					
-				default: print ("bad first & second score")
+					str += "and "
 				}
-			}
-		}
-			
-		else if type == PartialScoreType.Flush
-		{
-			if firstScore == 4
-			{
-				key |= 4 << 5
+				str += scorePhrases [5] + String (count) + " "
+				key += PairsRuns.Run3.rawValue
 			}
 				
-			else if firstScore == 5
+			else if runs == 4
 			{
-				key |= 5 << 5
-			}
-				
-			else
-			{
-				print ("bad flush")
-			}
-			
-		}
-		
-		return key
-	}
-	
-	func savePartialScoreType (type: PartialScoreType, firstScore: Int, secondScore: Int, count: Int, and: Bool)
-	{
-		let totalScore = count + firstScore + secondScore
-		var key: Int = (type.rawValue << 9) + totalScore
-		var string = ""
-		var sort = ""
-		
-		if and
-		{
-			key |= 1 << 11
-			string = insertAnd
-		}
-		
-		switch (type)
-		{
-		case PartialScoreType.Fifteen:
-			string = scorePhrases [PhraseIndex.Fifteen.rawValue] + String (totalScore)
-			sort = "00"
-			
-		case PartialScoreType.PairRun:
-			if secondScore == 0
-			{
-				switch (firstScore)
+				count += runs
+				if (count > runs)
 				{
-				case 2:
-					key |= PairRunType.Pair.rawValue << 5
-					string += scorePhrases [PhraseIndex.Pair.rawValue] + String (totalScore)
-					sort = "02"
-					
-				case 4:
-					key |= PairRunType.Pairs2.rawValue << 5
-					string += scorePhrases [PhraseIndex.Pairs2.rawValue] + String (totalScore)
-					sort = "03"
-					
-				case 6:
-					key |= PairRunType.Pairs3.rawValue << 5
-					string += scorePhrases [PhraseIndex.Pairs3.rawValue] + String (totalScore)
-					sort = "04"
-				
-				case 12:
-					key |= PairRunType.Pairs6.rawValue << 5
-					string += scorePhrases [PhraseIndex.Pairs6.rawValue] + String (totalScore)
-					sort = "06"
-					
-				default: print ("bad first score")
+					str += "and "
 				}
+				str += scorePhrases [6] + String (count) + " "
+				key += PairsRuns.Run4.rawValue
 			}
 				
-			else if firstScore == 0
+			else if runs == 5
 			{
-				switch (secondScore)
+				count += runs
+				if (count > runs)
 				{
-				case 3:
-					key |= PairRunType.Run3.rawValue << 5
-					string += scorePhrases [PhraseIndex.Run3.rawValue] + String (totalScore)
-					sort = "07"
-					
-				case 4:
-					key |= PairRunType.Run4.rawValue << 5
-					string += scorePhrases [PhraseIndex.Run4.rawValue] + String (totalScore)
-					sort = "08"
-					
-				case 5:
-					key |= (PairRunType.Run5.rawValue << 5)
-					string += scorePhrases [PhraseIndex.Run5.rawValue] + String (totalScore)
-					sort = "09"
-					
-				default: print ("bad second score")
+					str += "and "
 				}
+				str += scorePhrases [7] + String (count) + " "
+				key += PairsRuns.Run5.rawValue
 			}
-				
-			else
-			{
-				switch (firstScore + secondScore)
-				{
-				case 8:
-					key |= (PairRunType.DoubleRun3.rawValue << 5)
-					string += scorePhrases [PhraseIndex.DoubleRun3.rawValue] + String (totalScore)
-					sort = "10"
-					
-				case 10:
-					key |= (PairRunType.DoubleRun4.rawValue << 5)
-					string += scorePhrases [PhraseIndex.DoubleRun4.rawValue] + String (totalScore)
-					sort = "11"
-					
-				case 15:
-					key |= (PairRunType.TripleRun.rawValue << 5)
-					string += scorePhrases [PhraseIndex.TripleRun.rawValue] + String (totalScore)
-					sort = "12"
-					
-				case 16:
-					key |= (PairRunType.DoubleDoubleRun.rawValue << 5)
-					string += scorePhrases [PhraseIndex.DoubleDoubleRun.rawValue] + String (totalScore)
-					sort = "13"
-					
-				default: print ("bad first & second score")
-				}
-			}
-			
-			
-		case PartialScoreType.Flush:
-			if firstScore == 4
-			{
-				key |= 4 << 5
-				string += scorePhrases [PhraseIndex.Flush4.rawValue] + String (totalScore)
-				sort = "14"
-			}
-				
-			else if firstScore == 5
-			{
-				key |= 5 << 5
-				string += scorePhrases [PhraseIndex.Flush5.rawValue] + String (totalScore)
-				sort = "15"
-			}
-				
-			else
-			{
-				print ("bad flush")
-			}
-			
-		case PartialScoreType.Nobs:
-			if (nobsFirst)
-			{
-				string += String (totalScore) + " " + scorePhrases [PhraseIndex.Nobs.rawValue]
-			}
-			else
-			{
-				string += scorePhrases [PhraseIndex.Nobs.rawValue] + String (totalScore)
-			}
-			sort = "16"
 		}
 		
-		//	Finish off the sort key and the speak string
-		
-		if (totalScore < 10)
+		if doubleRun == 8
 		{
-			sort += "0"
-		}
-		
-		sort += String (totalScore) + " "
-		string += "\n"
-		
-		//	Save the score string in the speak dictionary
-		
-		var str2 = speakDict [key]
-		if (str2 == nil)
-		{
-			speakDict [key] = string
-		}
-			
-			//	Add the score to the score string array only once
-			
-		else
-		{
-			if (str2 != string)
+			count += doubleRun
+			if (count > doubleRun)
 			{
-				print (" bad key")
+				str += "and "
 			}
+			str += scorePhrases [8] + String (count) + " "
+			key += PairsRuns.Run3Double.rawValue
+		}
+			
+		else if doubleRunOf4 == 10
+		{
+			count += doubleRunOf4
+			if (count > doubleRunOf4)
+			{
+				str += "and "
+			}
+			str += scorePhrases [9] + String (count) + " "
+			key += PairsRuns.Run4Double.rawValue
+		}
+			
+		else if tripleRun == 15
+		{
+			count += tripleRun
+			if (count > tripleRun)
+			{
+				str += "and "
+			}
+			str += scorePhrases [10] + String (count) + " "
+			key += PairsRuns.Run3Triple.rawValue
+		}
+			
+		else if doubleDoubleRun	== 16
+		{
+			count += doubleDoubleRun
+			if (count > doubleDoubleRun)
+			{
+				str += "and "
+			}
+			str += scorePhrases [11] + String (count) + " "
+			key += PairsRuns.Run3DoubleDouble.rawValue
+		}
+		
+		if anySuits == 4
+		{
+			count += 4
+			if (count > 4)
+			{
+				str += "and "
+			}
+			str += scorePhrases [12] + String (count) + " "
+			key += (2 << 4)
+		}
+		
+		if anySuits == 5
+		{
+			count += 5
+			if (count > 5)
+			{
+				str += "and "
+			}
+			str += scorePhrases [13] + String (count) + " "
+			key += (3 << 4)
+		}
+		if rightJack == 1
+		{
+			count++
+			if (count > 1)
+			{
+				str += "and "
+			}
+			str += scorePhrases [14] + String (count) + " "
+			key += (1 << 12)
+		}
+		
+		if count == 0
+		{
 			return
 		}
 		
-		//	Add the sort key and the dictionary key on the front of the phrase in order to sort them
-		
-		str2 = String (key)
-		var str3: NSString = NSString (string: str2!)
-		while (str3.length < 8)
+		if count == 19
 		{
-			str2 = "0" + String (str3)
-			str3 = NSString (string: str2!)
+			print ("oops")
 		}
 		
-		let str = sort + str2! + " " + string
-		scoreString.append (str)
+		str += "\n"
+		
+		let oldKey = countDict [str]
+		if (oldKey != nil)
+		{
+			if (oldKey != key)
+			{
+				print ("EEk")
+			}
+		}
+			
+		else
+		{
+			countDict [str] = key
+		}
+		
+		let freq: Int? = freqDict [str]
+		if (freq == nil)
+		{
+			freqDict [str] = 1
+		}
+		else
+		{
+			freqDict [str] = freq! + 1
+		}
+		
 	}
+	
 	
 	// MARK: Generate durations dictionary
 	
@@ -1245,10 +683,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 
 		data = NSKeyedArchiver.archivedDataWithRootObject(durationDict)
 		path = url.path! + "/" + "_durationDict.data"
-		data.writeToFile(path, atomically: true)
-		
-		data = NSKeyedArchiver.archivedDataWithRootObject(speakDict)
-		path = url.path! + "/" + "_speakDict.data"
 		data.writeToFile(path, atomically: true)
 	}
 	
@@ -1374,89 +808,87 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			cards.append (card)
 		}
 		
-		
-		
-		if (useAudioFiles)
-		{
-			SpeakAudioWithCards (cards)
-			return
-		}
-		
-		let result = countHand(cards)
-		var count = 0
-		
-		if result.count15 > 0
-		{
-			count += result.count15
-			let speech: String? = speakDict [count]
-			if speech != nil
-			{
-				Announcer.speak(voiceName.lowercaseString, speech: speech!)
-			}
-		}
-		
-		var and = false
-		if (count > 0)
-		{
-			and = true
-		}
-		
-		if result.countPairs > 0 || result.countRuns > 0
-		{
-			let key = keyForPartialScoreType (PartialScoreType.PairRun, firstScore: result.countPairs,
-				secondScore: result.countRuns, count: count, and: and)
-			let speech: String? = speakDict [key]
-			if speech != nil
-			{
-				Announcer.speak(voiceName.lowercaseString, speech: speech!)
-			}
-				
-			else
-			{
-				print ("bad count pairs & runs")
-			}
-			
-			count += result.countPairs + result.countRuns
-			and = true
-		}
-		
-		if result.countSuit > 0
-		{
-			let key = keyForPartialScoreType (PartialScoreType.Flush, firstScore: result.countSuit,
-				secondScore: 0, count: count, and: and)
-			
-			let speech: String? = speakDict [key]
-			if speech != nil
-			{
-				Announcer.speak(voiceName.lowercaseString, speech: speech!)
-			}
-				
-			else
-			{
-				print ("bad count suit")
-			}
-			
-			count += result.countSuit
-			and = true
-		}
-		
-		if result.countJack > 0
-		{
-			let key = keyForPartialScoreType (PartialScoreType.Nobs, firstScore: result.countJack,
-				secondScore: 0, count: count, and: and)
-			
-			let speech: String? = speakDict [key]
-			if speech != nil
-			{
-				Announcer.speak(voiceName.lowercaseString, speech: speech!)
-			}
-				
-			else
-			{
-				print ("bad count jack")
-			}
-			and = true
-		}
+//		if (useAudioFiles)
+//		{
+//			SpeakAudioWithCards (cards)
+//			return
+//		}
+//		
+//		let result = countHand(cards)
+//		var count = 0
+//		
+//		if result.count15 > 0
+//		{
+//			count += result.count15
+//			let speech: String? = speakDict [count]
+//			if speech != nil
+//			{
+//				Announcer.speak(voiceName.lowercaseString, speech: speech!)
+//			}
+//		}
+//		
+//		var and = false
+//		if (count > 0)
+//		{
+//			and = true
+//		}
+//		
+//		if result.countPairs > 0 || result.countRuns > 0
+//		{
+//			let key = keyForPartialScoreType (PartialScoreType.PairRun, firstScore: result.countPairs,
+//				secondScore: result.countRuns, count: count, and: and)
+//			let speech: String? = speakDict [key]
+//			if speech != nil
+//			{
+//				Announcer.speak(voiceName.lowercaseString, speech: speech!)
+//			}
+//				
+//			else
+//			{
+//				print ("bad count pairs & runs")
+//			}
+//			
+//			count += result.countPairs + result.countRuns
+//			and = true
+//		}
+//		
+//		if result.countSuit > 0
+//		{
+//			let key = keyForPartialScoreType (PartialScoreType.Flush, firstScore: result.countSuit,
+//				secondScore: 0, count: count, and: and)
+//			
+//			let speech: String? = speakDict [key]
+//			if speech != nil
+//			{
+//				Announcer.speak(voiceName.lowercaseString, speech: speech!)
+//			}
+//				
+//			else
+//			{
+//				print ("bad count suit")
+//			}
+//			
+//			count += result.countSuit
+//			and = true
+//		}
+//		
+//		if result.countJack > 0
+//		{
+//			let key = keyForPartialScoreType (PartialScoreType.Nobs, firstScore: result.countJack,
+//				secondScore: 0, count: count, and: and)
+//			
+//			let speech: String? = speakDict [key]
+//			if speech != nil
+//			{
+//				Announcer.speak(voiceName.lowercaseString, speech: speech!)
+//			}
+//				
+//			else
+//			{
+//				print ("bad count jack")
+//			}
+//			and = true
+//		}
 		
 	}
 	

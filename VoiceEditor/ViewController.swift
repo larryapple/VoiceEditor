@@ -6,10 +6,10 @@ import Cocoa
 
 class ViewController: NSViewController, NSTextDelegate
 {
-	var speakWithAudioFiles: Bool {
-		get {return document.useAudioFiles}
-		set {document.useAudioFiles = newValue}
-	}
+//	var speakWithAudioFiles: Bool {
+//		get {return document.useAudioFiles}
+//		set {document.useAudioFiles = newValue}
+//	}
 	
 	let speakWithAudioFilesAudioFiles = "speakAudio"
 	
@@ -103,7 +103,7 @@ class ViewController: NSViewController, NSTextDelegate
 		languageTextField.stringValue = self.document.language
 		localeTextField.stringValue = self.document.locale
 		voiceNameTextField.stringValue = self.document.voiceName
-		speakWithAudioFiles = self.document.useAudioFiles
+//		speakWithAudioFiles = self.document.useAudioFiles
 	}
 }
 

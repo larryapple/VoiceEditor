@@ -67,11 +67,11 @@ class Voice : NSObject, NSCoding
 		_locale = aDecoder.decodeObjectForKey(localeKey) as! String
 		_voiceName = aDecoder.decodeObjectForKey(voiceNameKey) as! String
 		
-		audioFiles = aDecoder.decodeObjectForKey(audioFilesKey) as! [NSData]
-		fileDurations = aDecoder.decodeObjectForKey(fileDurationsKey) as! [Int]
-		fileDict = aDecoder.decodeObjectForKey(fileDictKey) as! [Int: String]
-		durationDict = aDecoder.decodeObjectForKey(durationDictKey) as! [String: Int]
-		speakDict = aDecoder.decodeObjectForKey(speakDictKey) as! [Int: String]
+//		audioFiles = aDecoder.decodeObjectForKey(audioFilesKey) as! [NSData]
+//		fileDurations = aDecoder.decodeObjectForKey(fileDurationsKey) as! [Int]
+//		fileDict = aDecoder.decodeObjectForKey(fileDictKey) as! [Int: String]
+//		durationDict = aDecoder.decodeObjectForKey(durationDictKey) as! [String: Int]
+//		speakDict = aDecoder.decodeObjectForKey(speakDictKey) as! [Int: String]
 	}
 
 }
