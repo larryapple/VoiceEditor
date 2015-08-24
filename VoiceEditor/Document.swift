@@ -843,82 +843,70 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			cards.append (card)
 		}
 		
-//		let result = countHand(cards)
-//		var count = 0
-//		
-//		if result.count15 > 0
-//		{
-//			count += result.count15
-//			let speech: String? = speakDict [count]
-//			if speech != nil
-//			{
-//				Announcer.speak(voiceName.lowercaseString, speech: speech!)
-//			}
-//		}
-//		
-//		var and = false
-//		if (count > 0)
-//		{
-//			and = true
-//		}
-//		
-//		if result.countPairs > 0 || result.countRuns > 0
-//		{
-//			let key = keyForPartialScoreType (PartialScoreType.PairRun, firstScore: result.countPairs,
-//				secondScore: result.countRuns, count: count, and: and)
-//			let speech: String? = speakDict [key]
-//			if speech != nil
-//			{
-//				Announcer.speak(voiceName.lowercaseString, speech: speech!)
-//			}
-//				
-//			else
-//			{
-//				print ("bad count pairs & runs")
-//			}
-//			
-//			count += result.countPairs + result.countRuns
-//			and = true
-//		}
-//		
-//		if result.countSuit > 0
-//		{
-//			let key = keyForPartialScoreType (PartialScoreType.Flush, firstScore: result.countSuit,
-//				secondScore: 0, count: count, and: and)
-//			
-//			let speech: String? = speakDict [key]
-//			if speech != nil
-//			{
-//				Announcer.speak(voiceName.lowercaseString, speech: speech!)
-//			}
-//				
-//			else
-//			{
-//				print ("bad count suit")
-//			}
-//			
-//			count += result.countSuit
-//			and = true
-//		}
-//		
-//		if result.countJack > 0
-//		{
-//			let key = keyForPartialScoreType (PartialScoreType.Nobs, firstScore: result.countJack,
-//				secondScore: 0, count: count, and: and)
-//			
-//			let speech: String? = speakDict [key]
-//			if speech != nil
-//			{
-//				Announcer.speak(voiceName.lowercaseString, speech: speech!)
-//			}
-//				
-//			else
-//			{
-//				print ("bad count jack")
-//			}
-//			and = true
-//		}
+		let result = countHand(cards)
+		let fifteens = result.count15
+		var pairs = result.countPairs
+		var runs = result.countRuns
+		var anySuits = 4
+		var rightJack = 0
+		for var i = 0; i < 4; i++ {
+			if ranks [i] == Rank.Jack && suits [i].rawValue == suits [4].rawValue {
+				rightJack = 1
+			}
+			if i > 0 && suits [i].rawValue != suits [i-1].rawValue {
+				anySuits = 0
+			}
+		}
 		
+		if anySuits == 4 && suits [4].rawValue == suits [0].rawValue {
+			anySuits = 5
+		}
+		
+		var doubleRun = 0
+		var doubleRunOf4 = 0
+		var tripleRun = 0
+		var doubleDoubleRun = 0
+		
+		if pairs > 0 && runs > 0
+		{
+			if pairs == 2 && runs == 6
+			{
+				doubleRun = 8
+				pairs = 0
+				runs = 0
+			}
+				
+			else if pairs == 2 && runs == 8
+			{
+				doubleRunOf4 = 10
+				pairs = 0
+				runs = 0
+			}
+				
+			else if pairs == 6 && runs == 9
+			{
+				tripleRun = 15
+				pairs = 0
+				runs = 0
+			}
+				
+			else if pairs == 4 && runs == 12
+			{
+				doubleDoubleRun = 16
+				pairs = 0
+				runs = 0
+			}
+			
+		}
+		
+		let score = evaluateCount(fifteens, pairs: pairs, runs: runs,
+			doubleRun: doubleRun, doubleRunOf4: doubleRunOf4, tripleRun: tripleRun,
+			doubleDoubleRun: doubleDoubleRun, anySuits: anySuits, rightJack: rightJack)
+		
+		if score.key.rawValue > 0 {
+			Announcer.speak(voiceName, speech: score.speak)
+		}
+
 	}
 	
 	// MARK: Utilities

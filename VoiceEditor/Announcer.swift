@@ -40,7 +40,7 @@ class Announcer {
 		{
 			dispatch_async (dispatch_get_global_queue (QOS_CLASS_USER_INITIATED, 0))
 				{
-					Announcer.speechSynthesizer.setVoice ("com.apple.speech.synthesis.voice." + voice)
+					Announcer.speechSynthesizer.setVoice ("com.apple.speech.synthesis.voice." + voice.lowercaseString)
 					Announcer.speechSynthesizer.startSpeakingString (speech)
 			}
 		}
