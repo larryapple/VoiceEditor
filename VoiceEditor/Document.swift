@@ -53,7 +53,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"Fif6_1", "Fif6_2", "Fif6_3", "Fif6_4", "Fif6_5", "Fif6_6", "Fif6_7", "Fif6_8", "Fif6_9", "Fif6_10",
 		"Fif6_11", "Fif6_12", "Fif6_13", "Fif6_14", "Fif6_15", "Fif6_16", "Fif6_17", "Fif6_18", "Fif6_19", "Fif6_20",
 		"Fif6_21", "Fif6_22", "Fif6_23", "Fif6_24", "Fif6_25", "Fif6_26", "Fif6_27", "Fif6_28", "Fif6_29", "Fif6_30",
-		"Fif6_31", "Fif6_32", "Fif6_33", "Fif6_33", "Fif6_34",
+		"Fif6_31", "Fif6_32", "Fif6_33", "Fif6_34",
 
 		"Fif8_1", "Fif8_2", "Fif8_3", "Fif8_4", "Fif8_5", "Fif8_6", "Fif8_7", "Fif8_8", "Fif8_9", "Fif8_10",
 		"Fif8_11", "Fif8_12", "Fif8_13", "Fif8_14", "Fif8_15", "Fif8_16", "Fif8_17", "Fif8_18", "Fif8_19", "Fif8_20",
@@ -142,13 +142,19 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		set {voice.durationDict = newValue}
 	}
 	
+	var speakDict: [Int: String] {
+		get {return voice.speakDict}
+		set {voice.speakDict = newValue}
+	}
+	
 	// MARK: Generate all possible scores
 	
 	var countDict: [String: CountScore] = [String: CountScore] ()
 	
 	func generateScores ()
 	{
-		countDict = [String: CountScore] ()
+		countDict.removeAll()
+		speakDict.removeAll()
 		var avails: [Int] = [Int] (count: 13, repeatedValue: 4)
 		var ranks: [Rank] = [Rank] (count: 5, repeatedValue: Rank.Ace)
 		var suits: [Suit] = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Diamonds, Suit.Hearts]
@@ -301,13 +307,20 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		for var i = 0; i < array.count; i++ {
 			let phrase = array [i]
 			if let countScore: CountScore = countDict [phrase] {
-				if let oldKey = fileNameDict [countScore.rawValue] {
-					print (oldKey + " is duplicated")
+				if let oldName = fileNameDict [countScore.rawValue] {
+					print (oldName + " is duplicated")
 				}
 				
 				else {
-					fileNameDict [countScore.rawValue] = Document.fileNames [j++]
+					fileNameDict [countScore.rawValue] = Document.fileNames [j]
 				}
+				if let oldSpeak = speakDict [countScore.rawValue] {
+					print (oldSpeak + " is duplicated")
+				}
+				else {
+					speakDict [countScore.rawValue] = Document.fileNames [j]
+				}
+				j++
 			}
 			else {
 				print ("CountScore invalid")
@@ -359,9 +372,28 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			
 		}
 		
-		evaluateCount(fifteens, pairs: pairs, runs: runs,
+		let score = evaluateCount(fifteens, pairs: pairs, runs: runs,
 			doubleRun: doubleRun, doubleRunOf4: doubleRunOf4, tripleRun: tripleRun,
 			doubleDoubleRun: doubleDoubleRun, anySuits: anySuits, rightJack: rightJack)
+		
+		if score.key.rawValue == 0 {
+			return
+		}
+		
+		let oldKey: CountScore? = countDict [score.speak]
+		if (oldKey != nil)
+		{
+			if (oldKey! == score.key) {
+			}
+			else {
+				print ("EEk")
+			}
+		}
+			
+		else {
+			countDict [score.speak] = score.key
+		}
+
 	}
 	
 	enum PairsRuns: Int {
@@ -369,7 +401,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	}
 	
 	func evaluateCount (fifteens: Int, pairs: Int, runs: Int, doubleRun: Int, doubleRunOf4: Int,
-		tripleRun: Int, doubleDoubleRun: Int, anySuits: Int, rightJack: Int)
+		tripleRun: Int, doubleDoubleRun: Int, anySuits: Int, rightJack: Int) -> (key: CountScore, speak: String)
 	{
 		var str: String = ""
 		var count: Int = 0
@@ -564,33 +596,11 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			key += (1 << 12)
 		}
 		
-		let countScore: CountScore = CountScore (rawValue: key)
-		
-		if count == 0 {
-			return
-		}
-		
-		if count == 19
-		{
-			print ("oops")
-		}
-		
 		str += "\n"
 		
-		let oldKey: CountScore? = countDict [str]
-		if (oldKey != nil)
-		{
-			if (oldKey! == countScore) {
-			}
-			else {
-				print ("EEk")
-			}
-		}
-			
-		else {
-			countDict [str] = countScore
-		}
-		
+		let countScore: CountScore = CountScore (rawValue: key)
+		return (countScore, str)
+	
 	}
 	
 	
@@ -699,11 +709,15 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 		
 		var data: NSData = NSKeyedArchiver.archivedDataWithRootObject(fileNameDict)
-		var path = url.path! + "/" + "_fileDict.data"
+		var path = url.path! + "/" + "_fileNameDict.data"
 		data.writeToFile(path, atomically: true)
-
+		
 		data = NSKeyedArchiver.archivedDataWithRootObject(durationDict)
 		path = url.path! + "/" + "_durationDict.data"
+		data.writeToFile(path, atomically: true)
+		
+		data = NSKeyedArchiver.archivedDataWithRootObject(speakDict)
+		path = url.path! + "/" + "_speakDict.data"
 		data.writeToFile(path, atomically: true)
 	}
 	
@@ -829,12 +843,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			cards.append (card)
 		}
 		
-//		if (useAudioFiles)
-//		{
-//			SpeakAudioWithCards (cards)
-//			return
-//		}
-//		
 //		let result = countHand(cards)
 //		var count = 0
 //		

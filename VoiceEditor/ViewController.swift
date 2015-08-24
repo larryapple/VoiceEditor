@@ -71,8 +71,8 @@ class ViewController: NSViewController, NSTextDelegate
 		openPanel.beginWithCompletionHandler { (result: Int) -> Void in
 			if result == NSFileHandlingPanelOKButton
 			{
-				self.document.generateDurations (openPanel.URL!)
 				self.document.generateScores()
+				self.document.generateDurations (openPanel.URL!)
 				self.voiceNameTextField.stringValue = self.document.voiceName
 			}
 		}

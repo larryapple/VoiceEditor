@@ -328,23 +328,6 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WFZ-fR-JZG">
-                                <rect key="frame" x="19" y="319" width="157" height="18"/>
-                                <buttonCell key="cell" type="check" title="Speak with audio files" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vdE-4k-HNg">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y5G-TE-35z">
-                                <rect key="frame" x="243" y="311" width="82" height="32"/>
-                                <buttonCell key="cell" type="push" title="Speak" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ffo-X9-PzG">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="speak:" target="5gI-5U-AMq" id="1N1-By-YRF"/>
-                                </connections>
-                            </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4TG-XD-7tm">
                                 <rect key="frame" x="14" y="273" width="82" height="32"/>
                                 <buttonCell key="cell" type="push" title="Generate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gJm-Qy-JKs">
@@ -353,6 +336,16 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="generate:" target="5gI-5U-AMq" id="G07-Fo-VSZ"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y5G-TE-35z">
+                                <rect key="frame" x="14" y="311" width="82" height="32"/>
+                                <buttonCell key="cell" type="push" title="Speak" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ffo-X9-PzG">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="speak:" target="5gI-5U-AMq" id="1N1-By-YRF"/>
                                 </connections>
                             </button>
                         </subviews>
