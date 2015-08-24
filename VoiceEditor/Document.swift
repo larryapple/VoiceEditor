@@ -25,7 +25,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		"Play_1", "Play_2", "Play_3", "Play_4", "Play_5", "Play_6", "Play_7", "Play_8", "Play_9", "Play_10",
 		"Play_11", "Play_12", "Play_13", "Play_14", "Play_15", "Play_16", "Play_17", "Play_18", "Play_19", "Play_20",
-		"Play_21", "Play_22", "Play_23", "Play_24", "Play_25",
+		"Play_21", "Play_22", "Play_23", "Play_24", "Play_25", "Play_26",
 		
 		"First_1", "First_2", "First_3", "First_4", "First_5", "First_6", "First_7", "First_8", "First_9", "First_10",
 		"First_11", "First_12", "First_13", "First_14", "First_15", "First_16", "First_17", "First_18", "First_19", "First_20",
