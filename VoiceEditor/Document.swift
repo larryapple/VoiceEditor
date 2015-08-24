@@ -24,10 +24,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"Game_8", "Game_9", "Game_10", "Game_11", "Game_12", "Game_13", "Game_14",
 		
 		"Play_1", "Play_2", "Play_3", "Play_4", "Play_5", "Play_6", "Play_7", "Play_8", "Play_9", "Play_10",
-		"Play_11", "Play_12", "Play_13", "Play_14", "Play_15", "Play_16", "Play_17", "Play_18", "Play_19",
-		
-		"For_3", "For_4", "For_5", "For_6", "For_7", "For_8", "For_9", "For_10",
-		"For_11", "For_13", "For_14", "For_15", "For_16",
+		"Play_11", "Play_12", "Play_13", "Play_14", "Play_15", "Play_16", "Play_17", "Play_18", "Play_19", "Play_20",
+		"Play_21", "Play_22", "Play_23", "Play_24", "Play_25",
 		
 		"First_1", "First_2", "First_3", "First_4", "First_5", "First_6", "First_7", "First_8", "First_9", "First_10",
 		"First_11", "First_12", "First_13", "First_14", "First_15", "First_16", "First_17", "First_18", "First_19", "First_20",
@@ -709,7 +707,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 		
 		var data: NSData = NSKeyedArchiver.archivedDataWithRootObject(fileNameDict)
-		var path = url.path! + "/" + "_fileNameDict.data"
+		var path = url.path! + "/" + "_fileDict.data"
 		data.writeToFile(path, atomically: true)
 		
 		data = NSKeyedArchiver.archivedDataWithRootObject(durationDict)
