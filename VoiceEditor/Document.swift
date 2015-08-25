@@ -20,12 +20,16 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 		"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",
 		
+		"C_1", "C_2", "C_3", "C_4", "C_5", "C_6", "C_7", "C_8", "C_9", "C_10", "C_11", "C_12", "C_13", "C_14", "C_15", "C_16",
+		"C_17", "C_18", "C_19", "C_20", "C_21", "C_22", "C_23", "C_24", "C_25", "C_26", "C_27", "C_28", "C_29", "C_30", "C_31",
+		
 		"Game_1", "Game_2", "Game_3", "Game_4", "Game_5", "Game_6", "Game_7",
 		"Game_8", "Game_9", "Game_10", "Game_11", "Game_12", "Game_13", "Game_14",
 		
 		"Play_1", "Play_2", "Play_3", "Play_4", "Play_5", "Play_6", "Play_7", "Play_8", "Play_9", "Play_10",
 		"Play_11", "Play_12", "Play_13", "Play_14", "Play_15", "Play_16", "Play_17", "Play_18", "Play_19", "Play_20",
-		"Play_21", "Play_22", "Play_23", "Play_24", "Play_25", "Play_26",
+		"Play_21", "Play_22", "Play_23", "Play_24", "Play_25", "Play_26", "Play_27", "Play_28", "Play_29", "Play_30",
+		"Play_31", "Play_32", "Play_33",
 		
 		"First_1", "First_2", "First_3", "First_4", "First_5", "First_6", "First_7", "First_8", "First_9", "First_10",
 		"First_11", "First_12", "First_13", "First_14", "First_15", "First_16", "First_17", "First_18", "First_19", "First_20",
@@ -285,7 +289,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 		
 		array = array.sort { $0.compare($1) == .OrderedAscending }
-		print (array)
+//		print (array)
 		
 		// Create the file name dictionary
 		
