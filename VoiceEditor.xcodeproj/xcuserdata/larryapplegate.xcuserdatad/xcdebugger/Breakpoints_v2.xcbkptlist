@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VoiceEditor/Document.swift"
-            timestampString = "462263863.82522"
+            timestampString = "462299568.259889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "676"
-            endingLineNumber = "676"
+            startingLineNumber = "677"
+            endingLineNumber = "677"
             landmarkName = "generateDurations(_:)"
             landmarkType = "5">
          </BreakpointContent>
