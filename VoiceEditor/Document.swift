@@ -70,6 +70,14 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"his nobs is "
 	]
 	
+	let scorePhrasesFrench: [String] =
+	[
+		"quinze ", "paire pour ", "2 paires pour ", "3 paires pour ", "6 paires pour ",
+		"suite pour ", "suite de 4 pour ", "suite de 5 pour ", "double suite pour ", "double suite de 4 pour ",
+		"triple suite pour ", "double double suite pour ", "couleur pour ", "couleur de 5 pour ",
+		"le bon valet pour "
+	]
+	
 	let scorePhrasesGerman: [String] =
 	[
 		"fünfzehn", "ein Paar macht ", "2 Paare macht ", "3 Paare macht ", "6 Paare macht ",
@@ -101,8 +109,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	override init ()
 	{
 		voice = Voice ()
-		scorePhrases = scorePhrasesEnglish
-		insertAnd = "and "
+		scorePhrases = scorePhrasesFrench
+		insertAnd = "et "
 		nobsFirst = false
 		super.init()
 	}
@@ -287,7 +295,11 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 		
 		array = array.sort { $0.compare($1) == .OrderedAscending }
-//		print (array)
+		for var i = 0; i < array.count; i++ {
+			var str = array [i] as NSString
+			str = str.substringToIndex (str.length - 2)
+			print (str)
+		}
 		
 		// Create the file name dictionary
 		
@@ -418,7 +430,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		{
 			count += pairs
 			if (count > pairs)
-			{ str += "and " }
+			{ str += insertAnd }
 			str += scorePhrases [1] + String (count) + " "
 			
 			if runs == 0
@@ -428,7 +440,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			else if runs == 3
 			{
 				count += runs
-				str += "and " + scorePhrases [5] + String (count) + " "
+				str += insertAnd + scorePhrases [5] + String (count) + " "
 				key += PairsRuns.Pairs1Run3.rawValue
 			}
 				
@@ -443,7 +455,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count += pairs
 			if (count > pairs)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [2] + String (count) + " "
 			key += PairsRuns.Pairs2.rawValue
@@ -454,7 +466,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count += pairs
 			if (count > pairs)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [3] + String (count) + " "
 			key += PairsRuns.Pairs3.rawValue
@@ -465,10 +477,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count += pairs
 			if (count > pairs)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [1] + String (count - 6) + " "
-			str += "and "
+			str += insertAnd
 			str += scorePhrases [3] + String (count) + " "
 			key += PairsRuns.Pairs4.rawValue
 		}
@@ -478,7 +490,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count += pairs
 			if (count > pairs)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [4] + String (count) + " "
 			key += PairsRuns.Pairs6.rawValue
@@ -491,7 +503,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				count += runs
 				if (count > runs)
 				{
-					str += "and "
+					str += insertAnd
 				}
 				str += scorePhrases [5] + String (count) + " "
 				key += PairsRuns.Run3.rawValue
@@ -502,7 +514,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				count += runs
 				if (count > runs)
 				{
-					str += "and "
+					str += insertAnd
 				}
 				str += scorePhrases [6] + String (count) + " "
 				key += PairsRuns.Run4.rawValue
@@ -513,7 +525,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				count += runs
 				if (count > runs)
 				{
-					str += "and "
+					str += insertAnd
 				}
 				str += scorePhrases [7] + String (count) + " "
 				key += PairsRuns.Run5.rawValue
@@ -525,7 +537,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count += doubleRun
 			if (count > doubleRun)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [8] + String (count) + " "
 			key += PairsRuns.Run3Double.rawValue
@@ -536,7 +548,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count += doubleRunOf4
 			if (count > doubleRunOf4)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [9] + String (count) + " "
 			key += PairsRuns.Run4Double.rawValue
@@ -547,7 +559,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count += tripleRun
 			if (count > tripleRun)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [10] + String (count) + " "
 			key += PairsRuns.Run3Triple.rawValue
@@ -558,7 +570,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count += doubleDoubleRun
 			if (count > doubleDoubleRun)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [11] + String (count) + " "
 			key += PairsRuns.Run3DoubleDouble.rawValue
@@ -569,7 +581,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count += 4
 			if (count > 4)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [12] + String (count) + " "
 			key += (2 << 4)
@@ -580,7 +592,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count += 5
 			if (count > 5)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [13] + String (count) + " "
 			key += (3 << 4)
@@ -590,7 +602,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			count++
 			if (count > 1)
 			{
-				str += "and "
+				str += insertAnd
 			}
 			str += scorePhrases [14] + String (count) + " "
 			key += (1 << 12)
