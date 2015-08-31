@@ -80,10 +80,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	let scorePhrasesGerman: [String] =
 	[
-		"fünfzehn", "ein Paar macht ", "2 Paare macht ", "3 Paare macht ", "6 Paare macht ",
-		"eine Folge macht ", "eine Folge von 4 macht ", "eine Folge von 5 macht ", "eine Doppelfolge macht ", "eine Doppelfolge von 4 macht ",
-		"eine Dreierfolge macht ", "eine Doppeldoppelfolge macht ", "4 derselben Farbe macht ", "5 derselben Farbe macht ",
-		"der richtige Bube ist "
+		"fünfzehn", "ein paar ist ", "2 paare ist ", "3 paare ist ", "6 paare ist ",
+		"eine folge ist ", "eine folge von 4 ist ", "eine folge von 5 ist ", "eine doppelfolge ist ", "eine doppelfolge von 4 ist ",
+		"eine dreierfolge ist ", "eine doppeldoppelfolge ist ", "ein flush ist ", "ein flush von 5 ist ",
+		"der richtige bube ist "
 	]
 	
 	let scorePhrasesSpanish: [String] =
@@ -109,8 +109,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	override init ()
 	{
 		voice = Voice ()
-		scorePhrases = scorePhrasesFrench
-		insertAnd = "et "
+		scorePhrases = scorePhrasesGerman
+		insertAnd = "und "
 		nobsFirst = false
 		super.init()
 	}
