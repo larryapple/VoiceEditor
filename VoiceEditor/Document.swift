@@ -33,7 +33,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"First_11", "First_12", "First_13", "First_14", "First_15", "First_16", "First_17", "First_18", "First_19", "First_20",
 		"First_21", "First_22", "First_23", "First_24", "First_25", "First_26", "First_27", "First_28", "First_29", "First_30",
 		"First_31", "First_32", "First_33", "First_34", "First_35", "First_36", "First_37", "First_38", "First_39", "First_40",
-		"First_41", "First_42", "First_43", "First_44", "First_45", "First_46",
+		"First_41", "First_42", "First_43", "First_44", "First_45", "First_46", "First_47",
 		
 		"Fif10_1", "Fif10_2", "Fif10_3", "Fif10_4", "Fif10_5", "Fif10_6", "Fif10_7", "Fif10_8", "Fif10_9", "Fif10_10",
 		"Fif10_11", "Fif10_12", "Fif10_13", "Fif10_14", "Fif10_15", "Fif10_16", "Fif10_17", "Fif10_18", "Fif10_19", "Fif10_20",
@@ -57,7 +57,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 
 		"Fif8_1", "Fif8_2", "Fif8_3", "Fif8_4", "Fif8_5", "Fif8_6", "Fif8_7", "Fif8_8", "Fif8_9", "Fif8_10",
 		"Fif8_11", "Fif8_12", "Fif8_13", "Fif8_14", "Fif8_15", "Fif8_16", "Fif8_17", "Fif8_18", "Fif8_19", "Fif8_20",
-		"Fif8_21", "Fif8_22", "Fif8_23", "Fif8_24", "Fif8_25", "Fif8_26", "Fif8_27", "Fif8_28", "Fif8_29", "Fif8_30",
+		"Fif8_21", "Fif8_22", "Fif8_23", "Fif8_24", "Fif8_25", "Fif8_26", "Fif8_27", "Fif8_28", "Fif8_29",
 		]
 	
 	// MARK: Score names
@@ -303,9 +303,15 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		// Create the file name dictionary
 		
+		var firstPtr = 0
+		var fifteenPtr = 0
 		var j: Int
 		for j = 0; j < Document.fileNames.count; j++ {
 			if Document.fileNames [j].compare ("First_1") == NSComparisonResult.OrderedSame {
+				firstPtr = j
+			}
+			else if Document.fileNames [j] .compare ("Fif10_1") == NSComparisonResult.OrderedSame {
+				fifteenPtr = j
 				break
 			}
 		}
@@ -324,15 +330,15 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				}
 				
 				else {
-					fileNameDict [countScore.rawValue] = Document.fileNames [j]
+					if countScore.fifteens > 0 {
+						fileNameDict [countScore.rawValue] = Document.fileNames [fifteenPtr]
+						speakDict [countScore.rawValue] = Document.fileNames [fifteenPtr++]
+					}
+					else {
+						fileNameDict [countScore.rawValue] = Document.fileNames [firstPtr]
+						speakDict [countScore.rawValue] = Document.fileNames [firstPtr++]
+					}
 				}
-				if let oldSpeak = speakDict [countScore.rawValue] {
-					print (oldSpeak + " is duplicated")
-				}
-				else {
-					speakDict [countScore.rawValue] = Document.fileNames [j]
-				}
-				j++
 			}
 			else {
 				print ("CountScore invalid")
@@ -728,9 +734,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		path = url.path! + "/" + "_durationDict.data"
 		data.writeToFile(path, atomically: true)
 		
-		data = NSKeyedArchiver.archivedDataWithRootObject(speakDict)
-		path = url.path! + "/" + "_speakDict.data"
-		data.writeToFile(path, atomically: true)
+//		data = NSKeyedArchiver.archivedDataWithRootObject(speakDict)
+//		path = url.path! + "/" + "_speakDict.data"
+//		data.writeToFile(path, atomically: true)
 	}
 	
 	// MARK: SpeakHandText
