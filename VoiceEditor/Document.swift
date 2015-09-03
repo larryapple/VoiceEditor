@@ -80,7 +80,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	let scorePhrasesGerman: [String] =
 	[
-		"fünfzehn", "ein paar ist ", "2 paare ist ", "3 paare ist ", "6 paare ist ",
+		"fünfzehn ", "ein paar ist ", "2 paare ist ", "3 paare ist ", "6 paare ist ",
 		"eine folge ist ", "eine folge von 4 ist ", "eine folge von 5 ist ", "eine doppelfolge ist ", "eine doppelfolge von 4 ist ",
 		"eine dreierfolge ist ", "eine doppeldoppelfolge ist ", "ein flush ist ", "ein flush von 5 ist ",
 		"der richtige bube ist "
@@ -96,15 +96,15 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	let scorePhrasesCzech: [String] =
 	[
-		"15 ", "pár za tolik ", "2 páry za tolik ", "3 páry za tolik ", "6 párů za tolik ",
+		"patnácti ", "pár za tolik ", "2 páry za tolik ", "3 páry za tolik ", "6 párů za tolik ",
 		"postupka za tolik ", "postupka ze 4 za tolik ", "postupka z 5 za tolik ", "dvojitá postupka za tolik ", "dvojitá postupka ze 4 za tolik ",
-		"trojitá postupka za tolik ", "dvojitě dvojitá postupka za tolik ", "4 karty stejné barvy za tolik ", "5 karet stejné barvy za tolik ",
-		"tolik za milostpána"
+		"trojitá postupka za tolik ", "dvojitě dvojitá postupka za tolik ", "4 v barvy za tolik ", "5 v barvy za tolik ",
+		" tolik za milostpána"
 	]
 	
-	var scorePhrases: [String] = [String] ()
-	var insertAnd: String = ""
-	var nobsFirst: Bool = false
+	let scorePhrases: [String]
+	let insertAnd: String
+	let nobsFirst: Bool
 	
 	override init ()
 	{
@@ -610,7 +610,12 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			{
 				str += insertAnd
 			}
-			str += scorePhrases [14] + String (count) + " "
+			if nobsFirst {
+				str += String (count) + scorePhrases [14]
+			}
+			else {
+				str += scorePhrases [14] + String (count) + " "
+			}
 			key += (1 << 12)
 		}
 		
