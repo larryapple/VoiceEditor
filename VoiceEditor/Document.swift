@@ -20,10 +20,12 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 		"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",
 		
-		"Game_1", "Game_2", "Game_3", "Game_4", "Game_5", "Game_6", "Game_7",
-		"Game_8", "Game_9", "Game_10", "Game_11", "Game_12", "Game_13", "Game_14",
+		"Opp_1", "Opp_2", "Opp_3", "Opp_4",
 		
-		"Play_1", "Play_2", "Play_3", "Play_4", "Play_5", "Play_6", "Play_7", "Play_8", "Play_9", "Play_10",
+		"Game_1", "Game_2", "Game_3", "Game_4", "Game_5", "Game_6", "Game_7",
+		"Game_8", "Game_9", "Game_10", "Game_11", "Game_12", "Game_13",
+		
+		"Play_0", "Play_1", "Play_2", "Play_3", "Play_4", "Play_5", "Play_6", "Play_7", "Play_8", "Play_9", "Play_10",
 		"Play_11", "Play_12", "Play_13", "Play_14", "Play_15", "Play_16", "Play_17", "Play_18", "Play_19", "Play_20",
 		"Play_21", "Play_22", "Play_23", "Play_24", "Play_25", "Play_26", "Play_27", "Play_28", "Play_29", "Play_30",
 		"Play_31", "Play_32", "Play_33", "Play_34", "Play_35", "Play_36", "Play_37", "Play_38", "Play_39", "Play_40",
@@ -105,13 +107,15 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	let scorePhrases: [String]
 	let insertAnd: String
 	let nobsFirst: Bool
+	let countWithFirstVoice: Bool
 	
 	override init ()
 	{
 		voice = Voice ()
-		scorePhrases = scorePhrasesGerman
-		insertAnd = "und "
+		scorePhrases = scorePhrasesEnglish
+		insertAnd = "and "
 		nobsFirst = false
+		countWithFirstVoice = true
 		super.init()
 	}
 	
@@ -161,6 +165,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	func generateScores ()
 	{
+		if !countWithFirstVoice {
+			return
+		}
+		
 		countDict.removeAll()
 		speakDict.removeAll()
 		var avails: [Int] = [Int] (count: 13, repeatedValue: 4)
@@ -693,12 +701,14 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		//	Make sure all sound files are present
 		
-		for var i = 0; i < durations.count; i++
-		{
-			if durations [i] < 0
+		if !countWithFirstVoice {
+			for var i = 0; i < durations.count; i++
 			{
-				print ("missing files")
-				return
+				if durations [i] < 0
+				{
+					print ("missing files")
+					return
+				}
 			}
 		}
 
@@ -725,6 +735,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		for var i = 0; i < audioFiles.count; i++
 		{
 			let data = audioFiles [i]
+			if (data.length == 0) {
+				continue
+			}
+			
 			let fileName = Document.fileNames [i]
 			let string = url.path! + "/" + fileName + ".m4a"
 			
