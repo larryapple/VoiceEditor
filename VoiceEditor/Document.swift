@@ -100,8 +100,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	[
 		"patnácti ", "pár za tolik ", "2 páry za tolik ", "3 páry za tolik ", "6 párů za tolik ",
 		"postupka za tolik ", "postupka ze 4 za tolik ", "postupka z 5 za tolik ", "dvojitá postupka za tolik ", "dvojitá postupka ze 4 za tolik ",
-		"trojitá postupka za tolik ", "dvojitě dvojitá postupka za tolik ", "4 v barvy za tolik ", "5 v barvy za tolik ",
-		" tolik za milostpána"
+		"trojitá postupka za tolik ", "dvojitě dvojitá postupka za tolik ", "4 v barvě za tolik ", "5 v barvě za tolik ",
+		" tolik za milostpána "
 	]
 	
 	let scorePhrases: [String]
@@ -112,9 +112,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	override init ()
 	{
 		voice = Voice ()
-		scorePhrases = scorePhrasesEnglish
-		insertAnd = "and "
-		nobsFirst = false
+		scorePhrases = scorePhrasesCzech
+		insertAnd = "a "
+		nobsFirst = true
 		countWithFirstVoice = true
 		super.init()
 	}
