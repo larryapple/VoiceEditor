@@ -88,6 +88,13 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		"der richtige bube ist "
 	]
 	
+	let scorePhrasesDutch: [String] =
+	[
+		"vijftien ", "een paar is ", "2 paren is ", "3 paren is ", "6 paren is ", "een run is ", "een run van 4 is ", "een run van 5 is ",
+		"een double run is ", "een double run van 4 is ", "een triple run is ", "een double double run is ", "een flush is ",
+		"een 5 flush is ", "de right jack is "
+	]
+	
 	let scorePhrasesSpanish: [String] =
 	[
 		"quince ", "un par gana ", "2 pares ganan ", "3 pares ganan ", "6 pares ganan ",
@@ -112,9 +119,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	override init ()
 	{
 		voice = Voice ()
-		scorePhrases = scorePhrasesCzech
-		insertAnd = "a "
-		nobsFirst = true
+		scorePhrases = scorePhrasesEnglish
+		insertAnd = "and "
+		nobsFirst = false
 		countWithFirstVoice = true
 		super.init()
 	}
