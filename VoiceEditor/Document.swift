@@ -2,7 +2,7 @@
 //  Copyright © 2015 Rivergate Software. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 import AVFoundation
 
 struct Card
