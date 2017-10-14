@@ -296,7 +296,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			index -= 1
 		}
 		
-		print (String (countDict.count) + " unique counts")
+		self.print (String (countDict.count) + " unique counts")
 		
 		var array: [String] = [String] ()
 		for (key, value) in countDict
@@ -317,14 +317,14 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		for i in 0 ..< array.count {
 			var str = array [i] as NSString
 			str = str.substring (to: str.length - 2) as NSString
-			print (str)
+            self.print (str)
 		}
 		
 		// Create the file name dictionary
 		
 		var firstPtr = 0
 		var fifteenPtr = 0
-		var j: Int = 0
+        let j: Int = 0
 		for j in 0 ..< Document.fileNames.count {
 			if Document.fileNames [j].compare ("First_1") == ComparisonResult.orderedSame {
 				firstPtr = j
@@ -336,7 +336,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 		
 		if (j >= Document.fileNames.count) {
-			print ("File names missing")
+			self.print ("File names missing")
 			return
 		}
 		
@@ -345,7 +345,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			let phrase = array [i]
 			if let countScore: CountScore = countDict [phrase] {
 				if let oldName = fileNameDict [countScore.rawValue] {
-					print (oldName + " is duplicated")
+					self.print (oldName + " is duplicated")
 				}
 				
 				else {
@@ -362,7 +362,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				}
 			}
 			else {
-				print ("CountScore invalid")
+				self.print ("CountScore invalid")
 			}
 		}
 		
@@ -425,7 +425,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			if (oldKey! == score.key) {
 			}
 			else {
-				print ("EEk")
+				self.print ("EEk")
 			}
 		}
 			
@@ -473,7 +473,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				
 			else
 			{
-				print ("A run of " + String (runs) + " is not possible here")
+				self.print ("A run of " + String (runs) + " is not possible here")
 			}
 		}
 			
@@ -697,7 +697,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 							
 						else
 						{
-							print ("duplicate duration dictionary entries")
+							self.print ("duplicate duration dictionary entries")
 						}
 
 						break
@@ -706,7 +706,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				
 				if i >= Document.fileNames.count
 				{
-					print (fileName)
+					self.print (fileName)
 				}
 			}
 		}
@@ -718,7 +718,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			{
 				if durations [i] < 0
 				{
-					print ("missing files")
+					self.print ("missing files")
 					return
 				}
 			}
@@ -782,7 +782,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		let str: NSString = text as NSString
 		if str.length != 5 && str.length != 6 && str.length != 10
 		{
-			print ("wrong length")
+			self.print ("wrong length")
 			return
 		}
 		
@@ -810,7 +810,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			case "q": rank = Rank.queen
 			case "k": rank = Rank.king
 			default:
-				print ("no rank " + r)
+				self.print ("no rank " + r)
 				return
 			}
 			
@@ -828,7 +828,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			case "h": suit = Suit.hearts
 			case "s": suit = Suit.spades
 			default:
-				print ("no suit " + s)
+				self.print ("no suit " + s)
 				return
 			}
 			for i in 0 ..< 5
@@ -850,7 +850,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				case "h": suit = Suit.hearts
 				case "s": suit = Suit.spades
 				default:
-					print ("no suit " + s)
+					self.print ("no suit " + s)
 					return
 				}
 				
@@ -1030,7 +1030,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			}
 		}
 		
-		for j in 0 ..< 13
+        for _ in 0 ..< 13
 		{
 			if ((mask & 1) != 0)
 			{
