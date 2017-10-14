@@ -198,12 +198,12 @@ class Document: NSDocument, AVAudioPlayerDelegate
 					avails [k] -= 1
 					ranks [index] = Rank (rawValue: k)!
                     index += 1
-                    for m in k ..< 13
+					for m in k ..< 13
 					{
 						avails [m] -= 1
 						ranks [index] = Rank (rawValue: m)!
                         index += 1
-                        for n in 0 ..< 13
+						for n in 0 ..< 13
 						{
 							if (avails [n] == 0)
 							{
@@ -325,8 +325,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		var firstPtr = 0
 		var fifteenPtr = 0
 		var j: Int = 0
-		for j in 0 ..< Document.fileNames.count
-        {
+		for j in 0 ..< Document.fileNames.count {
 			if Document.fileNames [j].compare ("First_1") == ComparisonResult.orderedSame {
 				firstPtr = j
 			}
@@ -679,7 +678,6 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				newString = newString.deletingPathExtension as NSString
 				fileName = String (newString)
 				
-				var i = 0
 				for i in 0 ..< Document.fileNames.count
 				{
 					if fileName.compare (Document.fileNames [i]) == ComparisonResult.orderedSame
@@ -691,10 +689,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 						audioData [i] = data
 						durations [i] = ms
 					
-						let oldKey = durationDict [fileName]
+						let oldKey = self.durationDict [fileName]
 						if (oldKey == nil)
 						{
-							durationDict [fileName] = ms
+							self.durationDict [fileName] = ms
 						}
 							
 						else
