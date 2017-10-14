@@ -186,20 +186,24 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		{
 			avails [i] -= 1
 			var index = 0
-			ranks [index++] = Rank (rawValue: i)!
+			ranks [index] = Rank (rawValue: i)!
+            index += 1
 			for j in i ..< 13
 			{
 				avails [j] -= 1
-				ranks [index++] = Rank (rawValue: j)!
+				ranks [index] = Rank (rawValue: j)!
+                index += 1
 				for k in j ..< 13
 				{
 					avails [k] -= 1
-					ranks [index++] = Rank (rawValue: k)!
-					for m in k ..< 13
+					ranks [index] = Rank (rawValue: k)!
+                    index += 1
+                    for m in k ..< 13
 					{
 						avails [m] -= 1
-						ranks [index++] = Rank (rawValue: m)!
-						for n in 0 ..< 13
+						ranks [index] = Rank (rawValue: m)!
+                        index += 1
+                        for n in 0 ..< 13
 						{
 							if (avails [n] == 0)
 							{
@@ -320,8 +324,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		var firstPtr = 0
 		var fifteenPtr = 0
-		var j: Int
-		for j = 0; j < Document.fileNames.count; j += 1 {
+		var j: Int = 0
+		for j in 0 ..< Document.fileNames.count
+        {
 			if Document.fileNames [j].compare ("First_1") == ComparisonResult.orderedSame {
 				firstPtr = j
 			}
@@ -347,11 +352,13 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				else {
 					if countScore.fifteens > 0 {
 						fileNameDict [countScore.rawValue] = Document.fileNames [fifteenPtr]
-						speakDict [countScore.rawValue] = Document.fileNames [fifteenPtr++]
+						speakDict [countScore.rawValue] = Document.fileNames [fifteenPtr]
+                        fifteenPtr += 1
 					}
 					else {
 						fileNameDict [countScore.rawValue] = Document.fileNames [firstPtr]
-						speakDict [countScore.rawValue] = Document.fileNames [firstPtr++]
+						speakDict [countScore.rawValue] = Document.fileNames [firstPtr]
+                        firstPtr += 1
 					}
 				}
 			}
@@ -673,7 +680,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				fileName = String (newString)
 				
 				var i = 0
-				for i = 0; i < Document.fileNames.count; i += 1
+				for i in 0 ..< Document.fileNames.count
 				{
 					if fileName.compare (Document.fileNames [i]) == ComparisonResult.orderedSame
 					{
