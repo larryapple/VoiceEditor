@@ -141,8 +141,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		set {voice.voiceName = newValue}
 	}
 	
-	var audioFiles: [NSData] {
-		get {return voice.audioFiles}
+	var audioFiles: [Data] {
+		get {return voice.audioFiles as [Data]}
 		set {voice.audioFiles = newValue}
 	}
 	
@@ -178,28 +178,28 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		countDict.removeAll()
 		speakDict.removeAll()
-		var avails: [Int] = [Int] (count: 13, repeatedValue: 4)
-		var ranks: [Rank] = [Rank] (count: 5, repeatedValue: Rank.Ace)
-		var suits: [Suit] = [Suit.Clubs, Suit.Clubs, Suit.Clubs, Suit.Diamonds, Suit.Hearts]
+		var avails: [Int] = [Int] (repeating: 4, count: 13)
+		var ranks: [Rank] = [Rank] (repeating: Rank.ace, count: 5)
+		var suits: [Suit] = [Suit.clubs, Suit.clubs, Suit.clubs, Suit.diamonds, Suit.hearts]
 		
-		for var i = 0; i < 13; i++
+		for i in 0 ..< 13
 		{
-			avails [i]--
+			avails [i] -= 1
 			var index = 0
 			ranks [index++] = Rank (rawValue: i)!
-			for var j = i; j < 13; j++
+			for j in i ..< 13
 			{
-				avails [j]--
+				avails [j] -= 1
 				ranks [index++] = Rank (rawValue: j)!
-				for var k = j; k < 13; k++
+				for k in j ..< 13
 				{
-					avails [k]--
+					avails [k] -= 1
 					ranks [index++] = Rank (rawValue: k)!
-					for var m = k; m < 13; m++
+					for m in k ..< 13
 					{
-						avails [m]--
+						avails [m] -= 1
 						ranks [index++] = Rank (rawValue: m)!
-						for var n = 0; n < 13; n++
+						for n in 0 ..< 13
 						{
 							if (avails [n] == 0)
 							{
@@ -211,7 +211,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 							
 							//	Evaluate first with no possible suit matches
 							
-							for (var a = 0; a < 5; a++)
+							for a in 0 ..< 5
 							{
 								let card = Card(rank: ranks[a], suit: suits[a])
 								cards.append (card)
@@ -222,9 +222,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 							//	If there is a jack in the hand, make it the right jack
 							
 							var rightJack: Int = 0
-							for (var a = 0; a < 4; a++)
+							for a in 0 ..< 4
 							{
-								if ranks[a] == Rank.Jack
+								if ranks[a] == Rank.jack
 								{
 									rightJack = 1
 									evaluateHand(cards, anySuits: 0, rightJack: rightJack)
@@ -235,7 +235,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 							//	If there are any pairs in the hand, we are done
 							
 							var anyPairs = false
-							for (var a = 1; a < 4; a++)
+							for a in 1 ..< 4
 							{
 								if ranks[a] == ranks[a-1]
 								{
@@ -249,7 +249,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 							if !anyPairs
 							{
 								var anySuits = 5;
-								for (var a = 0; a < 4; a++)
+								for a in 0 ..< 4
 								{
 									if ranks[a] == ranks[4]
 									{
@@ -279,17 +279,17 @@ class Document: NSDocument, AVAudioPlayerDelegate
 								}
 							}
 						}
-						avails [m]++
-						index--
+						avails [m] += 1
+						index -= 1
 					}
-					avails [k]++
-					index--
+					avails [k] += 1
+					index -= 1
 				}
-				avails [j]++
-				index--
+				avails [j] += 1
+				index -= 1
 			}
-			avails [i]++
-			index--
+			avails [i] += 1
+			index -= 1
 		}
 		
 		print (String (countDict.count) + " unique counts")
@@ -297,7 +297,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		var array: [String] = [String] ()
 		for (key, value) in countDict
 		{
-			var str1 = String (value)
+			var str1 = String (describing: value)
 			var str: NSString = NSString (string: str1)
 			while (str.length < 8)
 			{
@@ -309,10 +309,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			array.append(key)
 		}
 		
-		array = array.sort { $0.compare($1) == .OrderedAscending }
-		for var i = 0; i < array.count; i++ {
+		array = array.sorted { $0.compare($1) == .orderedAscending }
+		for i in 0 ..< array.count {
 			var str = array [i] as NSString
-			str = str.substringToIndex (str.length - 2)
+			str = str.substring (to: str.length - 2) as NSString
 			print (str)
 		}
 		
@@ -321,11 +321,11 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		var firstPtr = 0
 		var fifteenPtr = 0
 		var j: Int
-		for j = 0; j < Document.fileNames.count; j++ {
-			if Document.fileNames [j].compare ("First_1") == NSComparisonResult.OrderedSame {
+		for j = 0; j < Document.fileNames.count; j += 1 {
+			if Document.fileNames [j].compare ("First_1") == ComparisonResult.orderedSame {
 				firstPtr = j
 			}
-			else if Document.fileNames [j] .compare ("Fif10_1") == NSComparisonResult.OrderedSame {
+			else if Document.fileNames [j] .compare ("Fif10_1") == ComparisonResult.orderedSame {
 				fifteenPtr = j
 				break
 			}
@@ -337,7 +337,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 		
 		fileNameDict.removeAll()
-		for var i = 0; i < array.count; i++ {
+		for i in 0 ..< array.count {
 			let phrase = array [i]
 			if let countScore: CountScore = countDict [phrase] {
 				if let oldName = fileNameDict [countScore.rawValue] {
@@ -362,7 +362,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 	}
 	
-	func evaluateHand (cards: [Card], anySuits: Int, rightJack: Int)
+	func evaluateHand (_ cards: [Card], anySuits: Int, rightJack: Int)
 	{
 		let result = countHand(cards)
 		let fifteens = result.count15
@@ -430,10 +430,10 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	}
 	
 	enum PairsRuns: Int {
-		case None = 0, Pairs1, Pairs2, Pairs3, Pairs4, Pairs6, Pairs1Run3, Run3, Run3Double, Run3DoubleDouble, Run3Triple, Run4, Run4Double, Run5
+		case none = 0, pairs1, pairs2, pairs3, pairs4, pairs6, pairs1Run3, run3, run3Double, run3DoubleDouble, run3Triple, run4, run4Double, run5
 	}
 	
-	func evaluateCount (fifteens: Int, pairs: Int, runs: Int, doubleRun: Int, doubleRunOf4: Int,
+	func evaluateCount (_ fifteens: Int, pairs: Int, runs: Int, doubleRun: Int, doubleRunOf4: Int,
 		tripleRun: Int, doubleDoubleRun: Int, anySuits: Int, rightJack: Int) -> (key: CountScore, speak: String)
 	{
 		var str: String = ""
@@ -456,13 +456,13 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			
 			if runs == 0
 			{
-				key += PairsRuns.Pairs1.rawValue
+				key += PairsRuns.pairs1.rawValue
 			}
 			else if runs == 3
 			{
 				count += runs
 				str += insertAnd + scorePhrases [5] + String (count) + " "
-				key += PairsRuns.Pairs1Run3.rawValue
+				key += PairsRuns.pairs1Run3.rawValue
 			}
 				
 			else
@@ -479,7 +479,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				str += insertAnd
 			}
 			str += scorePhrases [2] + String (count) + " "
-			key += PairsRuns.Pairs2.rawValue
+			key += PairsRuns.pairs2.rawValue
 		}
 			
 		else if pairs == 6
@@ -490,7 +490,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				str += insertAnd
 			}
 			str += scorePhrases [3] + String (count) + " "
-			key += PairsRuns.Pairs3.rawValue
+			key += PairsRuns.pairs3.rawValue
 		}
 			
 		else if pairs == 8
@@ -503,7 +503,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			str += scorePhrases [1] + String (count - 6) + " "
 			str += insertAnd
 			str += scorePhrases [3] + String (count) + " "
-			key += PairsRuns.Pairs4.rawValue
+			key += PairsRuns.pairs4.rawValue
 		}
 			
 		else if pairs == 12
@@ -514,7 +514,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				str += insertAnd
 			}
 			str += scorePhrases [4] + String (count) + " "
-			key += PairsRuns.Pairs6.rawValue
+			key += PairsRuns.pairs6.rawValue
 		}
 			
 		else if (pairs == 0)
@@ -527,7 +527,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 					str += insertAnd
 				}
 				str += scorePhrases [5] + String (count) + " "
-				key += PairsRuns.Run3.rawValue
+				key += PairsRuns.run3.rawValue
 			}
 				
 			else if runs == 4
@@ -538,7 +538,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 					str += insertAnd
 				}
 				str += scorePhrases [6] + String (count) + " "
-				key += PairsRuns.Run4.rawValue
+				key += PairsRuns.run4.rawValue
 			}
 				
 			else if runs == 5
@@ -549,7 +549,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 					str += insertAnd
 				}
 				str += scorePhrases [7] + String (count) + " "
-				key += PairsRuns.Run5.rawValue
+				key += PairsRuns.run5.rawValue
 			}
 		}
 		
@@ -561,7 +561,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				str += insertAnd
 			}
 			str += scorePhrases [8] + String (count) + " "
-			key += PairsRuns.Run3Double.rawValue
+			key += PairsRuns.run3Double.rawValue
 		}
 			
 		else if doubleRunOf4 == 10
@@ -572,7 +572,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				str += insertAnd
 			}
 			str += scorePhrases [9] + String (count) + " "
-			key += PairsRuns.Run4Double.rawValue
+			key += PairsRuns.run4Double.rawValue
 		}
 			
 		else if tripleRun == 15
@@ -583,7 +583,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				str += insertAnd
 			}
 			str += scorePhrases [10] + String (count) + " "
-			key += PairsRuns.Run3Triple.rawValue
+			key += PairsRuns.run3Triple.rawValue
 		}
 			
 		else if doubleDoubleRun	== 16
@@ -594,7 +594,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 				str += insertAnd
 			}
 			str += scorePhrases [11] + String (count) + " "
-			key += PairsRuns.Run3DoubleDouble.rawValue
+			key += PairsRuns.run3DoubleDouble.rawValue
 		}
 		
 		if anySuits == 4
@@ -620,7 +620,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 		if rightJack == 1
 		{
-			count++
+			count += 1
 			if (count > 1)
 			{
 				str += insertAnd
@@ -644,38 +644,38 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	// MARK: Generate durations dictionary
 	
-	func generateDurations (url: NSURL)
+	func generateDurations (_ url: URL)
 	{
-		let fileManager = NSFileManager.defaultManager()
+		let fileManager = FileManager.default
 		let path = url.path
-		let nsPath = path! as NSString
-		let contents = try! fileManager.contentsOfDirectoryAtPath(path!)
+		let nsPath = path as NSString
+		let contents = try! fileManager.contentsOfDirectory(atPath: path)
 		voiceName = String (nsPath.lastPathComponent)
-		Announcer.playerVoice = voiceName.lowercaseString
-		var audioData: [NSData] = [NSData] (count: Document.fileNames.count, repeatedValue: NSData ())
-		var durations: [Int] = [Int] (count: Document.fileNames.count, repeatedValue: -1)
+		Announcer.playerVoice = voiceName.lowercased()
+		var audioData: [Data] = [Data] (repeating: Data (), count: Document.fileNames.count)
+		var durations: [Int] = [Int] (repeating: -1, count: Document.fileNames.count)
 		durationDict = [String: Int] ()
 		
 		//	Examine every file in the folder
 		
-		for var i = 0; i < contents.count; i++
+		for i in 0 ..< contents.count
 		{
 			var fileName: String = contents [i]
-			let filePath = nsPath.stringByAppendingPathComponent(fileName)
+			let filePath = nsPath.appendingPathComponent(fileName)
 			
 			if fileName.hasSuffix(".m4a")
 			{
 				//	Save the duration in ms of each audio file
 				
-				let data: NSData = NSData (contentsOfURL: NSURL (fileURLWithPath: filePath))!
+				let data: Data = try! Data (contentsOf: URL (fileURLWithPath: filePath))
 				var newString = fileName as NSString
-				newString = newString.stringByDeletingPathExtension
+				newString = newString.deletingPathExtension as NSString
 				fileName = String (newString)
 				
 				var i = 0
-				for i = 0; i < Document.fileNames.count; i++
+				for i = 0; i < Document.fileNames.count; i += 1
 				{
-					if fileName.compare (Document.fileNames [i]) == NSComparisonResult.OrderedSame
+					if fileName.compare (Document.fileNames [i]) == ComparisonResult.orderedSame
 					{
 						let audioPlayer = try! AVAudioPlayer (data: data, fileTypeHint: AVFileTypeAppleM4A)
 						audioPlayer.prepareToPlay()
@@ -709,7 +709,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		//	Make sure all sound files are present
 		
 		if !countWithFirstVoice {
-			for var i = 0; i < durations.count; i++
+			for i in 0 ..< durations.count
 			{
 				if durations [i] < 0
 				{
@@ -727,38 +727,38 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	// MARK: ExportAudioFolder
 	
-	func exportAudioFolder (url: NSURL)
+	func exportAudioFolder (_ url: URL)
 	{
-		let fileManager = NSFileManager.defaultManager()
+		let fileManager = FileManager.default
 		do {
-			try fileManager.createDirectoryAtURL (url, withIntermediateDirectories: false, attributes: nil)
+			try fileManager.createDirectory (at: url, withIntermediateDirectories: false, attributes: nil)
 		}
 		catch
 		{
-			try! fileManager.removeItemAtPath(url.path!)
-			try! fileManager.createDirectoryAtURL (url, withIntermediateDirectories: false, attributes: nil)
+			try! fileManager.removeItem(atPath: url.path)
+			try! fileManager.createDirectory (at: url, withIntermediateDirectories: false, attributes: nil)
 		}
 		
-		for var i = 0; i < audioFiles.count; i++
+		for i in 0 ..< audioFiles.count
 		{
 			let data = audioFiles [i]
-			if (data.length == 0) {
+			if (data.count == 0) {
 				continue
 			}
 			
 			let fileName = Document.fileNames [i]
-			let string = url.path! + "/" + fileName + ".m4a"
+			let string = url.path + "/" + fileName + ".m4a"
 			
-			fileManager.createFileAtPath(string, contents: data, attributes: nil)
+			fileManager.createFile(atPath: string, contents: data, attributes: nil)
 		}
 		
-		var data: NSData = NSKeyedArchiver.archivedDataWithRootObject(fileNameDict)
-		var path = url.path! + "/" + "_fileDict.data"
-		data.writeToFile(path, atomically: true)
+		var data: Data = NSKeyedArchiver.archivedData(withRootObject: fileNameDict)
+		var path = url.path + "/" + "_fileDict.data"
+		try? data.write(to: URL(fileURLWithPath: path), options: [.atomic])
 		
-		data = NSKeyedArchiver.archivedDataWithRootObject(durationDict)
-		path = url.path! + "/" + "_durationDict.data"
-		data.writeToFile(path, atomically: true)
+		data = NSKeyedArchiver.archivedData(withRootObject: durationDict)
+		path = url.path + "/" + "_durationDict.data"
+		try? data.write(to: URL(fileURLWithPath: path), options: [.atomic])
 		
 //		data = NSKeyedArchiver.archivedDataWithRootObject(speakDict)
 //		path = url.path! + "/" + "_speakDict.data"
@@ -767,43 +767,43 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	// MARK: SpeakHandText
 	
-	func speakHandText (text: String)
+	func speakHandText (_ text: String)
 	{
 		if text == ""
 		{
 			return
 		}
 		
-		let str: NSString = text
+		let str: NSString = text as NSString
 		if str.length != 5 && str.length != 6 && str.length != 10
 		{
 			print ("wrong length")
 			return
 		}
 		
-		var ranks: [Rank] = [Rank] (count: 5, repeatedValue: Rank.Ace)
-		var suits: [Suit] = [Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades, Suit.Clubs]
+		var ranks: [Rank] = [Rank] (repeating: Rank.ace, count: 5)
+		var suits: [Suit] = [Suit.clubs, Suit.diamonds, Suit.hearts, Suit.spades, Suit.clubs]
 		
-		for var i = 0; i < 5; i++
+		for i in 0 ..< 5
 		{
-			let r = str.substringWithRange(NSMakeRange(i, 1))
-			var rank: Rank = Rank.Ace
+			let r = str.substring(with: NSMakeRange(i, 1))
+			var rank: Rank = Rank.ace
 			switch (r)
 			{
-			case "a": rank = Rank.Ace
-			case "1": rank = Rank.Ace
-			case "2": rank = Rank.Two
-			case "3": rank = Rank.Three
-			case "4": rank = Rank.Four
-			case "5": rank = Rank.Five
-			case "6": rank = Rank.Six
-			case "7": rank = Rank.Seven
-			case "8": rank = Rank.Eight
-			case "9": rank = Rank.Nine
-			case "t": rank = Rank.Ten
-			case "j": rank = Rank.Jack
-			case "q": rank = Rank.Queen
-			case "k": rank = Rank.King
+			case "a": rank = Rank.ace
+			case "1": rank = Rank.ace
+			case "2": rank = Rank.two
+			case "3": rank = Rank.three
+			case "4": rank = Rank.four
+			case "5": rank = Rank.five
+			case "6": rank = Rank.six
+			case "7": rank = Rank.seven
+			case "8": rank = Rank.eight
+			case "9": rank = Rank.nine
+			case "t": rank = Rank.ten
+			case "j": rank = Rank.jack
+			case "q": rank = Rank.queen
+			case "k": rank = Rank.king
 			default:
 				print ("no rank " + r)
 				return
@@ -814,19 +814,19 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		if (str.length == 6)
 		{
-			let s = str.substringWithRange(NSMakeRange(5, 1))
-			var suit:Suit = Suit.Clubs
+			let s = str.substring(with: NSMakeRange(5, 1))
+			var suit:Suit = Suit.clubs
 			switch (s)
 			{
-			case "c": suit = Suit.Clubs
-			case "d": suit = Suit.Diamonds
-			case "h": suit = Suit.Hearts
-			case "s": suit = Suit.Spades
+			case "c": suit = Suit.clubs
+			case "d": suit = Suit.diamonds
+			case "h": suit = Suit.hearts
+			case "s": suit = Suit.spades
 			default:
 				print ("no suit " + s)
 				return
 			}
-			for var i = 0; i < 5; i++
+			for i in 0 ..< 5
 			{
 				suits [i] = suit
 			}
@@ -834,16 +834,16 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		if str.length == 10
 		{
-			for var i = 0; i < 5; i++
+			for i in 0 ..< 5
 			{
-				let s = str.substringWithRange(NSMakeRange(i + 5, 1))
-				var suit:Suit = Suit.Clubs
+				let s = str.substring(with: NSMakeRange(i + 5, 1))
+				var suit:Suit = Suit.clubs
 				switch (s)
 				{
-				case "c": suit = Suit.Clubs
-				case "d": suit = Suit.Diamonds
-				case "h": suit = Suit.Hearts
-				case "s": suit = Suit.Spades
+				case "c": suit = Suit.clubs
+				case "d": suit = Suit.diamonds
+				case "h": suit = Suit.hearts
+				case "s": suit = Suit.spades
 				default:
 					print ("no suit " + s)
 					return
@@ -854,13 +854,13 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 		
 		var suitsOk = 5
-		for var i = 0; i < 4; i++
+		for i in 0 ..< 4
 		{
 			if ranks [4] == ranks [i] && suitsOk == 5
 			{
 				suitsOk = 4
 			}
-			for var j = i+1; j < 4; j++
+			for j in i+1 ..< 4
 			{
 				if ranks [j] == ranks[i]
 				{
@@ -881,7 +881,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		}
 		
 		var cards: [Card] = [Card] ()
-		for var i = 0; i < 5; i++
+		for i in 0 ..< 5
 		{
 			let card = Card(rank: ranks[i], suit: suits[i])
 			cards.append (card)
@@ -893,8 +893,8 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		var runs = result.countRuns
 		var anySuits = 4
 		var rightJack = 0
-		for var i = 0; i < 4; i++ {
-			if ranks [i] == Rank.Jack && suits [i].rawValue == suits [4].rawValue {
+		for i in 0 ..< 4 {
+			if ranks [i] == Rank.jack && suits [i].rawValue == suits [4].rawValue {
 				rightJack = 1
 			}
 			if i > 0 && suits [i].rawValue != suits [i-1].rawValue {
@@ -955,14 +955,14 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	// MARK: Utilities
 	
-	private func countHand (hand: [Card]) -> (count15: Int, countPairs: Int, countRuns: Int, countSuit: Int, countJack: Int)
+	fileprivate func countHand (_ hand: [Card]) -> (count15: Int, countPairs: Int, countRuns: Int, countSuit: Int, countJack: Int)
 	{
-		var values = [Int] (count: 5, repeatedValue: 0)    // the hand as 1-10
+		var values = [Int] (repeating: 0, count: 5)    // the hand as 1-10
 		var result15 = 0, resultPairs = 0, resultRuns = 0, resultSuit = 0, resultJack = 0;
 		
-		for var i = 0; i < 5; i++
+		for i in 0 ..< 5
 		{
-			values [i] = hand[i].rank >= Rank.Ten ? 10 : hand[i].rank.rawValue + 1
+			values [i] = hand[i].rank >= Rank.ten ? 10 : hand[i].rank.rawValue + 1
 		}
 		
 		result15 = count15 (values)
@@ -973,7 +973,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		var bit = 0
 		var value = 0
 		
-		for var i = 0; i < 5; i++
+		for i in 0 ..< 5
 		{
 			value = hand[i].rank.rawValue
 			bit = 1 << value
@@ -1025,7 +1025,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			}
 		}
 		
-		for var j = 0; j < 13; j++
+		for j in 0 ..< 13
 		{
 			if ((mask & 1) != 0)
 			{
@@ -1062,7 +1062,7 @@ class Document: NSDocument, AVAudioPlayerDelegate
 							{
 								if ((mask2 & 1) != 0)
 								{
-									mask3++
+									mask3 += 1
 								}
 								mask2 >>= 1
 							}
@@ -1099,9 +1099,9 @@ class Document: NSDocument, AVAudioPlayerDelegate
 			resultSuit = hand[4].suit == suit ? 5 : 4
 		}
 		
-		for (var i = 0; i < 4; i++)
+		for i in 0 ..< 4
 		{
-			if hand[i].rank == Rank.Jack && hand[i].suit == hand[4].suit
+			if hand[i].rank == Rank.jack && hand[i].suit == hand[4].suit
 			{
 				resultJack = 1;
 			}
@@ -1112,14 +1112,14 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	
 	//  Count the combinations of 15
 	
-	private func count15 (values: [Int]) -> Int
+	fileprivate func count15 (_ values: [Int]) -> Int
 	{
 		var sum = 0
 		var count = 0
 		
 		//  Check all
 		
-		for var i = 0; i < 5; i++
+		for i in 0 ..< 5
 		{
 			sum += values[i]
 		}
@@ -1131,14 +1131,14 @@ class Document: NSDocument, AVAudioPlayerDelegate
 		
 		//  Check 4 at a time, 3 at a time, and 2 at a time
 		
-		for var i = 0; i < 5 - 1; i++
+		for i in 0 ..< 5 - 1
 		{
 			if ((sum - values[i]) == 15)
 			{
 				count += 2
 			}
 			
-			for var j = i + 1; j < 5; j++
+			for j in i + 1 ..< 5
 			{
 				if ((sum - values[i] - values[j]) == 15)
 				{
@@ -1166,17 +1166,17 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	@IBOutlet var voiceNameText: NSTextField!
 	
 	
-	@IBAction func generate(sender: AnyObject)
+	@IBAction func generate(_ sender: AnyObject)
 	{
 		generateScores()
 	}
 	
-	@IBAction func speakHand(sender: NSTextField)
+	@IBAction func speakHand(_ sender: NSTextField)
 	{
 		speakHandText(sender.stringValue)
 	}
 	
-	override func windowControllerDidLoadNib(aController: NSWindowController) {
+	override func windowControllerDidLoadNib(_ aController: NSWindowController) {
 		super.windowControllerDidLoadNib(aController)
 		// Add any code here that needs to be executed once the windowController has loaded the document's window.
 	}
@@ -1188,22 +1188,22 @@ class Document: NSDocument, AVAudioPlayerDelegate
 	override func makeWindowControllers() {
 		// Returns the Storyboard that contains your Document window.
 		let storyboard = NSStoryboard(name: "Main", bundle: nil)
-		let windowController = storyboard.instantiateControllerWithIdentifier("Document Window Controller") as! NSWindowController
+		let windowController = storyboard.instantiateController(withIdentifier: "Document Window Controller") as! NSWindowController
 		self.addWindowController(windowController)
 	}
 
-	override func dataOfType(typeName: String) throws -> NSData
+	override func data(ofType typeName: String) throws -> Data
 	{
 		// Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
 		// throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
 
-		let data: NSData = NSKeyedArchiver.archivedDataWithRootObject(voice)
+		let data: Data = NSKeyedArchiver.archivedData(withRootObject: voice)
 		return data
 	}
 	
-	override func readFromData(data: NSData, ofType typeName: String) throws
+	override func read(from data: Data, ofType typeName: String) throws
 	{
-		if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObjectWithData (data)
+		if let obj: AnyObject = NSKeyedUnarchiver.unarchiveObject (with: data) as AnyObject
 		{
 			voice = obj as! Voice
 		}

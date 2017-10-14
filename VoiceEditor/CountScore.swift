@@ -2,20 +2,20 @@
 //  Copyright © 2015 Rivergate Software, Inc. All rights reserved.
 //
 
-enum CommonError: ErrorType, CustomStringConvertible
+enum CommonError: Error, CustomStringConvertible
 {
-	case Code (Int)
+	case code (Int)
 	
 	init (_ code: Int)
 	{
-		self = CommonError.Code (code)
+		self = CommonError.code (code)
 	}
 	
 	var description: String
 		{
 			switch self
 			{
-			case .Code (let code):
+			case .code (let code):
 				return "Common Error \(code)"
 			}
 	}
@@ -27,9 +27,9 @@ public struct CountScore: RawRepresentable
 		
 		var value = pairsRuns.rawValue
 		
-		if flush == .Four {
+		if flush == .four {
 			value |= 2 << 4 }
-		else if flush == .Five {
+		else if flush == .five {
 			value |= 3 << 4 }
 		
 		value |= fifteens << 8
@@ -48,16 +48,16 @@ public struct CountScore: RawRepresentable
 		
 		let flushBits = (rawValue >> 4) & 0x3
 		if flushBits == 2 {
-			flush = .Four }
+			flush = .four }
 		else if flushBits == 3 {
-			flush = .Five }
+			flush = .five }
 		else {
-			flush = .None }
+			flush = .none }
 		
 		if let prs = PairsRuns (rawValue: rawValue & 0xF) {
 			pairsRuns = prs }
 		else {
-			pairsRuns = .None }
+			pairsRuns = .none }
 	}
 	
 	public init () {
@@ -81,22 +81,22 @@ public struct CountScore: RawRepresentable
 	
 	///	Possible values of the score for a hand, which may be combined
 	
-	public private(set) var jack: Bool = false
+	public fileprivate(set) var jack: Bool = false
 	
-	public private(set) var fifteens: Int = 0
+	public fileprivate(set) var fifteens: Int = 0
 	
 	public enum PairsRuns: Int {
-		case None = 0, Pairs1, Pairs2, Pairs3, Pairs4, Pairs6, Pairs1Run3, Run3, Run3Double, Run3DoubleDouble, Run3Triple, Run4, Run4Double, Run5
+		case none = 0, pairs1, pairs2, pairs3, pairs4, pairs6, pairs1Run3, run3, run3Double, run3DoubleDouble, run3Triple, run4, run4Double, run5
 	}
 	
-	public private(set) var pairsRuns: PairsRuns = .None
+	public fileprivate(set) var pairsRuns: PairsRuns = .none
 	
 	public enum Flush: Int {
-		case None = 0
-		case Four = 4, Five
+		case none = 0
+		case four = 4, five
 	}
 	
-	public private(set) var flush: Flush = .None
+	public fileprivate(set) var flush: Flush = .none
 	
 	public var gamePoints: Int {
 		
@@ -107,43 +107,43 @@ public struct CountScore: RawRepresentable
 		
 		switch pairsRuns {
 			
-		case .Pairs1:
+		case .pairs1:
 			gamePoints += 2
 			
-		case .Pairs2:
+		case .pairs2:
 			gamePoints += 4
 			
-		case .Pairs3:
+		case .pairs3:
 			gamePoints += 6
 			
-		case .Pairs4:
+		case .pairs4:
 			gamePoints += 8
 			
-		case .Pairs6:
+		case .pairs6:
 			gamePoints += 12
 			
-		case .Pairs1Run3:
+		case .pairs1Run3:
 			gamePoints += 5
 			
-		case .Run3:
+		case .run3:
 			gamePoints += 3
 			
-		case .Run3Double:
+		case .run3Double:
 			gamePoints += 8
 			
-		case .Run3DoubleDouble:
+		case .run3DoubleDouble:
 			gamePoints += 16
 			
-		case .Run3Triple:
+		case .run3Triple:
 			gamePoints += 15
 			
-		case .Run4:
+		case .run4:
 			gamePoints += 4
 			
-		case .Run4Double:
+		case .run4Double:
 			gamePoints += 10
 			
-		case .Run5:
+		case .run5:
 			gamePoints += 5
 			
 		default:
@@ -152,10 +152,10 @@ public struct CountScore: RawRepresentable
 		
 		switch flush {
 			
-		case .Four:
+		case .four:
 			gamePoints += 4
 			
-		case .Five:
+		case .five:
 			gamePoints += 5
 			
 		default:
@@ -174,7 +174,7 @@ public func == (lhs: CountScore, rhs: CountScore) -> Bool {
 	return lhs.rawValue == rhs.rawValue
 }
 
-public func |= (inout lhs: CountScore, rhs: CountScore) throws {
+public func |= (lhs: inout CountScore, rhs: CountScore) throws {
 	
 	lhs.jack = lhs.jack || rhs.jack
 	
@@ -184,16 +184,16 @@ public func |= (inout lhs: CountScore, rhs: CountScore) throws {
 	else if rhs.fifteens != 0 {
 		throw CommonError (300) }
 	
-	if lhs.pairsRuns == .None {
+	if lhs.pairsRuns == .none {
 		lhs.pairsRuns = rhs.pairsRuns }
 		
-	else if rhs.pairsRuns != .None {
+	else if rhs.pairsRuns != .none {
 		throw CommonError (301) }
 	
-	if lhs.flush == .None {
+	if lhs.flush == .none {
 		lhs.flush = rhs.flush }
 		
-	else if rhs.flush != .None {
+	else if rhs.flush != .none {
 		throw CommonError (302) }
 }
 
@@ -212,31 +212,31 @@ extension CountScore: CustomStringConvertible {
 		let runPairString: String
 		switch pairsRuns {
 			
-		case .Pairs1:
+		case .pairs1:
 			runPairString = "P1"
-		case .Pairs2:
+		case .pairs2:
 			runPairString = "P2"
-		case .Pairs3:
+		case .pairs3:
 			runPairString = "P3"
-		case .Pairs4:
+		case .pairs4:
 			runPairString = "P4"
-		case .Pairs6:
+		case .pairs6:
 			runPairString = "P6"
-		case .Pairs1Run3:
+		case .pairs1Run3:
 			runPairString = "P1R3"
-		case .Run3:
+		case .run3:
 			runPairString = "R3"
-		case .Run3Double:
+		case .run3Double:
 			runPairString = "R3D"
-		case .Run3DoubleDouble:
+		case .run3DoubleDouble:
 			runPairString = "R3DD"
-		case .Run3Triple:
+		case .run3Triple:
 			runPairString = "R3T"
-		case .Run4:
+		case .run4:
 			runPairString = "R4"
-		case .Run4Double:
+		case .run4Double:
 			runPairString = "R4D"
-		case .Run5:
+		case .run5:
 			runPairString = "R5"
 		default:
 			runPairString = ""
@@ -244,9 +244,9 @@ extension CountScore: CustomStringConvertible {
 		
 		scoreString += runPairString
 		
-		if flush == .Four {
+		if flush == .four {
 			scoreString += "F4" }
-		else if flush == .Five {
+		else if flush == .five {
 			scoreString += "F5" }
 		
 		return scoreString

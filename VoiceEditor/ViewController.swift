@@ -20,7 +20,7 @@ class ViewController: NSViewController, NSTextDelegate
 	@IBOutlet var voiceNameTextField: NSTextField!
 	@IBOutlet var handText: NSTextField!
 	
-	override func validateMenuItem(menuItem: NSMenuItem) -> Bool
+	override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool
 	{
 		
 		return true
@@ -30,37 +30,37 @@ class ViewController: NSViewController, NSTextDelegate
 	
 	// MARK: Actions
 	
-	@IBAction func editLanguage(sender: NSTextField)
+	@IBAction func editLanguage(_ sender: NSTextField)
 	{
 		document.language = sender.stringValue
 	}
 	
-	@IBAction func editLocale(sender: NSTextField)
+	@IBAction func editLocale(_ sender: NSTextField)
 	{
 		document.locale = sender.stringValue
 	}
 	
-	@IBAction func editVoiceName(sender: NSTextField)
+	@IBAction func editVoiceName(_ sender: NSTextField)
 	{
 		document.voiceName = sender.stringValue
 	}
 	
-	@IBAction func generate(sender: AnyObject)
+	@IBAction func generate(_ sender: AnyObject)
 	{
 		document.generateScores()
 	}
 	
-	@IBAction func speakHand(sender: NSTextField)
+	@IBAction func speakHand(_ sender: NSTextField)
 	{
 		document.speakHandText(sender.stringValue)
 	}
 	
-	@IBAction func speak(sender: AnyObject)
+	@IBAction func speak(_ sender: AnyObject)
 	{
 		document.speakHandText(handText.stringValue)
 	}
 	
-	@IBAction func importAudioFiles(sender: NSMenuItem)
+	@IBAction func importAudioFiles(_ sender: NSMenuItem)
 	{
 		let openPanel: NSOpenPanel = NSOpenPanel ()
 		openPanel.canChooseDirectories = true
@@ -68,27 +68,27 @@ class ViewController: NSViewController, NSTextDelegate
 		openPanel.allowsMultipleSelection = false
 		openPanel.message = "Import all audio files from directory"
 		
-		openPanel.beginWithCompletionHandler { (result: Int) -> Void in
+		openPanel.begin { (result: Int) -> Void in
 			if result == NSFileHandlingPanelOKButton
 			{
 				self.document.generateScores()
-				self.document.generateDurations (openPanel.URL!)
+				self.document.generateDurations (openPanel.url!)
 				self.voiceNameTextField.stringValue = self.document.voiceName
 			}
 		}
 	}
 	
-	@IBAction func exportAudioFolder(sender: NSMenuItem)
+	@IBAction func exportAudioFolder(_ sender: NSMenuItem)
 	{
 		let savePanel: NSSavePanel = NSSavePanel ()
 		savePanel.canCreateDirectories = true
 		savePanel.message = "Export audio folder"
 		savePanel.nameFieldStringValue = self.document.voiceName
 		
-		savePanel.beginWithCompletionHandler { (result: Int) -> Void in
+		savePanel.begin { (result: Int) -> Void in
 			if result == NSFileHandlingPanelOKButton
 			{
-				self.document.exportAudioFolder (savePanel.URL!)
+				self.document.exportAudioFolder (savePanel.url!)
 			}
 		}
 	}

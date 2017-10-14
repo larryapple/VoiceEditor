@@ -4,7 +4,7 @@
 
 public enum Suit: Int {
 	
-	case Clubs, Diamonds, Hearts, Spades
+	case clubs, diamonds, hearts, spades
 	
 	///	The number fo cases in the Suit enum
 	

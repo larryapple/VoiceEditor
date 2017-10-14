@@ -24,7 +24,7 @@ class Voice : NSObject, NSCoding
 		set {_voiceName = newValue}
 	}
 
-	var audioFiles: [NSData] = [NSData] ()				// The audio files data
+	var audioFiles: [Data] = [Data] ()				// The audio files data
 	var fileDurations: [Int] = [Int] ()					// The duration in ms of each elementary file in the voice, stored in the voice folder
 	var fileNameDict: [Int: String] = [Int: String] ()	// Dictionary of file names for unique phrase keys
 	var durationDict: [String: Int] = [String: Int] ()	// Dictionary of durations for file names
@@ -48,34 +48,34 @@ class Voice : NSObject, NSCoding
 		super.init()
 	}
 	
-	func encodeWithCoder(aCoder: NSCoder)
+	func encode(with aCoder: NSCoder)
 	{
-		aCoder.encodeObject(language, forKey: languageKey)
-		aCoder.encodeObject(locale, forKey: localeKey)
-		aCoder.encodeObject(voiceName, forKey: voiceNameKey)
+		aCoder.encode(language, forKey: languageKey)
+		aCoder.encode(locale, forKey: localeKey)
+		aCoder.encode(voiceName, forKey: voiceNameKey)
 		
-		aCoder.encodeObject(audioFiles, forKey: audioFilesKey)
-		aCoder.encodeObject(fileDurations, forKey: fileDurationsKey)
-		aCoder.encodeObject(fileNameDict, forKey: fileDictKey)
-		aCoder.encodeObject(durationDict, forKey: durationDictKey)
-		aCoder.encodeObject(speakDict, forKey: speakDictKey)
+		aCoder.encode(audioFiles, forKey: audioFilesKey)
+		aCoder.encode(fileDurations, forKey: fileDurationsKey)
+		aCoder.encode(fileNameDict, forKey: fileDictKey)
+		aCoder.encode(durationDict, forKey: durationDictKey)
+		aCoder.encode(speakDict, forKey: speakDictKey)
 	}
 	
 	required init?(coder aDecoder: NSCoder)
 	{
-		_language = aDecoder.decodeObjectForKey(languageKey) as! String
-		_locale = aDecoder.decodeObjectForKey(localeKey) as! String
-		_voiceName = aDecoder.decodeObjectForKey(voiceNameKey) as! String
+		_language = aDecoder.decodeObject(forKey: languageKey) as! String
+		_locale = aDecoder.decodeObject(forKey: localeKey) as! String
+		_voiceName = aDecoder.decodeObject(forKey: voiceNameKey) as! String
 		let name = _voiceName as NSString
 		if (name.length == 0) {
 			return
 		}
 		
-		audioFiles = aDecoder.decodeObjectForKey(audioFilesKey) as! [NSData]
-		fileDurations = aDecoder.decodeObjectForKey(fileDurationsKey) as! [Int]
-		fileNameDict = aDecoder.decodeObjectForKey(fileDictKey) as! [Int: String]
-		durationDict = aDecoder.decodeObjectForKey(durationDictKey) as! [String: Int]
-		speakDict = aDecoder.decodeObjectForKey(speakDictKey) as! [Int: String]
+		audioFiles = aDecoder.decodeObject(forKey: audioFilesKey) as! [Data]
+		fileDurations = aDecoder.decodeObject(forKey: fileDurationsKey) as! [Int]
+		fileNameDict = aDecoder.decodeObject(forKey: fileDictKey) as! [Int: String]
+		durationDict = aDecoder.decodeObject(forKey: durationDictKey) as! [String: Int]
+		speakDict = aDecoder.decodeObject(forKey: speakDictKey) as! [Int: String]
 	}
 
 }

@@ -4,13 +4,13 @@
 
 import AVFoundation
 
-public
+open
 class Announcer {
 
-	private
+	fileprivate
 	static let delegate = AnnouncerDelegate ()
 	
-	private
+	fileprivate
 	static var speechSynthesizer: NSSpeechSynthesizer =
 	{
 		let result = NSSpeechSynthesizer (voice: nil)!
@@ -26,11 +26,11 @@ class Announcer {
 		set {Announcer._playerVoice = "com.apple.speech.synthesis.voice." + newValue}
 	}
 	
-	private
+	fileprivate
 	static var pendingSpeeches: [String] = []
 	static var isSilent: Bool = false
 
-	static func speak (voice: String, speech: String)
+	static func speak (_ voice: String, speech: String)
 	{
 		guard !Announcer.isSilent else { return }
 		
@@ -38,10 +38,10 @@ class Announcer {
 		
 		if Announcer.pendingSpeeches.count == 1
 		{
-			dispatch_async (dispatch_get_global_queue (QOS_CLASS_USER_INITIATED, 0))
+			DispatchQueue.global (qos: DispatchQoS.QoSClass.userInitiated).async 
 				{
-					Announcer.speechSynthesizer.setVoice ("com.apple.speech.synthesis.voice." + voice.lowercaseString)
-					Announcer.speechSynthesizer.startSpeakingString (speech)
+					Announcer.speechSynthesizer.setVoice ("com.apple.speech.synthesis.voice." + voice.lowercased())
+					Announcer.speechSynthesizer.startSpeaking (speech)
 			}
 		}
 	}
@@ -49,22 +49,22 @@ class Announcer {
 
 class AnnouncerDelegate: NSObject, NSSpeechSynthesizerDelegate
 {
-	func speechSynthesizer (sender: NSSpeechSynthesizer, didFinishSpeaking finishedSpeaking: Bool)
+	func speechSynthesizer (_ sender: NSSpeechSynthesizer, didFinishSpeaking finishedSpeaking: Bool)
 	{
-		precondition (NSThread.isMainThread (), "Speech must finish on main thread")
+		precondition (Thread.isMainThread, "Speech must finish on main thread")
 		
 		//	Discard the utterance that was being spoken
 		
 		if (Announcer.pendingSpeeches.count > 0) {
-			Announcer.pendingSpeeches.removeAtIndex (0) }
+			Announcer.pendingSpeeches.remove (at: 0) }
 		
 		//	Look for the next utterance
 		
 		guard let speech = Announcer.pendingSpeeches.first else { return }
 		
-		dispatch_async (dispatch_get_global_queue (QOS_CLASS_USER_INITIATED, 0)) {
+		DispatchQueue.global (qos: DispatchQoS.QoSClass.userInitiated).async  {
 			
-			Announcer.speechSynthesizer.startSpeakingString (speech)
+			Announcer.speechSynthesizer.startSpeaking (speech)
 		}
 	}
 }

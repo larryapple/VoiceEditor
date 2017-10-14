@@ -4,7 +4,7 @@
 
 public enum Rank: Int, Comparable {
 	
-	case Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King
+	case ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
 	
 	///	The number of cases in the Rank enum
 	
@@ -17,7 +17,7 @@ public enum Rank: Int, Comparable {
 		
 		switch (self) {
 			
-		case .Jack, .Queen, .King:
+		case .jack, .queen, .king:
 			return 10
 			
 		default:
